@@ -6,14 +6,16 @@
 
 对许多图表类型，JFreeChart 可以在数据附近显示数据标签。例如，在条形图中标注数值：
 
-![[Pasted image 20240115161136.png|600]]
+<img src="images/Pasted image 20240115161136.png" style="zoom: 67%;" />
+
 下面介绍：
+
 - 如何使标签可见
 - 如何修改标签的外观（字体和颜色）
 - 如何指定标签位置
 - 自定义标签文本
 
-建议少用该功能。图标应该是对数据的总结，如果需要在图标中显示实际的数据，那么用表格呈现可能更好。
+建议少用该功能。图表应该是对数据的总结，如果需要在图标中显示实际的数据，那么用表格呈现可能更好。
 
 **数据标签限制：** 
 
@@ -71,7 +73,7 @@ renderer.setItemLabelsVisible(true);
 
 只设置指定 series 的标签可见，例如，只显示第一个 series 的数据标签：
 
-![[Pasted image 20240115193938.png]]
+![](images/Pasted image 20240115193938.png)
 
 调用代码的方式类似：
 
@@ -82,9 +84,9 @@ renderer.setSeriesItemLabelsVisible(0, true);
 renderer.setSeriesItemLabelsVisible(1, false);
 ```
 
-```ad-note
-collapse: open
-以上是 jfreechart 1.0.13 版本的设置方式，在 2.0 中，已替换为：
+> [!NOTE]
+>
+> 以上是 jfreechart 1.0.13 版本的设置方式，在 2.0 中，已替换为：
 
 ```java
 CategoryItemRenderer renderer = plot.getRenderer();
@@ -190,10 +192,10 @@ renderer 在需要标签的地方，会调用 `generateLabel(CategoryDataset dat
 
 自定义 item-label-generator，只显示数值大于指定阈值的标签。[ItemLabelDemo1](../../src/main/java/note/jfreechart/ItemLabelDemo1.java)：
 
-![[Pasted image 20240115212736.png|400]]
+<img src="images/Pasted image 20240115212736.png" style="zoom:67%;" />
 
 ### 示例 2：显示百分比
 
 在条形图中，数据标签包含数值和百分比。[ItemLabelDemo2](../../src/main/java/note/jfreechart/ItemLabelDemo2.java)：
 
-![[../../../Pasted image 20240115215328.png]]
+<img src="images/Pasted image 20240115215328.png" style="zoom:67%;" />

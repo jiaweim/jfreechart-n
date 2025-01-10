@@ -1,10 +1,3 @@
-/* -------------------
- * ItemLabelDemo1.java
- * -------------------
- * (C) Copyright 2004, 2005, by Object Refinery Limited.
- *
- */
-
 package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
@@ -29,15 +22,13 @@ import java.text.NumberFormat;
  * A simple demo showing a label generator that only displays labels for items with a value that is greater than some
  * threshold.
  */
-public class ItemLabelDemo1 extends ApplicationFrame
-{
+public class ItemLabelDemo1 extends ApplicationFrame {
 
     /**
      * A custom label generator.
      */
     static class LabelGenerator extends AbstractCategoryItemLabelGenerator
-            implements CategoryItemLabelGenerator
-    {
+            implements CategoryItemLabelGenerator {
         /**
          * The threshold.
          */
