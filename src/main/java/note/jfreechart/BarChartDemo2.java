@@ -54,14 +54,11 @@ public class BarChartDemo2 extends ApplicationFrame {
     }
 
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                BarChartDemo2 demo = new BarChartDemo2("Bar Demo 1");
-                demo.pack();
-                UIUtils.centerFrameOnScreen(demo);
-                demo.setVisible(true);
-            }
+        EventQueue.invokeLater(() -> {
+            BarChartDemo2 demo = new BarChartDemo2("Bar Demo 1");
+            demo.pack();
+            UIUtils.centerFrameOnScreen(demo);
+            demo.setVisible(true);
         });
     }
 

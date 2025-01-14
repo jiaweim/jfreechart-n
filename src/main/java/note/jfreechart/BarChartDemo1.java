@@ -21,6 +21,8 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
+ * A simple demonstration application showing how to create a bar chart.
+ *
  * @author Jiawei Mao
  * @version 0.1.0
  * @since 25 Dec 2023, 10:27 PM
