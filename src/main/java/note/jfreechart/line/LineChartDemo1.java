@@ -15,9 +15,15 @@ import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
+import java.net.URL;
 
 /**
+ * A simple demonstration application showing how to create a line chart using
+ * data from a {@link CategoryDataset}.
+ *
  * @author Jiawei Mao
  * @version 0.1.0
  * @since 26 Dec 2023, 10:35 AM
@@ -51,6 +57,7 @@ public class LineChartDemo1 extends ApplicationFrame {
         dataset.addValue(1520, "Classes", "SDK 1.2");
         dataset.addValue(1842, "Classes", "SDK 1.3");
         dataset.addValue(2991, "Classes", "SDK 1.4");
+        dataset.addValue(3500, "Classes", "SDK 1.5");
         return dataset;
     }
 
@@ -84,7 +91,14 @@ public class LineChartDemo1 extends ApplicationFrame {
 
         CategoryPlot<String, String> plot = (CategoryPlot) chart.getPlot();
         plot.setBackgroundPaint(Color.LIGHT_GRAY);
-        plot.setRangeGridlinePaint(Color.WHITE);
+        plot.setRangeGridlinesVisible(false);
+        URL imageURL = LineChartDemo1.class.getClassLoader().getResource("OnBridge11small.png");
+        if (imageURL != null) {
+            ImageIcon temp = new ImageIcon(imageURL);
+            // use ImageIcon because it waits for the image to load...
+            chart.setBackgroundImage(temp.getImage());
+            plot.setBackgroundPaint(new Color(0, 0, 0, 0));
+        }
 
         // customise the range axis...
         NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
@@ -95,8 +109,10 @@ public class LineChartDemo1 extends ApplicationFrame {
         renderer.setDefaultShapesVisible(true);
         renderer.setDrawOutlines(true);
         renderer.setUseFillPaint(true);
-
         renderer.setDefaultFillPaint(Color.WHITE);
+        renderer.setSeriesStroke(0, new BasicStroke(3.0f));
+        renderer.setSeriesOutlineStroke(0, new BasicStroke(2.0f));
+        renderer.setSeriesShape(0, new Ellipse2D.Double(-5.0, -5.0, 10.0, 10.0));
         return chart;
     }
 

@@ -25,7 +25,6 @@
 | AreaChart        | CategoryDataset |
 | XY Plots         | XYDataset       |
 | TimeSeries chart | XYDataset       |
-|                  |                 |
 
 
 

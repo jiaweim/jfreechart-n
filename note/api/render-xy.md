@@ -58,3 +58,19 @@ renderer 有一个 `XYBarPainter` 对象，负责绘制单个 bar。JFreeChart �
 - 形状是否填充
 
 该 renderer 
+
+- `drawOutlines`
+
+是否绘制 shape 的轮廓。
+
+- `useFillPaint`
+
+是否用 `fillPaint` 来填充 shape。如果不使用 `fillPaint`，则使用 `itemPaint`。
+
+- `itemPaint`
+
+```java
+Paint getItemPaint(int row, int column
+```
+
+在绘制数据时的填充颜色。通常对整个 series 采用一个颜色。不过希望针对不同点采用不同颜色，可以覆盖该方法。
