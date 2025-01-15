@@ -1,4 +1,4 @@
-package note.jfreechart;
+package note.jfreechart.bar;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;

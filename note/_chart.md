@@ -5,7 +5,5 @@
 - [LineChart](./charts/LineChart.md)
 - [个性化图表](./tutorial/custom.md)
 	- [[item_label|数据标签]]
-
-
-## API
+	- [标题](./tutorial/title.md)
 

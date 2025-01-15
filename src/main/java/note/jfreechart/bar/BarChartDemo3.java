@@ -1,8 +1,10 @@
-package note.jfreechart;
+package note.jfreechart.bar;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.swing.ApplicationFrame;
 import org.jfree.chart.swing.ChartPanel;
 import org.jfree.chart.swing.UIUtils;
@@ -15,14 +17,14 @@ import java.awt.*;
  * @version 0.1.0
  * @since 25 Dec 2023, 10:51 PM
  */
-public class BarChartDemo extends ApplicationFrame {
+public class BarChartDemo3 extends ApplicationFrame {
 
     /**
      * Constructs a new application frame.
      *
      * @param title the frame title.
      */
-    public BarChartDemo(String title) {
+    public BarChartDemo3(String title) {
         super(title);
 
         DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
@@ -42,6 +44,17 @@ public class BarChartDemo extends ApplicationFrame {
                 true, // tooltip
                 false // url
         );
+        chart.setBackgroundPaint(Color.WHITE);
+
+        CategoryPlot<String, String> plot = (CategoryPlot<String, String>) chart.getPlot();
+        plot.setBackgroundPaint(Color.lightGray);
+        plot.setRangeGridlinePaint(Color.WHITE);
+
+        BarRenderer renderer = (BarRenderer) plot.getRenderer();
+        renderer.setSeriesPaint(0, Color.GRAY);
+        renderer.setSeriesPaint(1, Color.ORANGE);
+        renderer.setDrawBarOutline(false);
+
         ChartPanel chartPanel = new ChartPanel(chart, false);
         chartPanel.setPreferredSize(new Dimension(500, 270));
         setContentPane(chartPanel);
@@ -51,7 +64,7 @@ public class BarChartDemo extends ApplicationFrame {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                BarChartDemo demo = new BarChartDemo("Bar Demo 1");
+                BarChartDemo3 demo = new BarChartDemo3("Bar Demo 1");
                 demo.pack();
                 UIUtils.centerFrameOnScreen(demo);
                 demo.setVisible(true);

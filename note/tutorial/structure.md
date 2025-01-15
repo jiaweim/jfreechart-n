@@ -11,8 +11,6 @@
 | XXXRenderer         | 负责渲染数据                                                 |
 | XXXToolTipGenerator | 用于生成提示文本                                             |
 
-## 图表包含的元素
-
 
 
 ## 数据集

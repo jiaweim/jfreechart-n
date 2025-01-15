@@ -1,4 +1,4 @@
-package note.jfreechart;
+package note.jfreechart.bar;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -41,8 +41,8 @@ public class BarChartDemo1 extends ApplicationFrame {
         this.setContentPane(chartPanel);
     }
 
-    private static CategoryDataset createDataset() {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+    private static CategoryDataset<String, String> createDataset() {
+        DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
         String series1 = "Males";
         String series2 = "Females";
         String category1 = "18 to 39";
@@ -58,7 +58,11 @@ public class BarChartDemo1 extends ApplicationFrame {
     }
 
     private static JFreeChart createChart(CategoryDataset dataset) {
-        JFreeChart chart = ChartFactory.createBarChart("Antidepressant Medication Usage", "Age Category", "Percent", dataset);
+        JFreeChart chart = ChartFactory.createBarChart(
+                "Antidepressant Medication Usage",
+                "Age Category",
+                "Percent",
+                dataset);
         LegendTitle legend = chart.getLegend();
         chart.removeLegend();
         chart.addSubtitle(new TextTitle("Percentage of adults aged 18 and over who used antidepressant medication over past 30 days, by age and sex: United States, 2015-2018"));

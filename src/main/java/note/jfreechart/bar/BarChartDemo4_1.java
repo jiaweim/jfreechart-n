@@ -1,4 +1,4 @@
-package note.jfreechart;
+package note.jfreechart.bar;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -16,23 +16,24 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * A bar chart showing licence statistics for open source projects listed
- * at Freshmeat.
+ * A bar chart with only two bars - here the 'maxBarWidth' attribute in the
+ * renderer prevents the bars from getting too wide.
  */
-public class BarChartDemo11 extends ApplicationFrame {
+public class BarChartDemo4_1 extends ApplicationFrame {
 
     /**
      * Creates a new demo instance.
      *
      * @param title the frame title.
      */
-    public BarChartDemo11(String title) {
+    public BarChartDemo4_1(String title) {
 
         super(title);
+
         CategoryDataset dataset = createDataset();
         JFreeChart chart = createChart(dataset);
-        ChartPanel chartPanel = new ChartPanel(chart, false);
-        chartPanel.setPreferredSize(new Dimension(500, 270));
+        ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         setContentPane(chartPanel);
 
     }
@@ -44,19 +45,17 @@ public class BarChartDemo11 extends ApplicationFrame {
      */
     private static CategoryDataset createDataset() {
 
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        // row keys...
+        String series1 = "First";
+        String series2 = "Second";
 
-        dataset.addValue(23192, "S1", "GNU General Public Licence");
-        dataset.addValue(3157, "S1", "GNU Lesser General Public Licence");
-        dataset.addValue(1506, "S1", "BSD Licence (Original)");
-        dataset.addValue(1283, "S1", "BSD Licence (Revised)");
-        dataset.addValue(738, "S1", "MIT/X Consortium Licence");
-        dataset.addValue(630, "S1", "Artistic Licence");
-        dataset.addValue(585, "S1", "Public Domain");
-        dataset.addValue(349, "S1", "Apache Licence 2.0");
-        dataset.addValue(317, "S1", "Apache Licence");
-        dataset.addValue(309, "S1", "Mozilla Public Licence");
-        dataset.addValue(918, "S1", "Other");
+        // column keys...
+        String category1 = "Category 1";
+
+        // create the dataset...
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        dataset.addValue(1.0, series1, category1);
+        dataset.addValue(5.0, series2, category1);
 
         return dataset;
 
@@ -72,12 +71,12 @@ public class BarChartDemo11 extends ApplicationFrame {
 
         // create the chart...
         JFreeChart chart = ChartFactory.createBarChart(
-                "Open Source Projects By Licence",         // chart title
-                "Licence",               // domain axis label
-                "Project Count",                  // range axis label
+                "Bar Chart Demo",         // chart title
+                "Category",               // domain axis label
+                "Value",                  // range axis label
                 dataset,                  // data
-                PlotOrientation.HORIZONTAL, // orientation
-                false,                     // include legend
+                PlotOrientation.VERTICAL,
+                true,                     // include legend
                 true,                     // tooltips?
                 false                     // URLs?
         );
@@ -85,16 +84,11 @@ public class BarChartDemo11 extends ApplicationFrame {
         // NOW DO SOME OPTIONAL CUSTOMISATION OF THE CHART...
 
         // set the background color for the chart...
-        chart.setBackgroundPaint(Color.white);
+        chart.setBackgroundPaint(new Color(0xBBBBDD));
 
         // get a reference to the plot for further customisation...
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
-        plot.setBackgroundPaint(Color.lightGray);
-        plot.setDomainGridlinePaint(Color.white);
-        plot.setDomainGridlinesVisible(true);
-        plot.setRangeGridlinePaint(Color.white);
 
-        plot.getDomainAxis().setMaximumCategoryLabelWidthRatio(0.4f);
         // set the range axis to display integers only...
         NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
@@ -102,14 +96,22 @@ public class BarChartDemo11 extends ApplicationFrame {
         // disable bar outlines...
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setDrawBarOutline(false);
+        renderer.setMaximumBarWidth(0.10);
 
         // set up gradient paints for series...
-        GradientPaint gp0 = new GradientPaint(0.0f, 0.0f, Color.blue,
-                0.0f, 0.0f, new Color(0, 0, 64));
+        GradientPaint gp0 = new GradientPaint(
+                0.0f, 0.0f, Color.blue,
+                0.0f, 0.0f, Color.lightGray
+        );
+        GradientPaint gp1 = new GradientPaint(
+                0.0f, 0.0f, Color.green,
+                0.0f, 0.0f, Color.lightGray
+        );
         renderer.setSeriesPaint(0, gp0);
+        renderer.setSeriesPaint(1, gp1);
 
+        // OPTIONAL CUSTOMISATION COMPLETED.
         return chart;
-
     }
 
     /**
@@ -129,11 +131,10 @@ public class BarChartDemo11 extends ApplicationFrame {
      */
     public static void main(String[] args) {
 
-        BarChartDemo11 demo = new BarChartDemo11("Bar Chart Demo 11");
+        BarChartDemo4 demo = new BarChartDemo4("Bar Chart Demo 4");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
-
     }
 
 }

@@ -11,6 +11,12 @@
 
 ![image-20250114141855893](./images/image-20250114141855893.png)
 
+## CategoryAxis
+
+- **categoryMargin**
+
+
+
 ## ValueAxis
 
 - `standardTickUnits`

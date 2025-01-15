@@ -33,15 +33,13 @@ public class AreaChartDemo1 extends ApplicationFrame {
      * @param title the frame title.
      */
     public AreaChartDemo1(String title) {
-
         super(title);
-        CategoryDataset dataset = createDataset();
+        CategoryDataset<String, String> dataset = createDataset();
         JFreeChart chart = createChart(dataset);
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new Dimension(500, 270));
         chartPanel.setEnforceFileExtensions(false);
         setContentPane(chartPanel);
-
     }
 
     /**
@@ -49,8 +47,8 @@ public class AreaChartDemo1 extends ApplicationFrame {
      *
      * @return A sample dataset.
      */
-    private static CategoryDataset createDataset() {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+    private static CategoryDataset<String, String> createDataset() {
+        DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
         dataset.addValue(1.0, "Series 1", "Type 1");
         dataset.addValue(4.0, "Series 1", "Type 2");
         dataset.addValue(3.0, "Series 1", "Type 3");
@@ -84,8 +82,7 @@ public class AreaChartDemo1 extends ApplicationFrame {
      * @param dataset the dataset.
      * @return The chart.
      */
-    private static JFreeChart createChart(CategoryDataset dataset) {
-
+    private static JFreeChart createChart(CategoryDataset<String, String> dataset) {
         JFreeChart chart = ChartFactory.createAreaChart(
                 "Area Chart",             // chart title
                 "Category",               // domain axis label

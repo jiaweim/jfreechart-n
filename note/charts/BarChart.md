@@ -4,7 +4,6 @@
   - [简介](#简介)
     - [创建 Dataset](#创建-dataset)
     - [创建柱状图](#创建柱状图)
-    - [显示](#显示)
   - [ChartFactory](#chartfactory)
   - [个性化](#个性化)
   - [自定义 Renderer](#自定义-renderer)
@@ -66,68 +65,7 @@ JFreeChart chart = ChartFactory.createBarChart(
 - tooltip 控制是否显示提示文本
 - url，仅在用 HTML 图像 maps 创建报告时使用
 
-### 显示
-
-完整代码：
-
-```java
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.ChartPanel;
-import org.jfree.chart.swing.UIUtils;
-import org.jfree.data.category.DefaultCategoryDataset;
-
-import java.awt.*;
-
-public class BarChartDemo extends ApplicationFrame {
-
-    /**
-     * Constructs a new application frame.
-     *
-     * @param title the frame title.
-     */
-    public BarChartDemo(String title) {
-        super(title);
-
-        DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
-        dataset.addValue(1.0, "Row 1", "Column 1");
-        dataset.addValue(5.0, "Row 1", "Column 2");
-        dataset.addValue(3.0, "Row 1", "Column 3");
-        dataset.addValue(2.0, "Row 2", "Column 1");
-        dataset.addValue(3.0, "Row 2", "Column 2");
-        dataset.addValue(2.0, "Row 2", "Column 3");
-        JFreeChart chart = ChartFactory.createBarChart(
-                "Bar Chart Demo", // 标题
-                "Category", // X 轴标题
-                "Value", // y 轴标题
-                dataset, // 数据
-                PlotOrientation.VERTICAL, // 方向
-                true, // legend
-                true, // tooltip
-                false // url
-        );
-        ChartPanel chartPanel = new ChartPanel(chart, false);
-        chartPanel.setPreferredSize(new Dimension(500, 270));
-        setContentPane(chartPanel);
-    }
-
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                BarChartDemo demo = new BarChartDemo("Bar Demo 1");
-                demo.pack();
-                UIUtils.centerFrameOnScreen(demo);
-                demo.setVisible(true);
-            }
-        });
-    }
-
-}
-
-```
+[完整代码](../../src/main/java/note/jfreechart/bar/BarChartDemo.java)。效果如下：
 
 <img src="images/2023-12-25-23-11-36.png" width="500"/>
 
@@ -150,7 +88,7 @@ JFreeChart chart = new JFreeChart(title, JFreeChart.DEFAULT_TITLE_FONT, plot, le
 
 - 柱状图有两个轴，一个显示数据集类别（`CategoryAxis`），另一个显示数据（`NumberAxis`）
 - `BarRenderer` 用于绘制 bar，renderer 处理大部分的绘图工作。
-- dataset, axes 和 renderer 一起由 `CategoryPlot` 管理，它协调这些组件之间的交互。你自定义图表时，通常需要获得 plot 引用，从而可以继续访问 axes, renderer 和 dataset
+- `dataset`, `axes` 和 `renderer` 一起由 `CategoryPlot` 管理，它协调这些组件之间的交互。在自定义图表时，通常需要获得 plot 引用，从而可以继续访问 axes, renderer 和 dataset
 - 最后，将 plot 包装到 `JFreeChart` 实例中，并指定标题
 
 ## 个性化

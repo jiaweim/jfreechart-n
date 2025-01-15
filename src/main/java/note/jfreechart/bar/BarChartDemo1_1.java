@@ -1,23 +1,16 @@
-package note.jfreechart;
+package note.jfreechart.bar;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.api.Layer;
-import org.jfree.chart.api.RectangleAnchor;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.labels.ItemLabelAnchor;
-import org.jfree.chart.labels.ItemLabelPosition;
-import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.IntervalMarker;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.swing.ApplicationFrame;
 import org.jfree.chart.swing.ChartPanel;
 import org.jfree.chart.swing.UIUtils;
-import org.jfree.chart.text.TextAnchor;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -25,39 +18,24 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * A simple demonstration application showing how to create a bar chart with a
- * custom item label generator.
+ * A simple demonstration application showing how to create a bar chart.
  */
-public class BarChartDemo7 extends ApplicationFrame {
-
-    /**
-     * A custom label generator.
-     */
-    static class LabelGenerator extends StandardCategoryItemLabelGenerator {
-        /**
-         * Generates an item label.
-         *
-         * @param dataset  the dataset.
-         * @param series   the series index.
-         * @param category the category index.
-         * @return the label.
-         */
-        public String generateLabel(CategoryDataset dataset, int series,
-                int category) {
-            return dataset.getRowKey(series).toString();
-        }
-    }
+public class BarChartDemo1_1 extends ApplicationFrame {
 
     /**
      * Creates a new demo instance.
      *
      * @param title the frame title.
      */
-    public BarChartDemo7(String title) {
+    public BarChartDemo1_1(String title) {
+
         super(title);
-        JPanel chartPanel = createDemoPanel();
+        CategoryDataset dataset = createDataset();
+        JFreeChart chart = createChart(dataset);
+        ChartPanel chartPanel = new ChartPanel(chart, false);
         chartPanel.setPreferredSize(new Dimension(500, 270));
         setContentPane(chartPanel);
+
     }
 
     /**
@@ -96,7 +74,7 @@ public class BarChartDemo7 extends ApplicationFrame {
 
         dataset.addValue(4.0, series3, category1);
         dataset.addValue(3.0, series3, category2);
-        dataset.addValue(0.0, series3, category3);
+        dataset.addValue(2.0, series3, category3);
         dataset.addValue(3.0, series3, category4);
         dataset.addValue(6.0, series3, category5);
 
@@ -114,32 +92,27 @@ public class BarChartDemo7 extends ApplicationFrame {
 
         // create the chart...
         JFreeChart chart = ChartFactory.createBarChart(
-                "Bar Chart Demo 7",       // chart title
+                "Bar Chart Demo",         // chart title
                 "Category",               // domain axis label
                 "Value",                  // range axis label
                 dataset,                  // data
                 PlotOrientation.VERTICAL, // orientation
-                false,                    // include legend
+                true,                     // include legend
                 true,                     // tooltips?
                 false                     // URLs?
         );
 
         // NOW DO SOME OPTIONAL CUSTOMISATION OF THE CHART...
+
+        // set the background color for the chart...
         chart.setBackgroundPaint(Color.white);
 
+        // get a reference to the plot for further customisation...
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setBackgroundPaint(Color.lightGray);
         plot.setDomainGridlinePaint(Color.white);
+        plot.setDomainGridlinesVisible(true);
         plot.setRangeGridlinePaint(Color.white);
-
-        // add a range marker...
-        IntervalMarker target = new IntervalMarker(4.5, 7.5);
-        target.setLabel("Target Range");
-        target.setLabelFont(new Font("SansSerif", Font.ITALIC, 11));
-        target.setLabelAnchor(RectangleAnchor.LEFT);
-        target.setLabelTextAnchor(TextAnchor.CENTER_LEFT);
-        target.setPaint(new Color(222, 222, 255, 128));
-        plot.addRangeMarker(target, Layer.BACKGROUND);
 
         // set the range axis to display integers only...
         NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
@@ -148,32 +121,29 @@ public class BarChartDemo7 extends ApplicationFrame {
         // disable bar outlines...
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setDrawBarOutline(false);
-        renderer.setItemMargin(0.10);
 
         // set up gradient paints for series...
-        GradientPaint gp0 = new GradientPaint(0.0f, 0.0f, Color.blue,
-                0.0f, 0.0f, Color.lightGray);
-        GradientPaint gp1 = new GradientPaint(0.0f, 0.0f, Color.green,
-                0.0f, 0.0f, Color.lightGray);
-        GradientPaint gp2 = new GradientPaint(0.0f, 0.0f, Color.red,
-                0.0f, 0.0f, Color.lightGray);
+        GradientPaint gp0 = new GradientPaint(
+                0.0f, 0.0f, Color.blue,
+                0.0f, 0.0f, new Color(0, 0, 64)
+        );
+        GradientPaint gp1 = new GradientPaint(
+                0.0f, 0.0f, Color.green,
+                0.0f, 0.0f, new Color(0, 64, 0)
+        );
+        GradientPaint gp2 = new GradientPaint(
+                0.0f, 0.0f, Color.red,
+                0.0f, 0.0f, new Color(64, 0, 0)
+        );
         renderer.setSeriesPaint(0, gp0);
         renderer.setSeriesPaint(1, gp1);
         renderer.setSeriesPaint(2, gp2);
 
-        renderer.setDefaultItemLabelGenerator(new BarChartDemo7.LabelGenerator());
-        renderer.setDefaultItemLabelsVisible(true);
-        ItemLabelPosition p = new ItemLabelPosition(
-                ItemLabelAnchor.INSIDE12, TextAnchor.CENTER_RIGHT,
-                TextAnchor.CENTER_RIGHT, -Math.PI / 2.0);
-        renderer.setDefaultPositiveItemLabelPosition(p);
-
-        ItemLabelPosition p2 = new ItemLabelPosition(
-                ItemLabelAnchor.OUTSIDE12, TextAnchor.CENTER_LEFT,
-                TextAnchor.CENTER_LEFT, -Math.PI / 2.0);
-        renderer.setPositiveItemLabelPositionFallback(p2);
         CategoryAxis domainAxis = plot.getDomainAxis();
-        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
+        domainAxis.setCategoryLabelPositions(
+                CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 6.0)
+        );
+        // OPTIONAL CUSTOMISATION COMPLETED.
 
         return chart;
 
@@ -195,10 +165,12 @@ public class BarChartDemo7 extends ApplicationFrame {
      * @param args ignored.
      */
     public static void main(String[] args) {
-        BarChartDemo7 demo = new BarChartDemo7("Bar Chart Demo 7");
+
+        BarChartDemo1 demo = new BarChartDemo1("Bar Chart Demo");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
+
     }
 
 }
