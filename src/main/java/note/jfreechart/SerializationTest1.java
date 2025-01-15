@@ -1,60 +1,50 @@
-/* -----------------------
- * SerializationTest1.java
- * -----------------------
- * (C) Copyright 2004, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
-
-import javax.swing.JButton;
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.time.Millisecond;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.*;
 
 /**
- * Based on the DynamicDataDemo class, this demo serializes and deserializes 
- * the chart before displaying it - the idea is that this confirms that the 
+ * Based on the DynamicDataDemo class, this demo serializes and deserializes
+ * the chart before displaying it - the idea is that this confirms that the
  * serialization process returns a working chart.
  */
-public class SerializationTest1 extends ApplicationFrame 
+public class SerializationTest1 extends ApplicationFrame
         implements ActionListener {
 
-    /** The time series data. */
+    /**
+     * The time series data.
+     */
     private TimeSeries series;
 
-    /** The most recent value added. */
+    /**
+     * The most recent value added.
+     */
     private double lastValue = 100.0;
 
     /**
      * Constructs a new demonstration application.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public SerializationTest1(String title) {
 
         super(title);
-        this.series = new TimeSeries("Random Data", Millisecond.class);
+        this.series = new TimeSeries("Random Data");
         TimeSeriesCollection dataset = new TimeSeriesCollection(this.series);
         JFreeChart chart = createChart(dataset);
 
@@ -75,8 +65,7 @@ public class SerializationTest1 extends ApplicationFrame
                     new ByteArrayInputStream(buffer.toByteArray()));
             deserializedChart = (JFreeChart) in.readObject();
             in.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         XYPlot p = (XYPlot) deserializedChart.getPlot();
@@ -99,20 +88,19 @@ public class SerializationTest1 extends ApplicationFrame
 
     /**
      * Creates a sample chart.
-     * 
-     * @param dataset  the dataset.
-     * 
+     *
+     * @param dataset the dataset.
      * @return A sample chart.
      */
     private JFreeChart createChart(final XYDataset dataset) {
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
-            "Serialization Test 1", 
-            "Time", 
-            "Value",
-            dataset, 
-            true, 
-            true, 
-            false
+                "Serialization Test 1",
+                "Time",
+                "Value",
+                dataset,
+                true,
+                true,
+                false
         );
         XYPlot plot = (XYPlot) chart.getPlot();
         ValueAxis axis = plot.getDomainAxis();
@@ -120,11 +108,11 @@ public class SerializationTest1 extends ApplicationFrame
         axis.setFixedAutoRange(60000.0);  // 60 seconds
         return chart;
     }
-    
+
     /**
      * Handles a click on the button by adding new (random) data.
      *
-     * @param e  the action event.
+     * @param e the action event.
      */
     public void actionPerformed(final ActionEvent e) {
         if (e.getActionCommand().equals("ADD_DATA")) {
@@ -139,12 +127,12 @@ public class SerializationTest1 extends ApplicationFrame
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         SerializationTest1 demo = new SerializationTest1("Serialization Test 1");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

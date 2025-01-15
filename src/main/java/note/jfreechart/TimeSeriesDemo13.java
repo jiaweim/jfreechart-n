@@ -1,39 +1,30 @@
-/* ---------------------
- * TimeSeriesDemo13.java
- * ---------------------
- * (C) Copyright 2004, 2005, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.text.SimpleDateFormat;
-
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.api.RectangleInsets;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.DateTickUnit;
+import org.jfree.chart.axis.DateTickUnitType;
 import org.jfree.chart.axis.TickUnits;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.time.RegularTimePeriod;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.time.Week;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RectangleInsets;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.SimpleDateFormat;
 
 /**
- * This demo shows two charts that use weekly data.  A custom tick unit 
+ * This demo shows two charts that use weekly data.  A custom tick unit
  * collection is defined to control the domain axis formatting.
  */
 public class TimeSeriesDemo13 extends ApplicationFrame {
@@ -41,32 +32,30 @@ public class TimeSeriesDemo13 extends ApplicationFrame {
     /**
      * Creates a new demo instance.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public TimeSeriesDemo13(String title) {
-        
+
         super(title);
         setContentPane(createDemoPanel());
-
     }
 
     /**
      * Creates a chart.
-     * 
-     * @param dataset  a dataset.
-     * 
+     *
+     * @param dataset a dataset.
      * @return A chart.
      */
     private static JFreeChart createChart(XYDataset dataset) {
 
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
-            "Weekly Data",
-            "Date", 
-            "Value",
-            dataset,
-            true,
-            true,
-            false
+                "Weekly Data",
+                "Date",
+                "Value",
+                dataset,
+                true,
+                true,
+                false
         );
 
         chart.setBackgroundPaint(Color.white);
@@ -78,47 +67,46 @@ public class TimeSeriesDemo13 extends ApplicationFrame {
         plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);
-        
+
         XYItemRenderer renderer = plot.getRenderer();
         if (renderer instanceof StandardXYItemRenderer) {
             final StandardXYItemRenderer rr = (StandardXYItemRenderer) renderer;
             rr.setBaseShapesVisible(true);
-            rr.setShapesFilled(true);
+            rr.setBaseShapesFilled(true);
         }
-        
+
         DateAxis axis = (DateAxis) plot.getDomainAxis();
         TickUnits standardUnits = new TickUnits();
         standardUnits.add(
-            new DateTickUnit(
-                DateTickUnit.DAY, 1, new SimpleDateFormat("MMM dd ''yy")
-            )
+                new DateTickUnit(
+                        DateTickUnitType.DAY, 1, new SimpleDateFormat("MMM dd ''yy")
+                )
         );
         standardUnits.add(
-            new DateTickUnit(
-                DateTickUnit.DAY, 7, new SimpleDateFormat("MMM dd ''yy")
-            )
+                new DateTickUnit(
+                        DateTickUnitType.DAY, 7, new SimpleDateFormat("MMM dd ''yy")
+                )
         );
         standardUnits.add(
-            new DateTickUnit(
-                DateTickUnit.MONTH, 1, new SimpleDateFormat("MMM ''yy")
-            )
+                new DateTickUnit(
+                        DateTickUnitType.MONTH, 1, new SimpleDateFormat("MMM ''yy")
+                )
         );
         axis.setStandardTickUnits(standardUnits);
-        
+
         return chart;
 
     }
-    
+
     /**
      * Creates a dataset containing random values at weekly intervals.
      *
-     * @param items  the number of items in the dataset.
-     * 
+     * @param items the number of items in the dataset.
      * @return the dataset.
      */
     private static XYDataset createDataset(int items) {
 
-        TimeSeries s1 = new TimeSeries("Random Data", Week.class);
+        TimeSeries s1 = new TimeSeries("Random Data");
         RegularTimePeriod t = new Week();
         double v = 100.0;
         for (int i = 0; i < items; i++) {
@@ -134,18 +122,18 @@ public class TimeSeriesDemo13 extends ApplicationFrame {
 
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         XYDataset dataset1 = createDataset(26);
         JFreeChart chart1 = createChart(dataset1);
         ChartPanel chartPanel1 = new ChartPanel(chart1);
-       
+
         XYDataset dataset2 = createDataset(1);
         JFreeChart chart2 = createChart(dataset2);
         ChartPanel chartPanel2 = new ChartPanel(chart2);
-        
+
         JTabbedPane tabs = new JTabbedPane();
         tabs.add("Chart 1", chartPanel1);
         tabs.add("Chart 2", chartPanel2);
@@ -154,16 +142,16 @@ public class TimeSeriesDemo13 extends ApplicationFrame {
         content.add(tabs);
         return content;
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         TimeSeriesDemo13 demo = new TimeSeriesDemo13("Time Series Demo 13");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

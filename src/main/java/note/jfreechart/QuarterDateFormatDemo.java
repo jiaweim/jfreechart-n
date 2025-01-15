@@ -1,34 +1,26 @@
-/* ----------------------
- * QuarterDateForamt.java
- * ----------------------
- * (C) Copyright 2005, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.Color;
-import java.util.TimeZone;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.api.RectangleInsets;
 import org.jfree.chart.axis.PeriodAxis;
 import org.jfree.chart.axis.PeriodAxisLabelInfo;
 import org.jfree.chart.axis.QuarterDateFormat;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.time.Month;
 import org.jfree.data.time.Quarter;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RectangleInsets;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.TimeZone;
 
 /**
  * A demo showing the {@link QuarterDateFormat}.
@@ -36,10 +28,10 @@ import org.jfree.ui.RefineryUtilities;
 public class QuarterDateFormatDemo extends ApplicationFrame {
 
     /**
-     * A demonstration application showing how to create a simple time series 
+     * A demonstration application showing how to create a simple time series
      * chart.  This example uses monthly data.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public QuarterDateFormatDemo(String title) {
         super(title);
@@ -50,32 +42,31 @@ public class QuarterDateFormatDemo extends ApplicationFrame {
 
     /**
      * Creates a chart.
-     * 
-     * @param dataset  a dataset.
-     * 
+     *
+     * @param dataset a dataset.
      * @return A chart.
      */
     private static JFreeChart createChart(XYDataset dataset) {
 
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
-            "Legal & General Unit Trust Prices",  // title
-            "Date",             // x-axis label
-            "Price Per Unit",   // y-axis label
-            dataset,            // data
-            true,               // create legend?
-            true,               // generate tooltips?
-            false               // generate URLs?
+                "Legal & General Unit Trust Prices",  // title
+                "Date",             // x-axis label
+                "Price Per Unit",   // y-axis label
+                dataset,            // data
+                true,               // create legend?
+                true,               // generate tooltips?
+                false               // generate URLs?
         );
 
         chart.setBackgroundPaint(Color.white);
 
         XYPlot plot = (XYPlot) chart.getPlot();
-        PeriodAxis axis = new PeriodAxis("Quarter", new Quarter(), 
+        PeriodAxis axis = new PeriodAxis("Quarter", new Quarter(),
                 new Quarter());
         axis.setAutoRangeTimePeriodClass(Quarter.class);
         PeriodAxisLabelInfo[] info = new PeriodAxisLabelInfo[1];
-        info[0] = new PeriodAxisLabelInfo(Quarter.class, 
-                new QuarterDateFormat(TimeZone.getDefault(), 
+        info[0] = new PeriodAxisLabelInfo(Quarter.class,
+                new QuarterDateFormat(TimeZone.getDefault(),
                         QuarterDateFormat.ROMAN_QUARTERS));
         axis.setLabelInfo(info);
         plot.setDomainAxis(axis);
@@ -85,18 +76,18 @@ public class QuarterDateFormatDemo extends ApplicationFrame {
         plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);
-        
+
         XYItemRenderer r = plot.getRenderer();
         if (r instanceof XYLineAndShapeRenderer) {
             XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
-            renderer.setBaseShapesVisible(true);
-            renderer.setBaseShapesFilled(true);
+            renderer.setDefaultShapesVisible(true);
+            renderer.setDefaultShapesFilled(true);
         }
-        
+
         return chart;
 
     }
-    
+
     /**
      * Creates a dataset, consisting of two series of monthly data.
      *
@@ -104,7 +95,7 @@ public class QuarterDateFormatDemo extends ApplicationFrame {
      */
     private static XYDataset createDataset() {
 
-        TimeSeries s1 = new TimeSeries("L&G European Index Trust", Month.class);
+        TimeSeries s1 = new TimeSeries("L&G European Index Trust");
         s1.add(new Month(2, 2001), 181.8);
         s1.add(new Month(3, 2001), 167.3);
         s1.add(new Month(4, 2001), 153.8);
@@ -124,7 +115,7 @@ public class QuarterDateFormatDemo extends ApplicationFrame {
         s1.add(new Month(6, 2002), 137.0);
         s1.add(new Month(7, 2002), 132.8);
 
-        TimeSeries s2 = new TimeSeries("L&G UK Index Trust", Month.class);
+        TimeSeries s2 = new TimeSeries("L&G UK Index Trust");
         s2.add(new Month(2, 2001), 129.6);
         s2.add(new Month(3, 2001), 123.2);
         s2.add(new Month(4, 2001), 117.2);
@@ -154,24 +145,24 @@ public class QuarterDateFormatDemo extends ApplicationFrame {
 
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         JFreeChart chart = createChart(createDataset());
         return new ChartPanel(chart);
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         QuarterDateFormatDemo demo = new QuarterDateFormatDemo(
                 "Quarter Date Format Demo");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

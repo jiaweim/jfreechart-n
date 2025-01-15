@@ -1,21 +1,14 @@
-/* ------------------------
- * PopulationChartDemo.java
- * ------------------------
- * (C) Copyright 2003, 2004, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.general.DefaultKeyedValues2DDataset;
 import org.jfree.data.general.KeyedValues2DDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
 
 /**
  * A population pyramid demo.
@@ -25,7 +18,7 @@ public class PopulationChartDemo1 extends ApplicationFrame {
     /**
      * Creates a new demo.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public PopulationChartDemo1(String title) {
 
@@ -34,14 +27,14 @@ public class PopulationChartDemo1 extends ApplicationFrame {
 
         // create the chart...
         JFreeChart chart = ChartFactory.createStackedBarChart(
-            "Population Chart Demo",
-            "Age Group",     // domain axis label
-            "Population (millions)", // range axis label
-            dataset,         // data
-            PlotOrientation.HORIZONTAL,
-            true,            // include legend
-            true,            // tooltips
-            false            // urls
+                "Population Chart Demo",
+                "Age Group",     // domain axis label
+                "Population (millions)", // range axis label
+                dataset,         // data
+                PlotOrientation.HORIZONTAL,
+                true,            // include legend
+                true,            // tooltips
+                false            // urls
         );
 
         // add the chart to a panel...
@@ -53,7 +46,7 @@ public class PopulationChartDemo1 extends ApplicationFrame {
 
     /**
      * Creates a dataset.
-     * 
+     *
      * @return A dataset.
      */
     private KeyedValues2DDataset createDataset() {
@@ -82,13 +75,13 @@ public class PopulationChartDemo1 extends ApplicationFrame {
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
         PopulationChartDemo1 demo = new PopulationChartDemo1("Population Chart Demo");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
 
     }

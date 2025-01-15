@@ -1,20 +1,13 @@
-/* -----------
- * Second.java
- * -----------
- * (C) Copyright 2002-2004, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.chart.swing.ChartFrame;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -26,7 +19,7 @@ public class Second {
     /**
      * Starting point for the demo.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
@@ -53,14 +46,14 @@ public class Second {
 
         // create a chart...
         JFreeChart chart = ChartFactory.createXYLineChart(
-            "My Chart", 
-            "Calories", 
-            "Y", 
-            data,
-            PlotOrientation.VERTICAL,
-            true,
-            true,
-            false
+                "My Chart",
+                "Calories",
+                "Y",
+                data,
+                PlotOrientation.VERTICAL,
+                true,
+                true,
+                false
         );
 
         XYItemRenderer renderer = new StandardXYItemRenderer(

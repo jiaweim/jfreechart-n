@@ -1,25 +1,18 @@
-/* --------------------
- * TimeSeriesDemo2.java
- * --------------------
- * (C) Copyright 2002-2004, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
+package note.jfreechart;
 
 import javax.swing.JPanel;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.ValueMarker;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.time.Quarter;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
 
 /**
  * A demo showing a time series (quarterly data) with a <code>null</code> value.  The
@@ -44,7 +37,7 @@ public class TimeSeriesDemo2 extends ApplicationFrame {
     }
     
     private static XYDataset createDataset() {
-        TimeSeries series = new TimeSeries("Quarterly Data", Quarter.class);
+        TimeSeries series = new TimeSeries("Quarterly Data");
         series.add(new Quarter(1, 2001), 500.2);
         series.add(new Quarter(2, 2001), 694.1);
         series.add(new Quarter(3, 2001), 734.4);
@@ -93,7 +86,7 @@ public class TimeSeriesDemo2 extends ApplicationFrame {
 
         TimeSeriesDemo2 demo = new TimeSeriesDemo2("Time Series Demo 2");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
 
     }

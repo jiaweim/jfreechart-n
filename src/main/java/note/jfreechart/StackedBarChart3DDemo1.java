@@ -1,14 +1,6 @@
-/* ---------------------------
- * StackedBarChart3DDemo1.java
- * ---------------------------
- * (C) Copyright 2002-2006, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.labels.ItemLabelAnchor;
 import org.jfree.chart.labels.ItemLabelPosition;
@@ -16,14 +8,15 @@ import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
+import org.jfree.chart.text.TextAnchor;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
-import org.jfree.ui.TextAnchor;
 
 /**
- * A simple demonstration application showing how to create a stacked 3D bar 
+ * A simple demonstration application showing how to create a stacked 3D bar
  * chart using data from a {@link CategoryDataset}.
  */
 public class StackedBarChart3DDemo1 extends ApplicationFrame {
@@ -31,7 +24,7 @@ public class StackedBarChart3DDemo1 extends ApplicationFrame {
     /**
      * Creates a new demo.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public StackedBarChart3DDemo1(String title) {
         super(title);
@@ -58,7 +51,7 @@ public class StackedBarChart3DDemo1 extends ApplicationFrame {
         dataset.addValue(10.0, "Series 1", "C7");
         dataset.addValue(11.0, "Series 1", "C8");
         dataset.addValue(3.0, "Series 1", "C9");
-        
+
         dataset.addValue(4.0, "Series 2", "C1");
         dataset.addValue(7.0, "Series 2", "C2");
         dataset.addValue(17.0, "Series 2", "C3");
@@ -78,7 +71,7 @@ public class StackedBarChart3DDemo1 extends ApplicationFrame {
         dataset.addValue(7.0, "Series 3", "C7");
         dataset.addValue(9.0, "Series 3", "C8");
         dataset.addValue(11.0, "Series 3", "C9");
-        
+
         dataset.addValue(14.0, "Series 4", "C1");
         dataset.addValue(3.0, "Series 4", "C2");
         dataset.addValue(7.0, "Series 4", "C3");
@@ -95,47 +88,46 @@ public class StackedBarChart3DDemo1 extends ApplicationFrame {
 
     /**
      * Creates a chart.
-     * 
-     * @param dataset  the dataset.
-     * 
+     *
+     * @param dataset the dataset.
      * @return The chart.
      */
     private JFreeChart createChart(CategoryDataset dataset) {
 
-        JFreeChart chart = ChartFactory.createStackedBarChart3D(
-            "Stacked Bar Chart 3D Demo 1",  // chart title
-            "Category",                   // domain axis label
-            "Value",                      // range axis label
-            dataset,                      // data
-            PlotOrientation.VERTICAL,     // the plot orientation
-            true,                         // include legend
-            true,                         // tooltips
-            false                         // urls
+        JFreeChart chart = ChartFactory.createStackedBarChart(
+                "Stacked Bar Chart 3D Demo 1",  // chart title
+                "Category",                   // domain axis label
+                "Value",                      // range axis label
+                dataset,                      // data
+                PlotOrientation.VERTICAL,     // the plot orientation
+                true,                         // include legend
+                true,                         // tooltips
+                false                         // urls
         );
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setDrawBarOutline(false);
-        renderer.setItemLabelGenerator(
+        renderer.setDefaultItemLabelGenerator(
                 new StandardCategoryItemLabelGenerator());
-        renderer.setItemLabelsVisible(true);
-        renderer.setPositiveItemLabelPosition(new ItemLabelPosition(
+        renderer.setDefaultItemLabelsVisible(true);
+        renderer.setDefaultPositiveItemLabelPosition(new ItemLabelPosition(
                 ItemLabelAnchor.CENTER, TextAnchor.CENTER));
-        renderer.setNegativeItemLabelPosition(new ItemLabelPosition(
+        renderer.setDefaultNegativeItemLabelPosition(new ItemLabelPosition(
                 ItemLabelAnchor.CENTER, TextAnchor.CENTER));
         return chart;
-        
+
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         StackedBarChart3DDemo1 demo = new StackedBarChart3DDemo1(
                 "Stacked Bar Chart 3D Demo 1");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

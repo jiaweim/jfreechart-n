@@ -1,27 +1,20 @@
-/* --------------------
- * XMLBarChartDemo.java
- * --------------------
- * (C) Copyright 2002-2005, by Object Refinery Limited.
- *
- */
+package note.jfreechart;
 
-package tutorial.jfreechart.demo;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.xml.DatasetReader;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.CategoryDataset;
-import org.jfree.data.xml.DatasetReader;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
-
 /**
- * A simple demonstration application showing how to create a bar chart using 
+ * A simple demonstration application showing how to create a bar chart using
  * data from an XML data file.
  */
 public class XMLBarChartDemo extends ApplicationFrame {
@@ -29,7 +22,7 @@ public class XMLBarChartDemo extends ApplicationFrame {
     /**
      * Default constructor.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public XMLBarChartDemo(String title) {
 
@@ -42,21 +35,20 @@ public class XMLBarChartDemo extends ApplicationFrame {
         try {
             InputStream in = url.openStream();
             dataset = DatasetReader.readCategoryDatasetFromXML(in);
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             ioe.printStackTrace();
         }
 
         // create the chart...
         JFreeChart chart = ChartFactory.createBarChart(
-            "Bar Chart",  // chart title
-            "Domain", 
-            "Range",
-            dataset,      // data
-            PlotOrientation.VERTICAL,
-            true,         // include legend
-            true,
-            false
+                "Bar Chart",  // chart title
+                "Domain",
+                "Range",
+                dataset,      // data
+                PlotOrientation.VERTICAL,
+                true,         // include legend
+                true,
+                false
         );
 
         ChartPanel chartPanel = new ChartPanel(chart);
@@ -64,16 +56,16 @@ public class XMLBarChartDemo extends ApplicationFrame {
         setContentPane(chartPanel);
 
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         XMLBarChartDemo demo = new XMLBarChartDemo("XML Bar Chart Demo");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

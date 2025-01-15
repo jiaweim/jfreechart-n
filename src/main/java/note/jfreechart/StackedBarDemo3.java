@@ -1,25 +1,18 @@
-/* --------------------
- * StackedBarDemo3.java
- * --------------------
- * (C) Copyright 2006, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.Dimension;
-import java.text.DecimalFormat;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.StackedBarRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import java.awt.*;
+import java.text.DecimalFormat;
 
 /**
  * A simple demonstration application showing how to create a bar chart.
@@ -29,7 +22,7 @@ public class StackedBarDemo3 extends ApplicationFrame {
     /**
      * Creates a new demo instance.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public StackedBarDemo3(String title) {
         super(title);
@@ -41,19 +34,19 @@ public class StackedBarDemo3 extends ApplicationFrame {
         dataset.addValue(3.0, "Row 2", "Column 2");
         dataset.addValue(2.0, "Row 2", "Column 3");
         JFreeChart chart = ChartFactory.createStackedBarChart(
-            "StackedBarDemo3",         // chart title
-            "Category",               // domain axis label
-            "Value",                  // range axis label
-            dataset,                  // data
-            PlotOrientation.VERTICAL, // orientation
-            true,                     // include legend
-            true,                     // tooltips?
-            false                     // URLs?
+                "StackedBarDemo3",         // chart title
+                "Category",               // domain axis label
+                "Value",                  // range axis label
+                dataset,                  // data
+                PlotOrientation.VERTICAL, // orientation
+                true,                     // include legend
+                true,                     // tooltips?
+                false                     // URLs?
         );
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         StackedBarRenderer renderer = (StackedBarRenderer) plot.getRenderer();
         renderer.setRenderAsPercentages(true);
-        
+
         NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
         rangeAxis.setLabel("Percentage");
         rangeAxis.setNumberFormatOverride(new DecimalFormat("0.0%"));
@@ -65,12 +58,12 @@ public class StackedBarDemo3 extends ApplicationFrame {
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         StackedBarDemo3 demo = new StackedBarDemo3("StackedBarDemo3");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

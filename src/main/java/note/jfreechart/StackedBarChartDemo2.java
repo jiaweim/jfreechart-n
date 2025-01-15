@@ -1,39 +1,27 @@
-/* -------------------------
- * StackedBarChartDemo2.java
- * -------------------------
- * (C) Copyright 2006, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GradientPaint;
-import java.awt.Paint;
-import java.awt.geom.Rectangle2D;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.LegendItem;
-import org.jfree.chart.LegendItemCollection;
+import org.jfree.chart.api.HorizontalAlignment;
+import org.jfree.chart.api.RectangleEdge;
+import org.jfree.chart.api.RectangleInsets;
 import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.legend.LegendItem;
+import org.jfree.chart.legend.LegendItemCollection;
+import org.jfree.chart.legend.LegendTitle;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.chart.title.LegendTitle;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.HorizontalAlignment;
-import org.jfree.ui.RectangleEdge;
-import org.jfree.ui.RectangleInsets;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 /**
  * A stacked bar chart with a horizontal orientation.
@@ -43,7 +31,7 @@ public class StackedBarChartDemo2 extends ApplicationFrame {
     /**
      * Creates a new demo instance.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public StackedBarChartDemo2(String title) {
         super(title);
@@ -54,7 +42,7 @@ public class StackedBarChartDemo2 extends ApplicationFrame {
 
     /**
      * Returns a sample dataset.
-     * 
+     *
      * @return The dataset.
      */
     private static CategoryDataset createDataset() {
@@ -85,30 +73,29 @@ public class StackedBarChartDemo2 extends ApplicationFrame {
         dataset.addValue(37.0, "Some degree permissible", "Russia");
         dataset.addValue(32.0, "Some degree permissible", "India");
         dataset.addValue(29.0, "Some degree permissible", "Average (*)");
-        
+
         return dataset;
-        
+
     }
-    
+
     /**
      * Creates a sample chart.
-     * 
-     * @param dataset  the dataset.
-     * 
+     *
+     * @param dataset the dataset.
      * @return The chart.
      */
     private static JFreeChart createChart(CategoryDataset dataset) {
-        
+
         // create the chart...
         JFreeChart chart = ChartFactory.createStackedBarChart(
-            "Public Opinion : Torture of Prisoners", 
-            "Country",                    // domain axis label
-            "%",                 // range axis label
-            dataset,                      // data
-            PlotOrientation.HORIZONTAL,   // orientation
-            false,                        // include legend
-            true,                         // tooltips?
-            false                         // URLs?
+                "Public Opinion : Torture of Prisoners",
+                "Country",                    // domain axis label
+                "%",                 // range axis label
+                dataset,                      // data
+                PlotOrientation.HORIZONTAL,   // orientation
+                false,                        // include legend
+                true,                         // tooltips?
+                false                         // URLs?
         );
 
         // set the background color for the chart...
@@ -134,64 +121,64 @@ public class StackedBarChartDemo2 extends ApplicationFrame {
         // get a reference to the plot for further customisation...
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         LegendItemCollection items = new LegendItemCollection();
-        items.add(new LegendItem("Against all torture", null, null, null, 
+        items.add(new LegendItem("Against all torture", null, null, null,
                 new Rectangle2D.Double(-6.0, -3.0, 12.0, 6.0), Color.green));
-        items.add(new LegendItem("Some degree permissible", null, null, null, 
+        items.add(new LegendItem("Some degree permissible", null, null, null,
                 new Rectangle2D.Double(-6.0, -3.0, 12.0, 6.0), Color.red));
         plot.setFixedLegendItems(items);
         plot.setInsets(new RectangleInsets(5, 5, 5, 20));
         LegendTitle legend = new LegendTitle(plot);
         legend.setPosition(RectangleEdge.BOTTOM);
         chart.addSubtitle(legend);
-        
+
         plot.setBackgroundPaint(Color.lightGray);
         plot.setDomainGridlinePaint(Color.white);
         plot.setDomainGridlinesVisible(true);
         plot.setRangeGridlinePaint(Color.white);
-        
+
         // set the range axis to display integers only...
         NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         rangeAxis.setUpperMargin(0.0);
-        
+
         // disable bar outlines...
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setDrawBarOutline(false);
-        
+
         // set up gradient paints for series...
-        GradientPaint gp0 = new GradientPaint(0.0f, 0.0f, Color.green, 
+        GradientPaint gp0 = new GradientPaint(0.0f, 0.0f, Color.green,
                 0.0f, 0.0f, new Color(0, 64, 0));
         Paint gp1 = new Color(0, 0, 0, 0);
-        GradientPaint gp2 = new GradientPaint(0.0f, 0.0f, Color.red, 
+        GradientPaint gp2 = new GradientPaint(0.0f, 0.0f, Color.red,
                 0.0f, 0.0f, new Color(64, 0, 0));
         renderer.setSeriesPaint(0, gp0);
         renderer.setSeriesPaint(1, gp1);
         renderer.setSeriesPaint(2, gp2);
-        
+
         return chart;
-        
+
     }
-    
+
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         JFreeChart chart = createChart(createDataset());
         return new ChartPanel(chart);
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         StackedBarChartDemo2 demo = new StackedBarChartDemo2(
                 "Stacked Bar Chart Demo 2");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

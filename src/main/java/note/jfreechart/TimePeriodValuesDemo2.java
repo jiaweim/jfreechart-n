@@ -1,13 +1,5 @@
-/* --------------------------
- * TimePeriodValuesDemo2.java
- * --------------------------
- * (C) Copyright 2003, 2004, by Object Refinery Limited.
- *
- */
+package note.jfreechart;
 
-package tutorial.jfreechart.demo;
-
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.NumberAxis;
@@ -15,13 +7,14 @@ import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.SimpleTimePeriod;
 import org.jfree.data.time.TimePeriodValues;
 import org.jfree.data.time.TimePeriodValuesCollection;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
 
 /**
  * An example of....
@@ -31,7 +24,7 @@ public class TimePeriodValuesDemo2 extends ApplicationFrame {
     /**
      * A demonstration application showing how to....
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public TimePeriodValuesDemo2(String title) {
 
@@ -39,10 +32,10 @@ public class TimePeriodValuesDemo2 extends ApplicationFrame {
 
         XYDataset data1 = createDataset();
         XYItemRenderer renderer1 = new XYBarRenderer();
-        
+
         DateAxis domainAxis = new DateAxis("Date");
         ValueAxis rangeAxis = new NumberAxis("Value");
-        
+
         XYPlot plot = new XYPlot(data1, domainAxis, rangeAxis, renderer1);
 
         JFreeChart chart = new JFreeChart("Time Period Values Demo", plot);
@@ -50,9 +43,8 @@ public class TimePeriodValuesDemo2 extends ApplicationFrame {
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         chartPanel.setMouseZoomable(true, false);
         setContentPane(chartPanel);
-
     }
- 
+
     /**
      * Creates a dataset, consisting of two series of monthly data.
      *
@@ -68,7 +60,7 @@ public class TimePeriodValuesDemo2 extends ApplicationFrame {
         Day d5 = (Day) d4.next();
         Day d6 = (Day) d5.next();
         Day d7 = (Day) d6.next();
-        
+
         s1.add(new SimpleTimePeriod(d6.getStart(), d6.getEnd()), 74.95);
         s1.add(new SimpleTimePeriod(d1.getStart(), d2.getEnd()), 55.75);
         s1.add(new SimpleTimePeriod(d7.getStart(), d7.getEnd()), 90.45);
@@ -84,13 +76,13 @@ public class TimePeriodValuesDemo2 extends ApplicationFrame {
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
         TimePeriodValuesDemo2 demo = new TimePeriodValuesDemo2("Time Period Values Demo 2");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
 
     }

@@ -1,51 +1,43 @@
-/* ------------------
- * DualAxisDemo2.java
- * ------------------
- * (C) Copyright 2002-2006, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.Color;
-import java.text.SimpleDateFormat;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.api.RectangleEdge;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.block.BlockContainer;
 import org.jfree.chart.block.BorderArrangement;
 import org.jfree.chart.block.EmptyBlock;
 import org.jfree.chart.labels.StandardXYToolTipGenerator;
+import org.jfree.chart.legend.LegendTitle;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.chart.title.CompositeTitle;
-import org.jfree.chart.title.LegendTitle;
 import org.jfree.data.time.Month;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RectangleEdge;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.SimpleDateFormat;
 
 /**
  * An example of a time series chart.  For the most part, default settings are
- * used, except that  the renderer is modified to show filled shapes (as well 
+ * used, except that  the renderer is modified to show filled shapes (as well
  * as lines) at each data point.
  */
 public class DualAxisDemo2 extends ApplicationFrame {
 
     /**
-     * A demonstration application showing how to create a time series chart 
+     * A demonstration application showing how to create a time series chart
      * with dual axes.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public DualAxisDemo2(String title) {
         super(title);
@@ -62,7 +54,7 @@ public class DualAxisDemo2 extends ApplicationFrame {
      */
     private static XYDataset createDataset1() {
 
-        TimeSeries s1 = new TimeSeries("Random Data 1", Month.class);
+        TimeSeries s1 = new TimeSeries("Random Data 1");
         s1.add(new Month(2, 2001), 181.8);
         s1.add(new Month(3, 2001), 167.3);
         s1.add(new Month(4, 2001), 153.8);
@@ -81,7 +73,7 @@ public class DualAxisDemo2 extends ApplicationFrame {
         s1.add(new Month(5, 2002), 139.8);
         s1.add(new Month(6, 2002), 137.0);
         s1.add(new Month(7, 2002), 132.8);
-        
+
         TimeSeriesCollection dataset = new TimeSeriesCollection();
         dataset.addSeries(s1);
 
@@ -96,7 +88,7 @@ public class DualAxisDemo2 extends ApplicationFrame {
      */
     private static XYDataset createDataset2() {
 
-        TimeSeries s2 = new TimeSeries("Random Data 2", Month.class);
+        TimeSeries s2 = new TimeSeries("Random Data 2");
         s2.add(new Month(2, 2001), 429.6);
         s2.add(new Month(3, 2001), 323.2);
         s2.add(new Month(4, 2001), 417.2);
@@ -122,19 +114,19 @@ public class DualAxisDemo2 extends ApplicationFrame {
         return dataset;
 
     }
-    
+
     private static JFreeChart createChart() {
         XYDataset dataset = createDataset1();
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
-            "Dual Axis Demo 2", 
-            "Date", 
-            "Price Per Unit",
-            dataset, 
-            false,     // legend? no, we'll create our own
-            true,      // tooltips?
-            false      // URLs?
+                "Dual Axis Demo 2",
+                "Date",
+                "Price Per Unit",
+                dataset,
+                false,     // legend? no, we'll create our own
+                true,      // tooltips?
+                false      // URLs?
         );
-        
+
         XYPlot plot = (XYPlot) chart.getPlot();
         NumberAxis axis2 = new NumberAxis("Secondary");
         axis2.setAutoRangeIncludesZero(false);
@@ -142,21 +134,21 @@ public class DualAxisDemo2 extends ApplicationFrame {
         plot.setDataset(1, createDataset2());
         plot.mapDatasetToRangeAxis(1, 1);
         XYItemRenderer renderer = plot.getRenderer();
-        renderer.setToolTipGenerator(
+        renderer.setDefaultToolTipGenerator(
                 StandardXYToolTipGenerator.getTimeSeriesInstance());
         if (renderer instanceof XYLineAndShapeRenderer) {
             XYLineAndShapeRenderer rr = (XYLineAndShapeRenderer) renderer;
-            rr.setBaseShapesVisible(true);
-            rr.setShapesFilled(true);
+            rr.setDefaultShapesVisible(true);
+            rr.setDefaultShapesFilled(true);
         }
-        
+
         XYLineAndShapeRenderer renderer2 = new XYLineAndShapeRenderer();
         renderer2.setSeriesPaint(0, Color.black);
-        renderer2.setBaseShapesVisible(true);
-        renderer2.setToolTipGenerator(
+        renderer2.setDefaultShapesVisible(true);
+        renderer2.setDefaultToolTipGenerator(
                 StandardXYToolTipGenerator.getTimeSeriesInstance());
         plot.setRenderer(1, renderer2);
-              
+
         DateAxis axis = (DateAxis) plot.getDomainAxis();
         axis.setDateFormatOverride(new SimpleDateFormat("MMM-yyyy"));
 
@@ -170,29 +162,29 @@ public class DualAxisDemo2 extends ApplicationFrame {
         CompositeTitle legends = new CompositeTitle(container);
         legends.setPosition(RectangleEdge.BOTTOM);
         chart.addSubtitle(legends);
-        
+
         return chart;
     }
-    
+
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         JFreeChart chart = createChart();
         return new ChartPanel(chart);
     }
-        
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         DualAxisDemo2 demo = new DualAxisDemo2("Dual Axis Demo 2");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

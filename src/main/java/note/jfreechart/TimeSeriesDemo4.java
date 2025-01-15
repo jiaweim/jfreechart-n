@@ -1,30 +1,22 @@
-/* --------------------
- * TimeSeriesDemo4.java
- * --------------------
- * (C) Copyright 2002-2004, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.Color;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.api.RectangleInsets;
 import org.jfree.chart.plot.Marker;
 import org.jfree.chart.plot.ValueMarker;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.Hour;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RectangleInsets;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * An example of a time series chart using hourly data and including a null value.  The plot
@@ -35,7 +27,7 @@ public class TimeSeriesDemo4 extends ApplicationFrame {
     /**
      * A demonstration application showing a quarterly time series containing a null value.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public TimeSeriesDemo4(String title) {
 
@@ -50,7 +42,7 @@ public class TimeSeriesDemo4 extends ApplicationFrame {
     }
 
     private static XYDataset createDataset() {
-        TimeSeries series = new TimeSeries("Random Data", Hour.class);
+        TimeSeries series = new TimeSeries("Random Data");
         Day today = new Day();
         series.add(new Hour(1, today), 500.2);
         series.add(new Hour(2, today), 694.1);
@@ -61,53 +53,53 @@ public class TimeSeriesDemo4 extends ApplicationFrame {
         series.add(new Hour(12, today), 734.4);
         series.add(new Hour(16, today), 453.2);
         TimeSeriesCollection dataset = new TimeSeriesCollection(series);
-        return dataset;        
+        return dataset;
     }
-    
+
     private static JFreeChart createChart(XYDataset dataset) {
         // create a title with Unicode characters (currency symbols in this case)...
         String chartTitle = "\u20A2\u20A2\u20A3\u20A4\u20A5\u20A6\u20A7\u20A8\u20A9\u20AA";
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
-            chartTitle,
-            "Time", 
-            "Value",
-            dataset,
-            true,
-            true,
-            false
+                chartTitle,
+                "Time",
+                "Value",
+                dataset,
+                true,
+                true,
+                false
         );
 
-        XYPlot plot = (XYPlot) chart.getPlot(); 
+        XYPlot plot = (XYPlot) chart.getPlot();
         plot.setInsets(new RectangleInsets(0.0, 0.0, 0.0, 20.0));
         Marker marker = new ValueMarker(700.0);
         marker.setPaint(Color.blue);
         marker.setAlpha(0.8f);
         plot.addRangeMarker(marker);
         plot.setBackgroundPaint(null);
-        plot.setBackgroundImage(JFreeChart.INFO.getLogo());
+//        plot.setBackgroundImage(JFreeChart.INFO.getLogo());
         return chart;
     }
-    
+
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         JFreeChart chart = createChart(createDataset());
         return new ChartPanel(chart);
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
         TimeSeriesDemo4 demo = new TimeSeriesDemo4("Time Series Demo 4");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
 
     }

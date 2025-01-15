@@ -1,47 +1,36 @@
-/* -----------------------
- * MouseListenerDemo3.java
- * -----------------------
- * (C) Copyright 2003-2006, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.BasicStroke;
-import java.text.SimpleDateFormat;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartMouseEvent;
-import org.jfree.chart.ChartMouseListener;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.entity.ChartEntity;
 import org.jfree.chart.entity.LegendItemEntity;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.chart.swing.*;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.time.Month;
 import org.jfree.data.time.TimePeriodAnchor;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import java.awt.*;
+import java.text.SimpleDateFormat;
 
 /**
  * An example showing how to pick up mouse clicks on the chart legend.
  */
-public class MouseListenerDemo3 extends ApplicationFrame  
-                                implements ChartMouseListener {
+public class MouseListenerDemo3 extends ApplicationFrame
+        implements ChartMouseListener {
 
     private JFreeChart chart;
-    
+
     /**
-     * A demonstration application showing how to pick up mouse clicks on the 
+     * A demonstration application showing how to pick up mouse clicks on the
      * legend.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public MouseListenerDemo3(String title) {
 
@@ -51,16 +40,16 @@ public class MouseListenerDemo3 extends ApplicationFrame
         String chartTitle = "Legal & General Unit Trust Prices";
         XYDataset dataset = createDataset();
 
-        this.chart = ChartFactory.createTimeSeriesChart(chartTitle, 
+        this.chart = ChartFactory.createTimeSeriesChart(chartTitle,
                 "Date", "Price Per Unit", dataset, true, true, false);
-        
+
         this.chart.addSubtitle(new TextTitle(
                 "Click on the legend to see series highlighted..."));
-                                                              
+
         XYPlot plot = (XYPlot) this.chart.getPlot();
         DateAxis axis = (DateAxis) plot.getDomainAxis();
         axis.setDateFormatOverride(new SimpleDateFormat("MMM-yyyy"));
-                
+
         ChartPanel chartPanel = new ChartPanel(this.chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         chartPanel.setMouseZoomable(true, false);
@@ -76,7 +65,7 @@ public class MouseListenerDemo3 extends ApplicationFrame
      */
     public XYDataset createDataset() {
 
-        TimeSeries s1 = new TimeSeries("L&G European Index Trust", Month.class);
+        TimeSeries s1 = new TimeSeries("L&G European Index Trust");
         s1.add(new Month(2, 2001), 181.8);
         s1.add(new Month(3, 2001), 167.3);
         s1.add(new Month(4, 2001), 153.8);
@@ -96,7 +85,7 @@ public class MouseListenerDemo3 extends ApplicationFrame
         s1.add(new Month(6, 2002), 137.0);
         s1.add(new Month(7, 2002), 132.8);
 
-        TimeSeries s2 = new TimeSeries("L&G UK Index Trust", Month.class);
+        TimeSeries s2 = new TimeSeries("L&G UK Index Trust");
         s2.add(new Month(2, 2001), 129.6);
         s2.add(new Month(3, 2001), 123.2);
         s2.add(new Month(4, 2001), 117.2);
@@ -121,7 +110,7 @@ public class MouseListenerDemo3 extends ApplicationFrame
         dataset.addSeries(s2);
 
         dataset.setXPosition(TimePeriodAnchor.MIDDLE);
-        
+
         return dataset;
 
     }
@@ -129,19 +118,20 @@ public class MouseListenerDemo3 extends ApplicationFrame
     /**
      * Receives chart mouse click events.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     public void chartMouseClicked(ChartMouseEvent event) {
         ChartEntity e = event.getEntity();
         if (e != null) {
             if (e instanceof LegendItemEntity) {
                 LegendItemEntity entity = (LegendItemEntity) e;
-                int seriesIndex = entity.getSeriesIndex();
+                Comparable seriesKey1 = entity.getSeriesKey();
                 XYPlot plot = (XYPlot) this.chart.getPlot();
                 XYItemRenderer renderer = plot.getRenderer();
-                for (int i=0; i < plot.getDataset().getSeriesCount(); i++) {
+                for (int i = 0; i < plot.getDataset().getSeriesCount(); i++) {
                     renderer.setSeriesStroke(i, new BasicStroke(1.0f));
-                    if (i == seriesIndex) {
+                    Comparable seriesKey = plot.getDataset().getSeriesKey(i);
+                    if (seriesKey.equals(seriesKey1)) {
                         renderer.setSeriesStroke(i, new BasicStroke(2.0f));
                     }
                 }
@@ -152,22 +142,22 @@ public class MouseListenerDemo3 extends ApplicationFrame
     /**
      * Receives chart mouse moved events.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     public void chartMouseMoved(ChartMouseEvent event) {
         // ignore  
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         MouseListenerDemo3 demo = new MouseListenerDemo3(
                 "Mouse Listener Demo 3");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

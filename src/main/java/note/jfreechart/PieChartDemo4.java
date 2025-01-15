@@ -1,15 +1,16 @@
-/* ------------------
- * PieChartDemo4.java
- * ------------------
- * (C) Copyright 2006, by Object Refinery Limited.
- *
- */
+package note.jfreechart;
 
-package tutorial.jfreechart.demo;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.pie.PiePlot;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.general.PieDataset;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.Font;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -17,37 +18,24 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
-
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PiePlot;
-import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.data.general.PieDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
-import org.jfree.util.SortOrder;
-
 /**
  * A pie chart with controls for reordering the items in the dataset.
  */
 public class PieChartDemo4 extends ApplicationFrame {
 
     private static class DemoPanel extends JPanel implements ActionListener {
-    
+
         JFreeChart chart;
-        
-        DefaultPieDataset dataset; 
-        
+
+        DefaultPieDataset dataset;
+
         boolean ascendingByKey = false;
-        
+
         boolean ascendingByValue = false;
-        
+
         /**
          * Creates a new demo panel.
-         * 
+         *
          * @param dataset
          */
         public DemoPanel(DefaultPieDataset dataset) {
@@ -71,30 +59,26 @@ public class PieChartDemo4 extends ApplicationFrame {
             buttonPanel.add(button3);
             add(buttonPanel, BorderLayout.SOUTH);
         }
-        
+
         public void actionPerformed(ActionEvent e) {
             String cmd = e.getActionCommand();
             if ("BY_KEY".equals(cmd)) {
                 if (!this.ascendingByKey) {
-                    this.dataset.sortByKeys(SortOrder.ASCENDING);
+                    this.dataset.sortByKeys(org.jfree.chart.api.SortOrder.ASCENDING);
                     this.ascendingByKey = true;
-                }
-                else {
-                    this.dataset.sortByKeys(SortOrder.DESCENDING);
+                } else {
+                    this.dataset.sortByKeys(org.jfree.chart.api.SortOrder.DESCENDING);
                     this.ascendingByKey = false;
                 }
-            }
-            else if ("BY_VALUE".equals(cmd)) {
+            } else if ("BY_VALUE".equals(cmd)) {
                 if (!this.ascendingByValue) {
-                    this.dataset.sortByValues(SortOrder.ASCENDING);
+                    this.dataset.sortByValues(org.jfree.chart.api.SortOrder.ASCENDING);
                     this.ascendingByValue = true;
-                }
-                else {
-                    this.dataset.sortByValues(SortOrder.DESCENDING);
+                } else {
+                    this.dataset.sortByValues(org.jfree.chart.api.SortOrder.DESCENDING);
                     this.ascendingByValue = false;
                 }
-            }
-            else if ("RANDOM".equals(cmd)) {
+            } else if ("RANDOM".equals(cmd)) {
                 // we create a new dataset here - that's a bit wasteful,
                 // but the DefaultPieDataset will need new methods before we
                 // can shuffle it 'in place'...
@@ -109,15 +93,15 @@ public class PieChartDemo4 extends ApplicationFrame {
                 PiePlot plot = (PiePlot) this.chart.getPlot();
                 plot.setDataset(pd);
                 this.dataset = pd;
-            }            
+            }
         }
-        
+
     }
-    
+
     /**
      * Default constructor.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public PieChartDemo4(String title) {
         super(title);
@@ -128,7 +112,7 @@ public class PieChartDemo4 extends ApplicationFrame {
 
     /**
      * Creates a sample dataset.
-     * 
+     *
      * @return a sample dataset.
      */
     private static DefaultPieDataset createDataset() {
@@ -139,54 +123,53 @@ public class PieChartDemo4 extends ApplicationFrame {
         dataset.setValue("Section D", new Double(17.5));
         dataset.setValue("Section E", new Double(11.0));
         dataset.setValue("Section F", new Double(19.4));
-        return dataset;        
+        return dataset;
     }
-    
+
     /**
      * Creates a chart.
-     * 
-     * @param dataset  the dataset.
-     * 
+     *
+     * @param dataset the dataset.
      * @return a chart.
      */
     private static JFreeChart createChart(PieDataset dataset) {
-        
+
         JFreeChart chart = ChartFactory.createPieChart(
-            "Pie Chart Demo 4",  // chart title
-            dataset,             // data
-            true,                // include legend
-            true,
-            false
+                "Pie Chart Demo 4",  // chart title
+                dataset,             // data
+                true,                // include legend
+                true,
+                false
         );
-        
+
         PiePlot plot = (PiePlot) chart.getPlot();
         plot.setLabelFont(new Font("SansSerif", Font.PLAIN, 12));
         plot.setNoDataMessage("No data available");
         plot.setCircular(false);
         plot.setLabelGap(0.02);
         plot.setExplodePercent("Section D", 0.50);
-       return chart;
-        
+        return chart;
+
     }
-    
+
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         return new DemoPanel(createDataset());
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         PieChartDemo4 demo = new PieChartDemo4("Pie Chart Demo 4");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

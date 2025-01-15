@@ -1,27 +1,19 @@
-/* -------------------------
- * StackedBarChartDemo1.java
- * -------------------------
- * (C) Copyright 2002-2007, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.Color;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.StackedBarRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * A simple demonstration application showing how to create a stacked bar chart
@@ -32,7 +24,7 @@ public class StackedBarChartDemo1 extends ApplicationFrame {
     /**
      * Creates a new demo.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public StackedBarChartDemo1(String title) {
         super(title);
@@ -40,10 +32,10 @@ public class StackedBarChartDemo1 extends ApplicationFrame {
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         setContentPane(chartPanel);
     }
-    
+
     /**
      * Creates a sample dataset.
-     * 
+     *
      * @return a sample dataset.
      */
     private static CategoryDataset createDataset() {
@@ -62,60 +54,59 @@ public class StackedBarChartDemo1 extends ApplicationFrame {
         dataset.addValue(29.5, "Series 3", "Category 4");
         return dataset;
     }
-    
+
     /**
      * Creates a sample chart.
-     * 
-     * @param dataset  the dataset for the chart.
-     * 
+     *
+     * @param dataset the dataset for the chart.
      * @return a sample chart.
      */
     private static JFreeChart createChart(CategoryDataset dataset) {
 
         JFreeChart chart = ChartFactory.createStackedBarChart(
-            "Stacked Bar Chart Demo 1",  // chart title
-            "Category",                  // domain axis label
-            "Value",                     // range axis label
-            dataset,                     // data
-            PlotOrientation.VERTICAL,    // the plot orientation
-            true,                        // legend
-            true,                        // tooltips
-            false                        // urls
+                "Stacked Bar Chart Demo 1",  // chart title
+                "Category",                  // domain axis label
+                "Value",                     // range axis label
+                dataset,                     // data
+                PlotOrientation.VERTICAL,    // the plot orientation
+                true,                        // legend
+                true,                        // tooltips
+                false                        // urls
         );
         chart.setBackgroundPaint(Color.white);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setBackgroundPaint(Color.lightGray);
         plot.setRangeGridlinePaint(Color.white);
-        
+
         StackedBarRenderer renderer = (StackedBarRenderer) plot.getRenderer();
         renderer.setDrawBarOutline(false);
-        renderer.setItemLabelsVisible(true);
-        renderer.setBaseItemLabelGenerator(
+        renderer.setDefaultItemLabelsVisible(true);
+        renderer.setDefaultItemLabelGenerator(
                 new StandardCategoryItemLabelGenerator());
         return chart;
-        
+
     }
 
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         JFreeChart chart = createChart(createDataset());
         return new ChartPanel(chart);
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         StackedBarChartDemo1 demo = new StackedBarChartDemo1(
                 "Stacked Bar Chart Demo 1");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

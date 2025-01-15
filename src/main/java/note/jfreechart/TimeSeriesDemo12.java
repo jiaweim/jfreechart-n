@@ -1,32 +1,23 @@
-/* ---------------------
- * TimeSeriesDemo12.java
- * ---------------------
- * (C) Copyright 2003-2005, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.text.SimpleDateFormat;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.api.RectangleInsets;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.time.Minute;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RectangleInsets;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.SimpleDateFormat;
 
 /**
  * A demo.
@@ -35,8 +26,8 @@ public class TimeSeriesDemo12 extends ApplicationFrame {
 
     /**
      * A demo.
-     * 
-     * @param title  the frame title.
+     *
+     * @param title the frame title.
      */
     public TimeSeriesDemo12(String title) {
 
@@ -53,21 +44,20 @@ public class TimeSeriesDemo12 extends ApplicationFrame {
 
     /**
      * Creates a chart.
-     * 
-     * @param dataset  a dataset.
-     * 
+     *
+     * @param dataset a dataset.
      * @return A chart.
      */
     private static JFreeChart createChart(XYDataset dataset) {
 
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
-            "Sample Chart",
-            "Date", 
-            "Value",
-            dataset,
-            true,
-            true,
-            false
+                "Sample Chart",
+                "Date",
+                "Value",
+                dataset,
+                true,
+                true,
+                false
         );
 
         chart.setBackgroundPaint(Color.white);
@@ -80,23 +70,23 @@ public class TimeSeriesDemo12 extends ApplicationFrame {
         plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(false);
-        
+
         XYItemRenderer renderer = plot.getRenderer();
         if (renderer instanceof StandardXYItemRenderer) {
             StandardXYItemRenderer rr = (StandardXYItemRenderer) renderer;
             rr.setBaseShapesVisible(true);
-            rr.setShapesFilled(true);
+            rr.setBaseShapesFilled(true);
             renderer.setSeriesStroke(0, new BasicStroke(2.0f));
             renderer.setSeriesStroke(1, new BasicStroke(2.0f));
-           }
-        
+        }
+
         DateAxis axis = (DateAxis) plot.getDomainAxis();
         axis.setDateFormatOverride(new SimpleDateFormat("hh:mma"));
-        
+
         return chart;
 
     }
-    
+
     /**
      * Creates a sample dataset.
      *
@@ -105,17 +95,17 @@ public class TimeSeriesDemo12 extends ApplicationFrame {
     private static XYDataset createDataset() {
 
         TimeSeriesCollection dataset = new TimeSeriesCollection();
-        
-        TimeSeries s1 = new TimeSeries("Series 1", Minute.class);
+
+        TimeSeries s1 = new TimeSeries("Series 1");
         s1.add(new Minute(0, 0, 7, 12, 2003), 1.2);
         s1.add(new Minute(30, 12, 7, 12, 2003), 3.0);
         s1.add(new Minute(15, 14, 7, 12, 2003), 8.0);
-        
-        TimeSeries s2 = new TimeSeries("Series 2", Minute.class);
+
+        TimeSeries s2 = new TimeSeries("Series 2");
         s2.add(new Minute(0, 3, 7, 12, 2003), 0.0);
         s2.add(new Minute(30, 9, 7, 12, 2003), 0.0);
         s2.add(new Minute(15, 10, 7, 12, 2003), 0.0);
-        
+
         dataset.addSeries(s1);
         dataset.addSeries(s2);
 
@@ -125,7 +115,7 @@ public class TimeSeriesDemo12 extends ApplicationFrame {
 
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
@@ -136,12 +126,12 @@ public class TimeSeriesDemo12 extends ApplicationFrame {
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         TimeSeriesDemo12 demo = new TimeSeriesDemo12("Time Series Demo 12");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

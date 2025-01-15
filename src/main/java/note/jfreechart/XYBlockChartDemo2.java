@@ -1,32 +1,25 @@
-/* ----------------------
- * XYBlockChartDemo2.java
- * ----------------------
- * (C) Copyright 2006, 2007, by Object Refinery Limited.
- *
- */
+package note.jfreechart;
 
-package tutorial.jfreechart.demo;
-
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.api.RectangleAnchor;
+import org.jfree.chart.api.RectangleEdge;
+import org.jfree.chart.api.RectangleInsets;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.SymbolAxis;
-import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.legend.PaintScaleLegend;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.plot.pie.PiePlot;
 import org.jfree.chart.renderer.LookupPaintScale;
 import org.jfree.chart.renderer.xy.XYBlockRenderer;
-import org.jfree.chart.title.PaintScaleLegend;
-import org.jfree.chart.ui.ApplicationFrame;
-import org.jfree.chart.ui.RectangleAnchor;
-import org.jfree.chart.ui.RectangleEdge;
-import org.jfree.chart.ui.RectangleInsets;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.RegularTimePeriod;
 import org.jfree.data.xy.DefaultXYZDataset;
 import org.jfree.data.xy.XYZDataset;
-import org.jfree.ui.RefineryUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,16 +28,14 @@ import java.awt.*;
  * A simple demonstration application showing the experimental XYBlockRenderer
  * in action.
  */
-public class XYBlockChartDemo2 extends ApplicationFrame
-{
+public class XYBlockChartDemo2 extends ApplicationFrame {
 
     /**
      * Constructs the demo application.
      *
      * @param title the frame title.
      */
-    public XYBlockChartDemo2(String title)
-    {
+    public XYBlockChartDemo2(String title) {
         super(title);
         JPanel chartPanel = createDemoPanel();
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
@@ -57,8 +48,7 @@ public class XYBlockChartDemo2 extends ApplicationFrame
      * @param dataset the dataset.
      * @return A chart instance.
      */
-    private static JFreeChart createChart(XYZDataset dataset)
-    {
+    private static JFreeChart createChart(XYZDataset dataset) {
         DateAxis xAxis = new DateAxis("Date");
         xAxis.setLowerMargin(0.0);
         xAxis.setUpperMargin(0.0);
@@ -102,8 +92,7 @@ public class XYBlockChartDemo2 extends ApplicationFrame
      *
      * @return A sample dataset.
      */
-    private static XYZDataset createDataset()
-    {
+    private static XYZDataset createDataset() {
         double[] xvalues = new double[2400];
         double[] yvalues = new double[2400];
         double[] zvalues = new double[2400];
@@ -131,8 +120,7 @@ public class XYBlockChartDemo2 extends ApplicationFrame
      *
      * @return A panel.
      */
-    public static JPanel createDemoPanel()
-    {
+    public static JPanel createDemoPanel() {
         return new ChartPanel(createChart(createDataset()));
     }
 
@@ -141,11 +129,10 @@ public class XYBlockChartDemo2 extends ApplicationFrame
      *
      * @param args ignored.
      */
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         XYBlockChartDemo2 demo = new XYBlockChartDemo2("Block Chart Demo 2");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

@@ -1,19 +1,6 @@
-/* ---------------------
- * ParetoChartDemo1.java
- * ---------------------
- * (C) Copyright 2003-2006, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.Color;
-import java.text.NumberFormat;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
@@ -22,15 +9,19 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.DatasetRenderingOrder;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.chart.title.TextTitle;
-import org.jfree.data.DataUtilities;
+import org.jfree.data.DataUtils;
 import org.jfree.data.DefaultKeyedValues;
 import org.jfree.data.KeyedValues;
 import org.jfree.data.category.CategoryDataset;
-import org.jfree.data.general.DatasetUtilities;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
-import org.jfree.util.SortOrder;
+import org.jfree.data.general.DatasetUtils;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.NumberFormat;
 
 /**
  * A demo showing the creation of a pareto chart.
@@ -40,7 +31,7 @@ public class ParetoChartDemo1 extends ApplicationFrame {
     /**
      * Creates a new demo instance.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public ParetoChartDemo1(String title) {
         super(title);
@@ -48,25 +39,24 @@ public class ParetoChartDemo1 extends ApplicationFrame {
         chartPanel.setPreferredSize(new java.awt.Dimension(550, 270));
         setContentPane(chartPanel);
     }
-    
+
     /**
      * Creates the chart.
-     * 
-     * @param datasets  the datasets.
-     * 
+     *
+     * @param datasets the datasets.
      * @return The chart.
      */
     public static JFreeChart createChart(CategoryDataset[] datasets) {
         // create the chart...
         JFreeChart chart = ChartFactory.createBarChart(
-            "Freshmeat Software Projects",  // chart title
-            "Language",                     // domain axis label
-            "Projects",                     // range axis label
-            datasets[0],                        // data
-            PlotOrientation.VERTICAL,
-            true,                           // include legend
-            true,
-            false
+                "Freshmeat Software Projects",  // chart title
+                "Language",                     // domain axis label
+                "Projects",                     // range axis label
+                datasets[0],                        // data
+                PlotOrientation.VERTICAL,
+                true,                           // include legend
+                true,
+                false
         );
 
         chart.addSubtitle(new TextTitle("By Programming Language"));
@@ -95,12 +85,12 @@ public class ParetoChartDemo1 extends ApplicationFrame {
         plot.mapDatasetToRangeAxis(1, 1);
 
         plot.setDatasetRenderingOrder(DatasetRenderingOrder.FORWARD);
-        return chart;    
+        return chart;
     }
-    
+
     /**
      * Creates the sample datasets.
-     * 
+     *
      * @return The sample datasets.
      */
     public static CategoryDataset[] createDatasets() {
@@ -116,18 +106,18 @@ public class ParetoChartDemo1 extends ApplicationFrame {
         data.addValue("SQL", new Integer(263));
         data.addValue("Unix Shell", new Integer(485));
 
-        data.sortByValues(SortOrder.DESCENDING);
-        KeyedValues cumulative = DataUtilities.getCumulativePercentages(data);
-        CategoryDataset dataset = DatasetUtilities.createCategoryDataset(
+        data.sortByValues(org.jfree.chart.api.SortOrder.DESCENDING);
+        KeyedValues cumulative = DataUtils.getCumulativePercentages(data);
+        CategoryDataset dataset = DatasetUtils.createCategoryDataset(
                 "Languages", data);
-        CategoryDataset dataset2 = DatasetUtilities.createCategoryDataset(
+        CategoryDataset dataset2 = DatasetUtils.createCategoryDataset(
                 "Cumulative", cumulative);
-        return new CategoryDataset[] { dataset, dataset2 };
+        return new CategoryDataset[]{dataset, dataset2};
     }
-    
+
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
@@ -135,16 +125,16 @@ public class ParetoChartDemo1 extends ApplicationFrame {
         JFreeChart chart = createChart(datasets);
         return new ChartPanel(chart);
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(final String[] args) {
         ParetoChartDemo1 demo = new ParetoChartDemo1("Pareto Chart Demo 1");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

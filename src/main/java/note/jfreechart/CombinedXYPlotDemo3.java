@@ -1,45 +1,34 @@
-/* ------------------------
- * CombinedXYPlotDemo3.java
- * ------------------------
- * (C) Copyright 2003, 2004, by Object Refinery Limited.
- *
- */
+package note.jfreechart;
 
-package tutorial.jfreechart.demo;
-
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GradientPaint;
-
-import javax.swing.JPanel;
-
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.date.MonthConstants;
 import org.jfree.chart.plot.CombinedRangeXYPlot;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
 import org.jfree.chart.renderer.xy.XYBarRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.MovingAverage;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
-import org.jfree.date.MonthConstants;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * A demonstration application showing how to create a combined chart using...
- *
  */
 public class CombinedXYPlotDemo3 extends ApplicationFrame {
 
     /**
      * Constructs a new demonstration application.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public CombinedXYPlotDemo3(String title) {
 
@@ -48,7 +37,6 @@ public class CombinedXYPlotDemo3 extends ApplicationFrame {
         ChartPanel panel = new ChartPanel(chart, true, true, true, false, true);
         panel.setPreferredSize(new java.awt.Dimension(500, 270));
         setContentPane(panel);
-
     }
 
     /**
@@ -65,7 +53,7 @@ public class CombinedXYPlotDemo3 extends ApplicationFrame {
 
         TimeSeriesCollection dataset1 = new TimeSeriesCollection();
         TimeSeries mav = MovingAverage.createMovingAverage(
-            eur, "EUR/GBP (30 Day MA)", 30, 30
+                eur, "EUR/GBP (30 Day MA)", 30, 30
         );
         dataset1.addSeries(eur);
         dataset1.addSeries(mav);
@@ -84,17 +72,17 @@ public class CombinedXYPlotDemo3 extends ApplicationFrame {
 
         // add subplot 1...
         XYPlot subplot1 = new XYPlot(dataset0, new DateAxis("Date 1"), null,
-                                     new StandardXYItemRenderer());
+                new StandardXYItemRenderer());
         parent.add(subplot1, 1);
 
         // add subplot 2...
         XYPlot subplot2 = new XYPlot(dataset1, new DateAxis("Date 2"), null,
-                                     new StandardXYItemRenderer());
+                new StandardXYItemRenderer());
         parent.add(subplot2, 1);
 
         // add subplot 3...
         XYPlot subplot3 = new XYPlot(dataset2, new DateAxis("Date 3"),
-                                     null, new XYBarRenderer(0.20));
+                null, new XYBarRenderer(0.20));
         parent.add(subplot3, 1);
 
         // now make the top level JFreeChart
@@ -102,17 +90,17 @@ public class CombinedXYPlotDemo3 extends ApplicationFrame {
 
         // then customise it a little...
         TextTitle subtitle = new TextTitle("This is a subtitle",
-                                           new Font("SansSerif", Font.BOLD, 12));
+                new Font("SansSerif", Font.BOLD, 12));
         chart.addSubtitle(subtitle);
         chart.setBackgroundPaint(new GradientPaint(0, 0, Color.white, 0, 1000, Color.blue));
         return chart;
 
     }
-    
+
     /**
      * Returns a time series of the daily EUR/GBP exchange rates in 2001 (to date), for use in
      * the JFreeChart demonstration application.
-     * <P>
+     * <p>
      * You wouldn't normally create a time series in this way.  Typically, values would
      * be read from a database.
      *
@@ -356,35 +344,33 @@ public class CombinedXYPlotDemo3 extends ApplicationFrame {
             t1.add(new Day(28, MonthConstants.NOVEMBER, 2001), new Double(1.6069));
             t1.add(new Day(29, MonthConstants.NOVEMBER, 2001), new Double(1.6044));
             t1.add(new Day(30, MonthConstants.NOVEMBER, 2001), new Double(1.5928));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
         return t1;
     }
-    
+
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         JFreeChart chart = createCombinedChart();
         return new ChartPanel(chart);
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
         CombinedXYPlotDemo3 demo = new CombinedXYPlotDemo3("Combined XY Plot Demo 3");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
-
     }
 
 }

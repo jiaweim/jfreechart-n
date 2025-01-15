@@ -1,30 +1,22 @@
-/* --------------------
- * TimeSeriesDemo9.java
- * --------------------
- * (C) Copyright 2003-2005, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Rectangle2D;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Rectangle2D;
 
 /**
  * An example of a time series chart.
@@ -35,7 +27,7 @@ public class TimeSeriesDemo9 extends ApplicationFrame {
      * A demonstration application showing how to create a simple time series
      * chart.  This example uses monthly data.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public TimeSeriesDemo9(String title) {
 
@@ -50,13 +42,13 @@ public class TimeSeriesDemo9 extends ApplicationFrame {
 
     private static final JFreeChart createChart(XYDataset dataset) {
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
-            "Time Series Demo 9", 
-            "Date", 
-            "Price Per Unit",
-            dataset,
-            true,
-            true,
-            false
+                "Time Series Demo 9",
+                "Date",
+                "Price Per Unit",
+                dataset,
+                true,
+                true,
+                false
         );
 
         XYPlot plot = (XYPlot) chart.getPlot();
@@ -64,13 +56,13 @@ public class TimeSeriesDemo9 extends ApplicationFrame {
         r.setSeriesVisibleInLegend(3, Boolean.FALSE);
         if (r instanceof XYLineAndShapeRenderer) {
             XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
-            renderer.setShapesVisible(true);
-            renderer.setShapesFilled(true);
+            renderer.setDefaultShapesVisible(true);
+            renderer.setDefaultShapesFilled(true);
             renderer.setSeriesShape(
-                0, new Ellipse2D.Double(-3.0, -3.0, 6.0, 6.0)
+                    0, new Ellipse2D.Double(-3.0, -3.0, 6.0, 6.0)
             );
             renderer.setSeriesShape(
-                1, new Rectangle2D.Double(-3.0, -3.0, 6.0, 6.0)
+                    1, new Rectangle2D.Double(-3.0, -3.0, 6.0, 6.0)
             );
             GeneralPath s2 = new GeneralPath();
             s2.moveTo(0.0f, -3.0f);
@@ -99,7 +91,7 @@ public class TimeSeriesDemo9 extends ApplicationFrame {
         plot.getRangeAxis().setVisible(false);
         return chart;
     }
-    
+
     /**
      * Creates a sample dataset.
      *
@@ -118,14 +110,13 @@ public class TimeSeriesDemo9 extends ApplicationFrame {
     /**
      * Creates a time series containing random daily data.
      *
-     * @param series  the series index.
+     * @param series the series index.
      * @param count  the number of items for the series.
-     *
      * @return the dataset.
      */
     private static TimeSeries createTimeSeries(int series, int count) {
 
-        TimeSeries result = new TimeSeries("Series " + series , Day.class);
+        TimeSeries result = new TimeSeries("Series " + series);
 
         Day start = new Day();
         for (int i = 0; i < count; i++) {
@@ -139,7 +130,7 @@ public class TimeSeriesDemo9 extends ApplicationFrame {
 
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
@@ -150,15 +141,14 @@ public class TimeSeriesDemo9 extends ApplicationFrame {
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
         TimeSeriesDemo9 demo = new TimeSeriesDemo9("Time Series Demo 9");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
-
     }
 
 }

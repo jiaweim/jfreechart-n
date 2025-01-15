@@ -1,19 +1,3 @@
-/* -------------------
- * DrawStringDemo.java
- * -------------------
- * (C) Copyright 2003, 2004, by Object Refinery Limited.
- *
- * Original Author:  David Gilbert (for Object Refinery Limited);
- * Contributor(s):   -;
- *
- * $Id: DrawStringDemo.java,v 1.1 2004/07/15 15:23:31 mungady Exp $
- *
- * Changes
- * -------
- * 10-Jun-2003 : Version 1;
- *
- */
-
 package note.jfreechart;
 
 import org.jfree.chart.swing.ApplicationFrame;
@@ -33,8 +17,7 @@ import java.awt.event.ActionListener;
  * A demo of some of the string drawing methods in the JCommon class library.
  */
 public class DrawStringDemo extends ApplicationFrame
-        implements ActionListener, ChangeListener
-{
+        implements ActionListener, ChangeListener {
     /**
      * The alignment anchor for the first panel.
      */

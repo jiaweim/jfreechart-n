@@ -1,33 +1,18 @@
-/* -------------------------
- * TimePeriodValuesDemo.java
- * -------------------------
- * (C) Copyright 2003, 2004, by Object Refinery Limited.
- *
- */
+package note.jfreechart;
 
-package tutorial.jfreechart.demo;
-
-import java.text.SimpleDateFormat;
-
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.DateAxis;
-import org.jfree.chart.axis.DateTickUnit;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.axis.*;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
 import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
-import org.jfree.data.time.Day;
-import org.jfree.data.time.Hour;
-import org.jfree.data.time.Minute;
-import org.jfree.data.time.SimpleTimePeriod;
-import org.jfree.data.time.TimePeriodValues;
-import org.jfree.data.time.TimePeriodValuesCollection;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
+import org.jfree.data.time.*;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import java.text.SimpleDateFormat;
 
 /**
  * An example of....
@@ -37,7 +22,7 @@ public class TimePeriodValuesDemo1 extends ApplicationFrame {
     /**
      * A demonstration application showing how to....
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public TimePeriodValuesDemo1(String title) {
 
@@ -45,22 +30,22 @@ public class TimePeriodValuesDemo1 extends ApplicationFrame {
 
         XYDataset data1 = createDataset1();
         XYItemRenderer renderer1 = new XYBarRenderer();
-        
+
         DateAxis domainAxis = new DateAxis("Date");
         domainAxis.setVerticalTickLabels(true);
-        domainAxis.setTickUnit(new DateTickUnit(DateTickUnit.HOUR, 1));
+        domainAxis.setTickUnit(new DateTickUnit(DateTickUnitType.HOUR, 1));
         domainAxis.setDateFormatOverride(new SimpleDateFormat("hh:mm"));
         domainAxis.setLowerMargin(0.01);
         domainAxis.setUpperMargin(0.01);
         ValueAxis rangeAxis = new NumberAxis("Value");
-        
+
         XYPlot plot = new XYPlot(data1, domainAxis, rangeAxis, renderer1);
 
         XYDataset data2 = createDataset2();
         StandardXYItemRenderer renderer2 = new StandardXYItemRenderer(
                 StandardXYItemRenderer.SHAPES_AND_LINES);
-        renderer2.setShapesFilled(true);
-        
+        renderer2.setBaseShapesFilled(true);
+
         plot.setDataset(1, data2);
         plot.setRenderer(1, renderer2);
 
@@ -71,7 +56,7 @@ public class TimePeriodValuesDemo1 extends ApplicationFrame {
         setContentPane(chartPanel);
 
     }
-    
+
     /**
      * Creates a dataset, consisting of two series of monthly data.
      *
@@ -129,16 +114,15 @@ public class TimePeriodValuesDemo1 extends ApplicationFrame {
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
         TimePeriodValuesDemo1 demo = new TimePeriodValuesDemo1(
                 "Time Period Values Demo 1");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
-
     }
 
 }

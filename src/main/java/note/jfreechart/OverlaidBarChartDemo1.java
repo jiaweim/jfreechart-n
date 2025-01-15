@@ -1,33 +1,26 @@
-/* -------------------------
- * OverlaidBarChartDemo1.java
- * -------------------------
- * (C) Copyright 2002-2005, by Object Refinery Limited.
- */
+package note.jfreechart;
 
-package tutorial.jfreechart.demo;
-
-import java.awt.Color;
-import javax.swing.JPanel;
-
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.api.RectangleAnchor;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.labels.CategoryItemLabelGenerator;
 import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.DatasetRenderingOrder;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.ValueMarker;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
-import org.jfree.chart.plot.ValueMarker;
-import org.jfree.ui.RectangleAnchor;
+
+import javax.swing.*;
+import java.awt.*;
 
 
 /**
@@ -39,7 +32,7 @@ public class OverlaidBarChartDemo1 extends ApplicationFrame {
     /**
      * Default constructor.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public OverlaidBarChartDemo1(String title) {
 
@@ -47,12 +40,11 @@ public class OverlaidBarChartDemo1 extends ApplicationFrame {
         JPanel chartPanel = createDemoPanel();
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         setContentPane(chartPanel);
-
     }
-    
+
     /**
      * Creates a demo chart.
-     * 
+     *
      * @return A chart.
      */
     public static JFreeChart createChart() {
@@ -77,16 +69,16 @@ public class OverlaidBarChartDemo1 extends ApplicationFrame {
         dataset1.addValue(1.0, "S2", "Category 8");
 
         // create the first renderer...
-        CategoryItemLabelGenerator generator 
-            = new StandardCategoryItemLabelGenerator();
+        CategoryItemLabelGenerator generator
+                = new StandardCategoryItemLabelGenerator();
         CategoryItemRenderer renderer = new BarRenderer();
-        renderer.setItemLabelGenerator(generator);
-        renderer.setItemLabelsVisible(true);
-        
+        renderer.setDefaultItemLabelGenerator(generator);
+        renderer.setDefaultItemLabelsVisible(true);
+
         CategoryPlot plot = new CategoryPlot();
         plot.setDataset(dataset1);
         plot.setRenderer(renderer);
-        
+
         plot.setDomainAxis(new CategoryAxis("Category"));
         plot.setRangeAxis(new NumberAxis("Value"));
 
@@ -106,7 +98,7 @@ public class OverlaidBarChartDemo1 extends ApplicationFrame {
         dataset2.addValue(4.0, "T1", "Category 8");
 
         CategoryItemRenderer renderer2 = new LineAndShapeRenderer(true, false);
-	
+
         plot.setDataset(1, dataset2);
         plot.setRenderer(1, renderer2);
 
@@ -136,43 +128,42 @@ public class OverlaidBarChartDemo1 extends ApplicationFrame {
         marker.setPaint(Color.red);
         marker.setAlpha(0.8f);
         plot.addRangeMarker(marker);
-		ValueMarker marker1 = new ValueMarker(10.0);
+        ValueMarker marker1 = new ValueMarker(10.0);
         marker1.setPaint(Color.yellow);
         marker1.setAlpha(0.8f);
-		marker1.setLabelAnchor(RectangleAnchor.BOTTOM_RIGHT);
-		marker1.setLabel("eeeeeeeee");
+        marker1.setLabelAnchor(RectangleAnchor.BOTTOM_RIGHT);
+        marker1.setLabel("eeeeeeeee");
         plot.addRangeMarker(marker1);
-	         
+
         plot.getDomainAxis().setCategoryLabelPositions(CategoryLabelPositions.UP_45);
         JFreeChart chart = new JFreeChart(plot);
         chart.setTitle("Overlaid Bar Chart");
         return chart;
     }
-    
+
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
-    public static JPanel createDemoPanel() { 
+    public static JPanel createDemoPanel() {
         JFreeChart chart = createChart();
         return new ChartPanel(chart);
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
         OverlaidBarChartDemo1 demo = new OverlaidBarChartDemo1(
-            "Overlaid Bar Chart Demo"
+                "Overlaid Bar Chart Demo"
         );
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
-
     }
 
 }

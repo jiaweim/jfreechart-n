@@ -1,21 +1,9 @@
-/* -----------------------
- * SurveyResultsDemo3.java
- * -----------------------
- * (C) Copyright 2003, 2004, 2006, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.Color;
-import java.awt.Font;
-import java.text.DecimalFormat;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.api.HorizontalAlignment;
+import org.jfree.chart.api.RectangleAnchor;
 import org.jfree.chart.axis.CategoryLabelPosition;
 import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.axis.ExtendedCategoryAxis;
@@ -26,15 +14,18 @@ import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
+import org.jfree.chart.text.TextAnchor;
+import org.jfree.chart.text.TextBlockAnchor;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.text.TextBlockAnchor;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.HorizontalAlignment;
-import org.jfree.ui.RectangleAnchor;
-import org.jfree.ui.RefineryUtilities;
-import org.jfree.ui.TextAnchor;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.DecimalFormat;
 
 /**
  * A chart showing...
@@ -44,7 +35,7 @@ public class SurveyResultsDemo3 extends ApplicationFrame {
     /**
      * Creates a new demo.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public SurveyResultsDemo3(String title) {
         super(title);
@@ -52,10 +43,10 @@ public class SurveyResultsDemo3 extends ApplicationFrame {
         chartPanel.setPreferredSize(new java.awt.Dimension(300, 270));
         setContentPane(chartPanel);
     }
-    
+
     /**
      * Creates a dataset.
-     * 
+     *
      * @return The dataset.
      */
     private static CategoryDataset createDataset() {
@@ -66,44 +57,43 @@ public class SurveyResultsDemo3 extends ApplicationFrame {
         dataset.addValue(2.74, "Results", "All");
         return dataset;
     }
-    
+
     /**
      * Creates a chart.
-     * 
-     * @param dataset  the dataset.
-     * 
+     *
+     * @param dataset the dataset.
      * @return The chart.
      */
     private static JFreeChart createChart(CategoryDataset dataset) {
 
         JFreeChart chart = ChartFactory.createBarChart(
-            null,                         // chart title
-            null,                         // domain axis label
-            null,                         // range axis label
-            dataset,                      // data
-            PlotOrientation.HORIZONTAL,   // orientation
-            false,                        // include legend
-            true,
-            false
+                null,                         // chart title
+                null,                         // domain axis label
+                null,                         // range axis label
+                dataset,                      // data
+                PlotOrientation.HORIZONTAL,   // orientation
+                false,                        // include legend
+                true,
+                false
         );
-        
+
         chart.setBackgroundPaint(Color.white);
         chart.getPlot().setOutlinePaint(null);
         TextTitle title = new TextTitle("Figure 6 | Overall SEO Rating");
         title.setHorizontalAlignment(HorizontalAlignment.LEFT);
         title.setBackgroundPaint(Color.red);
         title.setPaint(Color.white);
-        
+
         chart.setTitle(title);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
-        
+
         ValueAxis rangeAxis = plot.getRangeAxis();
         rangeAxis.setRange(0.0, 4.0);
         rangeAxis.setVisible(false);
-        
+
         ExtendedCategoryAxis domainAxis = new ExtendedCategoryAxis(null);
         domainAxis.setTickLabelFont(new Font("SansSerif", Font.BOLD, 12));
-        domainAxis.setCategoryMargin(0.30);        
+        domainAxis.setCategoryMargin(0.30);
         domainAxis.addSubLabel("Sm.", "(10)");
         domainAxis.addSubLabel("Med.", "(10)");
         domainAxis.addSubLabel("Lg.", "(10)");
@@ -113,29 +103,29 @@ public class SurveyResultsDemo3 extends ApplicationFrame {
                 RectangleAnchor.LEFT, TextBlockAnchor.CENTER_LEFT);
         domainAxis.setCategoryLabelPositions(CategoryLabelPositions.replaceLeftPosition(p, left));
         plot.setDomainAxis(domainAxis);
-        
+
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setSeriesPaint(0, new Color(0x9C, 0xA4, 0x4A));
         renderer.setDrawBarOutline(false);
-        
-        StandardCategoryItemLabelGenerator generator 
-                = new StandardCategoryItemLabelGenerator("{2}", 
-                        new DecimalFormat("0.00"));
-        renderer.setItemLabelGenerator(generator);
-        renderer.setItemLabelsVisible(true);
-        renderer.setItemLabelFont(new Font("SansSerif", Font.PLAIN, 18));
+
+        StandardCategoryItemLabelGenerator generator
+                = new StandardCategoryItemLabelGenerator("{2}",
+                new DecimalFormat("0.00"));
+        renderer.setDefaultItemLabelGenerator(generator);
+        renderer.setDefaultItemLabelsVisible(true);
+        renderer.setDefaultItemLabelFont(new Font("SansSerif", Font.PLAIN, 18));
         ItemLabelPosition position = new ItemLabelPosition(
                 ItemLabelAnchor.INSIDE3, TextAnchor.CENTER_RIGHT);
-        renderer.setPositiveItemLabelPosition(position);
+        renderer.setDefaultPositiveItemLabelPosition(position);
         renderer.setPositiveItemLabelPositionFallback(new ItemLabelPosition());
-        
+
         return chart;
-       
+
     }
-  
+
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
@@ -146,15 +136,14 @@ public class SurveyResultsDemo3 extends ApplicationFrame {
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
         SurveyResultsDemo3 demo = new SurveyResultsDemo3("Survey Results Demo 3");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
-
     }
 
 }

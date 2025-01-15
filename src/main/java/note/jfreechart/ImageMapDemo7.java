@@ -1,34 +1,22 @@
-/* ------------------
- * ImageMapDemo7.java
- * ------------------
- * (C) Copyright 2006, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.Color;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartRenderingInfo;
-import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.entity.StandardEntityCollection;
-import org.jfree.chart.imagemap.ImageMapUtilities;
+import org.jfree.chart.imagemap.ImageMapUtils;
+import org.jfree.chart.internal.ShapeUtils;
 import org.jfree.chart.labels.CategorySeriesLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.util.ShapeUtilities;
+
+import java.awt.*;
+import java.io.*;
 
 /**
  * A demo showing how to create an HTML image map for a bar chart.
@@ -40,9 +28,9 @@ public class ImageMapDemo7 {
         public String generateLabel(CategoryDataset dataset, int series) {
             return "series-" + series + ".html";
         }
-        
+
     }
-    
+
     /**
      * Default constructor.
      */
@@ -52,7 +40,7 @@ public class ImageMapDemo7 {
 
     /**
      * Creates a sample dataset.
-     * 
+     *
      * @return The dataset.
      */
     private static CategoryDataset createDataset() {
@@ -74,26 +62,25 @@ public class ImageMapDemo7 {
         dataset.addValue(77, "Series 3", "Category 5");
         return dataset;
     }
-    
+
     /**
      * Creates a sample chart.
-     * 
-     * @param dataset  a dataset.
-     * 
+     *
+     * @param dataset a dataset.
      * @return The chart.
      */
     private static JFreeChart createChart(CategoryDataset dataset) {
-        
+
         // create the chart...
         JFreeChart chart = ChartFactory.createLineChart(
-            "Line Chart Demo 7",             // chart title
-            "Category",                      // domain axis label
-            "Count",                         // range axis label
-            dataset,                         // data
-            PlotOrientation.VERTICAL,        // orientation
-            true,                            // include legend
-            true,                            // tooltips
-            false                            // urls
+                "Line Chart Demo 7",             // chart title
+                "Category",                      // domain axis label
+                "Count",                         // range axis label
+                dataset,                         // data
+                PlotOrientation.VERTICAL,        // orientation
+                true,                            // include legend
+                true,                            // tooltips
+                false                            // urls
         );
 
         chart.setBackgroundPaint(Color.white);
@@ -107,19 +94,19 @@ public class ImageMapDemo7 {
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
         // customise the renderer...
-        LineAndShapeRenderer renderer 
-            = (LineAndShapeRenderer) plot.getRenderer();
+        LineAndShapeRenderer renderer
+                = (LineAndShapeRenderer) plot.getRenderer();
         renderer.setSeriesShapesVisible(0, true);
         renderer.setSeriesShapesVisible(1, false);
         renderer.setSeriesShapesVisible(2, true);
         renderer.setSeriesLinesVisible(2, false);
-        renderer.setSeriesShape(2, ShapeUtilities.createDiamond(4.0f));
+        renderer.setSeriesShape(2, ShapeUtils.createDiamond(4.0f));
         renderer.setDrawOutlines(true);
         renderer.setUseFillPaint(true);
-        renderer.setFillPaint(Color.white);
-        
-        CategorySeriesLabelGenerator myURLGenerator 
-            = new MyCategorySeriesLabelGenerator();
+        renderer.setDefaultFillPaint(Color.white);
+
+        CategorySeriesLabelGenerator myURLGenerator
+                = new MyCategorySeriesLabelGenerator();
         renderer.setLegendItemURLGenerator(myURLGenerator);
         renderer.setLegendItemToolTipGenerator(myURLGenerator);
         return chart;
@@ -128,20 +115,20 @@ public class ImageMapDemo7 {
     /**
      * Starting point for the demo.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
         CategoryDataset dataset = createDataset();
 
         JFreeChart chart = createChart(dataset);
-        
+
         // save it to an image
         try {
             ChartRenderingInfo info = new ChartRenderingInfo(
                     new StandardEntityCollection());
             File file1 = new File("ImageMapDemo7.png");
-            ChartUtilities.saveChartAsPNG(file1, chart, 600, 400, info);
+            ChartUtils.saveChartAsPNG(file1, chart, 600, 400, info);
 
             // write an HTML page incorporating the image with an image map
             File file2 = new File("ImageMapDemo7.html");
@@ -153,15 +140,14 @@ public class ImageMapDemo7 {
             writer.println("<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en\" xml:lang=\"en\">");
             writer.println("<head><title>JFreeChart Image Map Demo 7</title></head>");
             writer.println("<body><p>");
-            ImageMapUtilities.writeImageMap(writer, "chart", info);
+            ImageMapUtils.writeImageMap(writer, "chart", info);
             writer.println("<img src=\"ImageMapDemo7.png\" "
-                           + "width=\"600\" height=\"400\" usemap=\"#chart\" alt=\"ImageMapDemo7.png\"/>");
+                    + "width=\"600\" height=\"400\" usemap=\"#chart\" alt=\"ImageMapDemo7.png\"/>");
             writer.println("</p></body>");
             writer.println("</html>");
             writer.close();
 
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

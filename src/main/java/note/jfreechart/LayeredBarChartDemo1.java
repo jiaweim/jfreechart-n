@@ -1,30 +1,19 @@
-/* -------------------------
- * LayeredBarChartDemo1.java
- * -------------------------
- * (C) Copyright 2005, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GradientPaint;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.LayeredBarRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
-import org.jfree.util.SortOrder;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * A simple demonstration application showing how to create a layered bar chart.
@@ -34,7 +23,7 @@ public class LayeredBarChartDemo1 extends ApplicationFrame {
     /**
      * Creates a new demo instance.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public LayeredBarChartDemo1(String title) {
         super(title);
@@ -45,11 +34,11 @@ public class LayeredBarChartDemo1 extends ApplicationFrame {
 
     /**
      * Returns a sample dataset.
-     * 
+     *
      * @return The dataset.
      */
     private static CategoryDataset createDataset() {
-        
+
         // row keys...
         String series1 = "First";
         String series2 = "Second";
@@ -82,30 +71,29 @@ public class LayeredBarChartDemo1 extends ApplicationFrame {
         dataset.addValue(2.0, series3, category3);
         dataset.addValue(3.0, series3, category4);
         dataset.addValue(6.0, series3, category5);
-        
+
         return dataset;
-        
+
     }
-    
+
     /**
      * Creates a sample chart.
-     * 
-     * @param dataset  the dataset.
-     * 
+     *
+     * @param dataset the dataset.
      * @return The chart.
      */
     private static JFreeChart createChart(CategoryDataset dataset) {
-        
+
         // create the chart...
         JFreeChart chart = ChartFactory.createBarChart(
-            "Layered Bar Chart Demo 1",  // chart title
-            "Category",                  // domain axis label
-            "Value",                     // range axis label
-            dataset,                     // data
-            PlotOrientation.VERTICAL,    // orientation
-            true,                        // include legend
-            true,                        // tooltips?
-            false                        // URLs?
+                "Layered Bar Chart Demo 1",  // chart title
+                "Category",                  // domain axis label
+                "Value",                     // range axis label
+                dataset,                     // data
+                PlotOrientation.VERTICAL,    // orientation
+                true,                        // include legend
+                true,                        // tooltips?
+                false                        // URLs?
         );
 
         chart.setBackgroundPaint(Color.white);
@@ -125,45 +113,45 @@ public class LayeredBarChartDemo1 extends ApplicationFrame {
         LayeredBarRenderer renderer = new LayeredBarRenderer();
         renderer.setDrawBarOutline(false);
         plot.setRenderer(renderer);
-        
+
         // for this renderer, we need to draw the first series last...
-        plot.setRowRenderingOrder(SortOrder.DESCENDING);
-        
+        plot.setRowRenderingOrder(org.jfree.chart.api.SortOrder.DESCENDING);
+
         // set up gradient paints for series...
-        GradientPaint gp0 = new GradientPaint(0.0f, 0.0f, Color.blue, 0.0f, 
+        GradientPaint gp0 = new GradientPaint(0.0f, 0.0f, Color.blue, 0.0f,
                 0.0f, new Color(0, 0, 64));
-        GradientPaint gp1 = new GradientPaint(0.0f, 0.0f, Color.green, 0.0f, 
+        GradientPaint gp1 = new GradientPaint(0.0f, 0.0f, Color.green, 0.0f,
                 0.0f, new Color(0, 64, 0));
-        GradientPaint gp2 = new GradientPaint(0.0f, 0.0f, Color.red, 0.0f, 
+        GradientPaint gp2 = new GradientPaint(0.0f, 0.0f, Color.red, 0.0f,
                 0.0f, new Color(64, 0, 0));
         renderer.setSeriesPaint(0, gp0);
         renderer.setSeriesPaint(1, gp1);
         renderer.setSeriesPaint(2, gp2);
-        
+
         return chart;
-        
+
     }
-    
+
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         JFreeChart chart = createChart(createDataset());
         return new ChartPanel(chart);
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
-        LayeredBarChartDemo1 demo 
-            = new LayeredBarChartDemo1("Layered Bar Chart Demo 1");
+        LayeredBarChartDemo1 demo
+                = new LayeredBarChartDemo1("Layered Bar Chart Demo 1");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

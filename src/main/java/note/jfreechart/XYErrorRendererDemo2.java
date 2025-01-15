@@ -1,26 +1,18 @@
-/* -------------------------
- * XYErrorRendererDemo2.java
- * -------------------------
- * (C) Copyright 2007, by Object Refinery Limited.
- *
- */
+package note.jfreechart;
 
-package tutorial.jfreechart.demo;
-
-import java.awt.Color;
-
-import javax.swing.JPanel;
-
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYErrorRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.xy.IntervalXYDataset;
 import org.jfree.data.xy.YIntervalSeries;
 import org.jfree.data.xy.YIntervalSeriesCollection;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * A line chart with error bars.
@@ -30,7 +22,7 @@ public class XYErrorRendererDemo2 extends ApplicationFrame {
     /**
      * Constructs the demo application.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public XYErrorRendererDemo2(String title) {
         super(title);
@@ -38,32 +30,31 @@ public class XYErrorRendererDemo2 extends ApplicationFrame {
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         setContentPane(chartPanel);
     }
-    
+
     /**
      * Creates a chart.
-     * 
-     * @param dataset  the dataset.
-     * 
+     *
+     * @param dataset the dataset.
      * @return The chart.
      */
     private static JFreeChart createChart(IntervalXYDataset dataset) {
         NumberAxis xAxis = new NumberAxis("X");
         NumberAxis yAxis = new NumberAxis("Y");
         XYErrorRenderer renderer = new XYErrorRenderer();
-        renderer.setBaseLinesVisible(true);
-        renderer.setBaseShapesVisible(false);
+//        renderer.setBaseLinesVisible(true);
+//        renderer.setBaseShapesVisible(false);
         XYPlot plot = new XYPlot(dataset, xAxis, yAxis, renderer);
-        
+
         plot.setBackgroundPaint(Color.lightGray);
         plot.setDomainGridlinePaint(Color.white);
         plot.setRangeGridlinePaint(Color.white);
-        
+
         JFreeChart chart = new JFreeChart("XYErrorRenderer Demo 2", plot);
         chart.setBackgroundPaint(Color.white);
-        
+
         return chart;
     }
-    
+
     /**
      * Creates a sample dataset.
      */
@@ -81,26 +72,26 @@ public class XYErrorRendererDemo2 extends ApplicationFrame {
         dataset.addSeries(s2);
         return dataset;
     }
-    
+
     /**
      * Creates a panel for the demo.
-     *  
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         return new ChartPanel(createChart(createDataset()));
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         XYErrorRendererDemo2 demo = new XYErrorRendererDemo2(
                 "JFreeChart: XYErrorRendererDemo2");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

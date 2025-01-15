@@ -1,55 +1,49 @@
-/* -------------------------
- * StackedBarChart3DDemo5.java
- * -------------------------
- * (C) Copyright 2007, by Object Refinery Limited.
- *
- * Changes
- * -------
- * 18-Jan-2007 : Version 1, based on PlotOrientationDemo1 (DG);
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.api.RectangleInsets;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RectangleInsets;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
- * A demo showing four plots with various inverted axis and plot orientation 
+ * A demo showing four plots with various inverted axis and plot orientation
  * combinations.
  */
 public class StackedBarChart3DDemo5 extends ApplicationFrame {
 
-    /** The number of charts. */
+    /**
+     * The number of charts.
+     */
     private static int CHART_COUNT = 4;
-    
+
     static class DemoPanel extends JPanel {
 
-        /** The datasets. */
+        /**
+         * The datasets.
+         */
         private CategoryDataset[] datasets = new CategoryDataset[CHART_COUNT];
-        
-        /** The charts. */
+
+        /**
+         * The charts.
+         */
         private JFreeChart[] charts = new JFreeChart[CHART_COUNT];
-        
-        /** The chart panels. */
+
+        /**
+         * The chart panels.
+         */
         private ChartPanel[] panels = new ChartPanel[CHART_COUNT];
-        
+
         /**
          * Creates a new self-contained demo panel.
          */
@@ -76,22 +70,21 @@ public class StackedBarChart3DDemo5 extends ApplicationFrame {
             setPreferredSize(new Dimension(800, 600));
         }
     }
-    
+
     /**
      * Creates a new demo instance.
-     * 
-     * @param title  the frame title.
+     *
+     * @param title the frame title.
      */
     public StackedBarChart3DDemo5(String title) {
         super(title);
         setContentPane(createDemoPanel());
     }
-    
+
     /**
      * Creates a sample dataset.
-     * 
-     * @param index  the dataset index.
-     * 
+     *
+     * @param index the dataset index.
      * @return A dataset.
      */
     private static CategoryDataset createDataset(int index) {
@@ -110,31 +103,30 @@ public class StackedBarChart3DDemo5 extends ApplicationFrame {
         dataset.addValue(1.5, "Series 3", "Category 4");
         return dataset;
     }
-    
+
     /**
      * Creates a sample chart.
-     * 
-     * @param index  the chart index.
-     * @param dataset  the dataset.
-     * 
+     *
+     * @param index   the chart index.
+     * @param dataset the dataset.
      * @return A chart.
      */
     private static JFreeChart createChart(int index, CategoryDataset dataset) {
-        
+
         // create the chart...
-        JFreeChart chart = ChartFactory.createStackedBarChart3D(
-            "Chart " + (index + 1),   // chart title
-            "Category",                      // x axis label
-            "Value",                      // y axis label
-            dataset,                  // data
-            PlotOrientation.VERTICAL,
-            false,                    // include legend
-            false,                    // tooltips
-            false                     // urls
+        JFreeChart chart = ChartFactory.createStackedBarChart(
+                "Chart " + (index + 1),   // chart title
+                "Category",                      // x axis label
+                "Value",                      // y axis label
+                dataset,                  // data
+                PlotOrientation.VERTICAL,
+                false,                    // include legend
+                false,                    // tooltips
+                false                     // urls
         );
 
         chart.setBackgroundPaint(Color.white);
-        
+
         // get a reference to the plot for further customisation...
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.getDomainAxis().setMaximumCategoryLabelLines(2);
@@ -145,30 +137,30 @@ public class StackedBarChart3DDemo5 extends ApplicationFrame {
 
         ValueAxis rangeAxis = plot.getRangeAxis();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-                
+
         return chart;
-        
+
     }
 
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         return new DemoPanel();
     }
-    
+
     /**
      * The starting point for the demo.
-     * 
-     * @param args  ignored.
+     *
+     * @param args ignored.
      */
     public static void main(String[] args) {
         StackedBarChart3DDemo5 demo = new StackedBarChart3DDemo5(
                 "JFreeChart - Stacked Bar Chart 3D Demo 5");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

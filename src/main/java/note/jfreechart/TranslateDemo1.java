@@ -1,20 +1,15 @@
-/* -------------------
- * TranslateDemo1.java
- * -------------------
- * (C) Copyright 2006, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.api.RectangleInsets;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
-import org.jfree.chart.ui.RectangleInsets;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.Range;
 import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.data.general.DatasetChangeListener;
@@ -25,8 +20,6 @@ import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.AbstractXYDataset;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -38,8 +31,7 @@ import java.awt.*;
  * A demo that uses a "wrapper" dataset that provides a translation of the
  * underlying dataset.
  */
-public class TranslateDemo1 extends ApplicationFrame
-{
+public class TranslateDemo1 extends ApplicationFrame {
 
     /**
      * A demonstration application showing how to control a crosshair using an
@@ -47,8 +39,7 @@ public class TranslateDemo1 extends ApplicationFrame
      *
      * @param title the frame title.
      */
-    public TranslateDemo1(String title)
-    {
+    public TranslateDemo1(String title) {
         super(title);
         setContentPane(new DemoPanel());
     }
@@ -58,8 +49,7 @@ public class TranslateDemo1 extends ApplicationFrame
      *
      * @return A panel.
      */
-    public static JPanel createDemoPanel()
-    {
+    public static JPanel createDemoPanel() {
         return new DemoPanel();
     }
 
@@ -68,19 +58,16 @@ public class TranslateDemo1 extends ApplicationFrame
      *
      * @param args ignored.
      */
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
 
         TranslateDemo1 demo = new TranslateDemo1("Translate Demo 1");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
-
     }
 
     private static class DemoPanel extends JPanel
-            implements ChangeListener
-    {
+            implements ChangeListener {
 
         private TimeSeries series;
 
@@ -95,8 +82,7 @@ public class TranslateDemo1 extends ApplicationFrame
         /**
          * Creates a new demo panel.
          */
-        public DemoPanel()
-        {
+        public DemoPanel() {
             super(new BorderLayout());
             this.chart = createChart();
             this.chartPanel = new ChartPanel(this.chart);
@@ -127,8 +113,7 @@ public class TranslateDemo1 extends ApplicationFrame
          *
          * @return The chart.
          */
-        private JFreeChart createChart()
-        {
+        private JFreeChart createChart() {
 
             XYDataset dataset1 = createDataset("Random 1", 100.0, new Minute(),
                     200);
@@ -155,7 +140,7 @@ public class TranslateDemo1 extends ApplicationFrame
             plot.setDomainCrosshairLockedOnData(false);
             plot.setRangeCrosshairVisible(false);
             XYItemRenderer renderer = plot.getRenderer();
-            renderer.setPaint(Color.black);
+            renderer.setDefaultPaint(Color.black);
             // fix the range
             DateAxis axis = (DateAxis) plot.getDomainAxis();
             Range range = DatasetUtils.findDomainBounds(this.dataset);
@@ -173,10 +158,9 @@ public class TranslateDemo1 extends ApplicationFrame
          * @return The dataset.
          */
         private XYDataset createDataset(String name, double base,
-                RegularTimePeriod start, int count)
-        {
+                RegularTimePeriod start, int count) {
 
-            this.series = new TimeSeries(name, start.getClass());
+            this.series = new TimeSeries(name);
             RegularTimePeriod period = start;
             double value = base;
             for (int i = 0; i < count; i++) {
@@ -197,16 +181,14 @@ public class TranslateDemo1 extends ApplicationFrame
          *
          * @param event the event.
          */
-        public void stateChanged(ChangeEvent event)
-        {
+        public void stateChanged(ChangeEvent event) {
             int value = this.slider.getValue();
             // value is in minutes
             this.dataset.setTranslate(value * 60 * 1000.0);
         }
 
         static class TranslatingXYDataset extends AbstractXYDataset
-                implements XYDataset, DatasetChangeListener
-        {
+                implements XYDataset, DatasetChangeListener {
             private XYDataset underlying;
             private double translate;
 
@@ -218,8 +200,7 @@ public class TranslateDemo1 extends ApplicationFrame
              * @param underlying the underlying dataset (<code>null</code> not
              *                   permitted).
              */
-            public TranslatingXYDataset(XYDataset underlying)
-            {
+            public TranslatingXYDataset(XYDataset underlying) {
                 this.underlying = underlying;
                 this.underlying.addChangeListener(this);
                 this.translate = 0.0;
@@ -230,8 +211,7 @@ public class TranslateDemo1 extends ApplicationFrame
              *
              * @return The translation factor.
              */
-            public double getTranslate()
-            {
+            public double getTranslate() {
                 return this.translate;
             }
 
@@ -240,49 +220,40 @@ public class TranslateDemo1 extends ApplicationFrame
              *
              * @param t the translation factor.
              */
-            public void setTranslate(double t)
-            {
+            public void setTranslate(double t) {
                 this.translate = t;
                 fireDatasetChanged();
             }
 
-            public int getItemCount(int series)
-            {
+            public int getItemCount(int series) {
                 return this.underlying.getItemCount(series);
             }
 
-            public double getXValue(int series, int item)
-            {
+            public double getXValue(int series, int item) {
                 return this.underlying.getXValue(series, item) + this.translate;
             }
 
-            public Number getX(int series, int item)
-            {
+            public Number getX(int series, int item) {
                 return new Double(getXValue(series, item));
             }
 
-            public Number getY(int series, int item)
-            {
+            public Number getY(int series, int item) {
                 return new Double(getYValue(series, item));
             }
 
-            public double getYValue(int series, int item)
-            {
+            public double getYValue(int series, int item) {
                 return this.underlying.getYValue(series, item);
             }
 
-            public int getSeriesCount()
-            {
+            public int getSeriesCount() {
                 return this.underlying.getSeriesCount();
             }
 
-            public Comparable getSeriesKey(int series)
-            {
+            public Comparable getSeriesKey(int series) {
                 return this.underlying.getSeriesKey(series);
             }
 
-            public void datasetChanged(DatasetChangeEvent event)
-            {
+            public void datasetChanged(DatasetChangeEvent event) {
                 // underlying dataset has changed, so notify our listeners
                 this.fireDatasetChanged();
             }

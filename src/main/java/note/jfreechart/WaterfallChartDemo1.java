@@ -1,20 +1,8 @@
-/* -----------------------
- * WaterfallChartDemo.java
- * -----------------------
- * (C) Copyright 2003-2005, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.Color;
-import java.text.DecimalFormat;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.api.RectangleInsets;
 import org.jfree.chart.axis.NumberTickUnit;
 import org.jfree.chart.axis.TickUnits;
 import org.jfree.chart.axis.ValueAxis;
@@ -22,11 +10,15 @@ import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RectangleInsets;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.DecimalFormat;
 
 /**
  * A sample waterfall chart.
@@ -35,8 +27,8 @@ public class WaterfallChartDemo1 extends ApplicationFrame {
 
     /**
      * Creates a new WaterFall Chart demo.
-     * 
-     * @param title  the frame title.
+     *
+     * @param title the frame title.
      */
     public WaterfallChartDemo1(String title) {
         super(title);
@@ -47,7 +39,7 @@ public class WaterfallChartDemo1 extends ApplicationFrame {
 
     /**
      * Creates a sample dataset for the demo.
-     * 
+     *
      * @return A sample dataset.
      */
     private static CategoryDataset createDataset() {
@@ -59,25 +51,24 @@ public class WaterfallChartDemo1 extends ApplicationFrame {
         dataset.addValue(32.64, "Product 1", "Total Expense");
         return dataset;
     }
-    
+
     /**
      * Returns the chart.
-     * 
-     * @param dataset  the dataset.
      *
+     * @param dataset the dataset.
      * @return The chart.
      */
     private static JFreeChart createChart(CategoryDataset dataset) {
-        
+
         JFreeChart chart = ChartFactory.createWaterfallChart(
-            "Product Cost Breakdown",
-            "Expense Category",
-            "Cost Per Unit",
-            dataset,
-            PlotOrientation.VERTICAL,
-            false,
-            true,
-            false
+                "Product Cost Breakdown",
+                "Expense Category",
+                "Cost Per Unit",
+                dataset,
+                PlotOrientation.VERTICAL,
+                false,
+                true,
+                false
         );
         chart.setBackgroundPaint(Color.white);
 
@@ -86,9 +77,9 @@ public class WaterfallChartDemo1 extends ApplicationFrame {
         plot.setRangeGridlinePaint(Color.white);
         plot.setRangeGridlinesVisible(true);
         plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
-        
+
         ValueAxis rangeAxis = plot.getRangeAxis();
-        
+
         // create a custom tick unit collection...
         DecimalFormat formatter = new DecimalFormat("##,###");
         formatter.setNegativePrefix("(");
@@ -112,17 +103,17 @@ public class WaterfallChartDemo1 extends ApplicationFrame {
         DecimalFormat labelFormatter = new DecimalFormat("$##,###.00");
         labelFormatter.setNegativePrefix("(");
         labelFormatter.setNegativeSuffix(")");
-        renderer.setItemLabelGenerator(
-            new StandardCategoryItemLabelGenerator("{2}", labelFormatter)
+        renderer.setDefaultItemLabelGenerator(
+                new StandardCategoryItemLabelGenerator("{2}", labelFormatter)
         );
-        renderer.setItemLabelsVisible(true);
+        renderer.setDefaultItemLabelsVisible(true);
 
         return chart;
     }
-    
+
     /**
      * Creates a panel for the demo.
-     *  
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
@@ -132,15 +123,15 @@ public class WaterfallChartDemo1 extends ApplicationFrame {
     /**
      * Starting point for the demo.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         WaterfallChartDemo1 demo = new WaterfallChartDemo1(
-            "Waterfall Chart Demo"
+                "Waterfall Chart Demo"
         );
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
-    
+
 }

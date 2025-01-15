@@ -1,27 +1,20 @@
-/* --------------------
- * XMLPieChartDemo.java
- * --------------------
- * (C) Copyright 2002-2004, by Object Refinery Limited.
- *
- */
+package note.jfreechart;
 
-package tutorial.jfreechart.demo;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
+import org.jfree.chart.plot.pie.PiePlot;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
+import org.jfree.data.general.PieDataset;
+import org.jfree.data.xml.DatasetReader;
 
-import java.awt.Color;
+import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.text.NumberFormat;
-
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
-import org.jfree.chart.plot.PiePlot;
-import org.jfree.data.general.PieDataset;
-import org.jfree.data.xml.DatasetReader;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
 
 /**
  * A simple demonstration application showing how to create a pie chart from data in an
@@ -32,7 +25,7 @@ public class XMLPieChartDemo extends ApplicationFrame {
     /**
      * Default constructor.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public XMLPieChartDemo(String title) {
 
@@ -45,25 +38,24 @@ public class XMLPieChartDemo extends ApplicationFrame {
         try {
             InputStream in = url.openStream();
             dataset = DatasetReader.readPieDatasetFromXML(in);
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             System.out.println(ioe.getMessage());
         }
 
         // create the chart...
         JFreeChart chart = ChartFactory.createPieChart(
-            "Pie Chart Demo 1",  // chart title
-            dataset,             // data
-            true,                // include legend
-            true,
-            false
+                "Pie Chart Demo 1",  // chart title
+                dataset,             // data
+                true,                // include legend
+                true,
+                false
         );
 
         // set the background color for the chart...
         chart.setBackgroundPaint(Color.yellow);
         PiePlot plot = (PiePlot) chart.getPlot();
         plot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0} = {2}",
-                NumberFormat.getNumberInstance(), 
+                NumberFormat.getNumberInstance(),
                 NumberFormat.getPercentInstance()));
         plot.setNoDataMessage("No data available");
 
@@ -73,17 +65,17 @@ public class XMLPieChartDemo extends ApplicationFrame {
         setContentPane(chartPanel);
 
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
         XMLPieChartDemo demo = new XMLPieChartDemo("XML Pie Chart Demo");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
 
     }

@@ -1,23 +1,16 @@
-/* -------------------
- * SparklineDemo1.java
- * -------------------
- * (C) Copyright 2006, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.io.File;
-import java.io.IOException;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.api.RectangleInsets;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-import org.jfree.ui.RectangleInsets;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * A sparkline demo.
@@ -26,11 +19,11 @@ public class SparklineDemo1 {
 
     /**
      * The starting point for the demo app.
-     * 
-     * @param args  command line arguments (ignored).
+     *
+     * @param args command line arguments (ignored).
      */
     public static void main(String[] args) {
-        
+
         // create a dataset
         XYSeries series1 = new XYSeries("Series 1");
         series1.add(1.0, 1.0);
@@ -53,10 +46,9 @@ public class SparklineDemo1 {
 
         // save to a file in PNG format
         try {
-            ChartUtilities.saveChartAsPNG(new File("Sparky.png"), chart, 
+            ChartUtils.saveChartAsPNG(new File("Sparky.png"), chart,
                     100, 20);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

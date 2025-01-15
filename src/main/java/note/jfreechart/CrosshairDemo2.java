@@ -1,50 +1,29 @@
-/* -------------------
- * CrosshairDemo2.java
- * -------------------
- * (C) Copyright 2003-2007, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.border.Border;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableModel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.api.RectangleInsets;
 import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.event.ChartChangeEvent;
-import org.jfree.chart.event.ChartChangeListener;
-import org.jfree.chart.event.ChartProgressEvent;
-import org.jfree.chart.event.ChartProgressListener;
+import org.jfree.chart.event.*;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.data.time.Minute;
-import org.jfree.data.time.RegularTimePeriod;
-import org.jfree.data.time.TimeSeries;
-import org.jfree.data.time.TimeSeriesCollection;
-import org.jfree.data.time.TimeSeriesDataItem;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.NumberCellRenderer;
+import org.jfree.chart.swing.UIUtils;
+import org.jfree.data.time.*;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.DateCellRenderer;
-import org.jfree.ui.NumberCellRenderer;
-import org.jfree.ui.RectangleInsets;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableModel;
+import java.awt.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * An example showing a crosshair plus a table indicating the dataset values
@@ -52,17 +31,17 @@ import org.jfree.ui.RefineryUtilities;
  */
 public class CrosshairDemo2 extends ApplicationFrame {
 
-    private static class DemoPanel extends JPanel 
+    private static class DemoPanel extends JPanel
             implements ChartChangeListener, ChartProgressListener {
 
         private static final int SERIES_COUNT = 4;
-        
+
         private TimeSeriesCollection[] datasets;
-        
+
         private TimeSeries[] series;
-        
+
         private ChartPanel chartPanel;
-        
+
         private DemoTableModel model;
 
         /**
@@ -72,9 +51,9 @@ public class CrosshairDemo2 extends ApplicationFrame {
             super(new BorderLayout());
             this.datasets = new TimeSeriesCollection[SERIES_COUNT];
             this.series = new TimeSeries[SERIES_COUNT];
-            
+
             JPanel content = new JPanel(new BorderLayout());
-            
+
             JFreeChart chart = createChart();
             this.chartPanel = new ChartPanel(chart);
             this.chartPanel.setPreferredSize(new java.awt.Dimension(600, 270));
@@ -85,23 +64,23 @@ public class CrosshairDemo2 extends ApplicationFrame {
                     BorderFactory.createEtchedBorder());
             this.chartPanel.setBorder(border);
             content.add(this.chartPanel);
-            
+
             JPanel dashboard = new JPanel(new BorderLayout());
             dashboard.setPreferredSize(new Dimension(400, 120));
             dashboard.setBorder(BorderFactory.createEmptyBorder(0, 4, 4, 4));
-            
+
             this.model = new DemoTableModel(SERIES_COUNT);
             for (int row = 0; row < SERIES_COUNT; row++) {
                 XYPlot plot = (XYPlot) chart.getPlot();
-                this.model.setValueAt(plot.getDataset(row).getSeriesKey(0), 
-                        row, 0);                
+                this.model.setValueAt(plot.getDataset(row).getSeriesKey(0),
+                        row, 0);
                 this.model.setValueAt(new Double("0.00"), row, 1);
                 this.model.setValueAt(new Double("0.00"), row, 2);
                 this.model.setValueAt(new Double("0.00"), row, 3);
                 this.model.setValueAt(new Double("0.00"), row, 4);
                 this.model.setValueAt(new Double("0.00"), row, 5);
                 this.model.setValueAt(new Double("0.00"), row, 6);
-            
+
             }
             JTable table = new JTable(this.model);
             TableCellRenderer renderer1 = new DateCellRenderer(
@@ -121,24 +100,23 @@ public class CrosshairDemo2 extends ApplicationFrame {
 
         /**
          * Creates a sample dataset.
-         * 
-         * @param index  the dataset index.
+         *
+         * @param index the dataset index.
          * @param name  the dataset name.
          * @param base  the starting value.
-         * @param start  the starting period.
-         * @param count  the number of values to generate.
-         *
+         * @param start the starting period.
+         * @param count the number of values to generate.
          * @return The dataset.
          */
         private XYDataset createDataset(int index, String name,
-                                        double base, RegularTimePeriod start, 
-                                        int count) {
+                double base, RegularTimePeriod start,
+                int count) {
 
-            this.series[index] = new TimeSeries(name, start.getClass());
+            this.series[index] = new TimeSeries(name);
             RegularTimePeriod period = start;
             double value = base;
             for (int i = 0; i < count; i++) {
-                this.series[index].add(period, value);    
+                this.series[index].add(period, value);
                 period = period.next();
                 value = value * (1 + (Math.random() - 0.495) / 10.0);
             }
@@ -152,8 +130,8 @@ public class CrosshairDemo2 extends ApplicationFrame {
 
         /**
          * Receives notification of a {@link ChartChangeEvent}.
-         * 
-         * @param event  the event.
+         *
+         * @param event the event.
          */
         public void chartChanged(ChartChangeEvent event) {
             if (this.chartPanel != null) {
@@ -167,60 +145,55 @@ public class CrosshairDemo2 extends ApplicationFrame {
                     long millis = (long) xx;
                     for (int row = 0; row < SERIES_COUNT; row++) {
                         this.model.setValueAt(new Long(millis), row, 1);
-                        int[] bounds 
-                            = this.datasets[row].getSurroundingItems(0, millis);
+                        int[] bounds
+                                = this.datasets[row].getSurroundingItems(0, millis);
                         long prevX = 0;
                         long nextX = 0;
                         double prevY = 0.0;
                         double nextY = 0.0;
                         if (bounds[0] >= 0) {
-                            TimeSeriesDataItem prevItem 
-                                = this.series[row].getDataItem(bounds[0]);
-                            prevX = prevItem.getPeriod().getMiddleMillisecond();      
+                            TimeSeriesDataItem prevItem
+                                    = this.series[row].getDataItem(bounds[0]);
+                            prevX = prevItem.getPeriod().getMiddleMillisecond();
                             Number y = prevItem.getValue();
                             if (y != null) {
-                                prevY = y.doubleValue();  
-                                this.model.setValueAt(new Double(prevY), row, 
+                                prevY = y.doubleValue();
+                                this.model.setValueAt(new Double(prevY), row,
                                         4);
-                            }  
-                            else {     
+                            } else {
                                 this.model.setValueAt(null, row, 4);
                             }
                             this.model.setValueAt(new Long(prevX), row, 3);
-                        }
-                        else {
+                        } else {
                             this.model.setValueAt(new Double(0.00), row, 4);
-                            this.model.setValueAt(new Double(plot.getDomainAxis().getRange().getLowerBound()), row, 3);                        
+                            this.model.setValueAt(new Double(plot.getDomainAxis().getRange().getLowerBound()), row, 3);
                         }
                         if (bounds[1] >= 0) {
-                            TimeSeriesDataItem nextItem 
+                            TimeSeriesDataItem nextItem
                                     = this.series[row].getDataItem(bounds[1]);
                             nextX = nextItem.getPeriod().getMiddleMillisecond();
                             Number y = nextItem.getValue();
                             if (y != null) {
                                 nextY = y.doubleValue();
-                                this.model.setValueAt(new Double(nextY), row, 
-                                        6);                            
-                            }
-                            else {     
+                                this.model.setValueAt(new Double(nextY), row,
+                                        6);
+                            } else {
                                 this.model.setValueAt(null, row, 6);
                             }
                             this.model.setValueAt(new Long(nextX), row, 5);
-                        }
-                        else {
+                        } else {
                             this.model.setValueAt(new Double(0.00), row, 6);
-                            this.model.setValueAt(new Double(plot.getDomainAxis().getRange().getUpperBound()), row, 5);                        
+                            this.model.setValueAt(new Double(plot.getDomainAxis().getRange().getUpperBound()), row, 5);
                         }
                         double interpolatedY = 0.0;
                         if ((nextX - prevX) > 0) {
-                            interpolatedY = prevY + (((double) millis 
-                                    - (double) prevX) / ((double) nextX - 
-                                    (double) prevX)) * (nextY - prevY); 
-                        }
-                        else {
+                            interpolatedY = prevY + (((double) millis
+                                    - (double) prevX) / ((double) nextX -
+                                    (double) prevX)) * (nextY - prevY);
+                        } else {
                             interpolatedY = prevY;
                         }
-                        this.model.setValueAt(new Double(interpolatedY), row, 
+                        this.model.setValueAt(new Double(interpolatedY), row,
                                 2);
                     }
                 }
@@ -229,34 +202,33 @@ public class CrosshairDemo2 extends ApplicationFrame {
 
         /**
          * Creates the demo chart.
-         * 
+         *
          * @return The chart.
          */
         private JFreeChart createChart() {
-            
+
             JFreeChart chart = ChartFactory.createTimeSeriesChart(
-                "Crosshair Demo 2", 
-                "Time of Day", 
-                "Value",
-                null, 
-                true, 
-                true, 
-                false
+                    "Crosshair Demo 2",
+                    "Time of Day",
+                    "Value",
+                    null,
+                    true,
+                    true,
+                    false
             );
 
             XYPlot plot = (XYPlot) chart.getPlot();
             XYDataset[] datasets = new XYDataset[SERIES_COUNT];
             for (int i = 0; i < SERIES_COUNT; i++) {
-                datasets[i] = createDataset(i, "Series " + i, 
+                datasets[i] = createDataset(i, "Series " + i,
                         100.0 + i * 200.0, new Minute(), 200);
                 if (i == 0) {
                     plot.setDataset(datasets[i]);
-                }
-                else {
+                } else {
                     plot.setDataset(i, datasets[i]);
                     plot.setRangeAxis(i, new NumberAxis("Axis " + (i + 1)));
                     plot.mapDatasetToRangeAxis(i, i);
-                    plot.setRenderer(i, new XYLineAndShapeRenderer(true, 
+                    plot.setRenderer(i, new XYLineAndShapeRenderer(true,
                             false));
                 }
             }
@@ -268,24 +240,24 @@ public class CrosshairDemo2 extends ApplicationFrame {
             plot.setDomainGridlinePaint(Color.white);
             plot.setRangeGridlinePaint(Color.white);
             plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
-            
+
             plot.setDomainCrosshairVisible(true);
             plot.setDomainCrosshairLockedOnData(false);
             plot.setRangeCrosshairVisible(false);
 
             XYItemRenderer renderer = plot.getRenderer();
-            renderer.setPaint(Color.black);
-                           
+            renderer.setDefaultPaint(Color.black);
+
             return chart;
         }
-        
+
         /**
          * Handles a chart progress event.
-         * 
-         * @param event  the event.
+         *
+         * @param event the event.
          */
         public void chartProgress(ChartProgressEvent event) {
-            if (event.getType() != ChartProgressEvent.DRAWING_FINISHED) {
+            if (event.getType() != ChartProgressEventType.DRAWING_FINISHED) {
                 return;
             }
             if (this.chartPanel != null) {
@@ -335,9 +307,8 @@ public class CrosshairDemo2 extends ApplicationFrame {
 
     /**
      * A demonstration application showing how to...
-     * 
-     * @param title
-     *            the frame title.
+     *
+     * @param title the frame title.
      */
     public CrosshairDemo2(String title) {
         super(title);
@@ -346,103 +317,108 @@ public class CrosshairDemo2 extends ApplicationFrame {
 
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         return new DemoPanel();
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         CrosshairDemo2 demo = new CrosshairDemo2("Crosshair Demo 2");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 
     /**
      * A demo table model.
      */
-    static class DemoTableModel extends AbstractTableModel 
+    static class DemoTableModel extends AbstractTableModel
             implements TableModel {
-    
+
         private Object[][] data;
-        
+
         /**
          * Creates a new table model
-         * 
-         * @param rows  the row count.
+         *
+         * @param rows the row count.
          */
         public DemoTableModel(int rows) {
             this.data = new Object[rows][7];
         }
-     
+
         /**
          * Returns the column count.
-         * 
+         *
          * @return 7.
          */
         public int getColumnCount() {
             return 7;
         }
-        
+
         /**
          * Returns the row count.
-         * 
+         *
          * @return The row count.
          */
         public int getRowCount() {
             return this.data.length;
         }
-        
+
         /**
          * Returns the value at the specified cell in the table.
-         * 
-         * @param row  the row index.
-         * @param column  the column index.
-         * 
+         *
+         * @param row    the row index.
+         * @param column the column index.
          * @return The value.
          */
         public Object getValueAt(int row, int column) {
             return this.data[row][column];
         }
-        
+
         /**
          * Sets the value at the specified cell.
-         * 
+         *
          * @param value  the value.
-         * @param row  the row index.
-         * @param column  the column index.
+         * @param row    the row index.
+         * @param column the column index.
          */
         public void setValueAt(Object value, int row, int column) {
             this.data[row][column] = value;
             fireTableDataChanged();
         }
-        
+
         /**
          * Returns the column name.
-         * 
-         * @param column  the column index.
-         * 
+         *
+         * @param column the column index.
          * @return The column name.
          */
         public String getColumnName(int column) {
-            switch(column) {
-                case 0 : return "Series Name:";
-                case 1 : return "X:";
-                case 2 : return "Y:";
-                case 3 : return "X (prev)";
-                case 4 : return "Y (prev):";
-                case 5 : return "X (next):";
-                case 6 : return "Y (next):";
+            switch (column) {
+                case 0:
+                    return "Series Name:";
+                case 1:
+                    return "X:";
+                case 2:
+                    return "Y:";
+                case 3:
+                    return "X (prev)";
+                case 4:
+                    return "Y (prev):";
+                case 5:
+                    return "X (next):";
+                case 6:
+                    return "Y (next):";
             }
             return null;
         }
-        
+
     }
 }

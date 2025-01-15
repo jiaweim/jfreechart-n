@@ -1,29 +1,21 @@
-/* -------------------------
- * XYErrorRendererDemo1.java
- * -------------------------
- * (C) Copyright 2006, by Object Refinery Limited.
- *
- */
+package note.jfreechart;
 
-package tutorial.jfreechart.demo;
-
-import java.awt.Color;
-
-import javax.swing.JPanel;
-
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYErrorRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.xy.IntervalXYDataset;
 import org.jfree.data.xy.XYIntervalSeries;
 import org.jfree.data.xy.XYIntervalSeriesCollection;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
- * A simple demonstration application showing the use of the 
+ * A simple demonstration application showing the use of the
  * {@link XYErrorRenderer} class.
  */
 public class XYErrorRendererDemo1 extends ApplicationFrame {
@@ -31,7 +23,7 @@ public class XYErrorRendererDemo1 extends ApplicationFrame {
     /**
      * Constructs the demo application.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public XYErrorRendererDemo1(String title) {
         super(title);
@@ -39,7 +31,7 @@ public class XYErrorRendererDemo1 extends ApplicationFrame {
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         setContentPane(chartPanel);
     }
-    
+
     private static JFreeChart createChart(IntervalXYDataset dataset) {
         NumberAxis xAxis = new NumberAxis("X");
         NumberAxis yAxis = new NumberAxis("Y");
@@ -52,7 +44,7 @@ public class XYErrorRendererDemo1 extends ApplicationFrame {
         chart.setBackgroundPaint(Color.white);
         return chart;
     }
-    
+
     /**
      * Creates a sample dataset.
      */
@@ -70,26 +62,26 @@ public class XYErrorRendererDemo1 extends ApplicationFrame {
         dataset.addSeries(s2);
         return dataset;
     }
-    
+
     /**
      * Creates a panel for the demo.
-     *  
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         return new ChartPanel(createChart(createDataset()));
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         XYErrorRendererDemo1 demo = new XYErrorRendererDemo1(
                 "XYErrorRenderer Example");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

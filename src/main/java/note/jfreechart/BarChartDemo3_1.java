@@ -26,6 +26,7 @@ import org.jfree.chart.swing.ChartPanel;
 import org.jfree.chart.swing.UIUtils;
 import org.jfree.chart.text.TextAnchor;
 import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.general.DatasetUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -92,7 +93,7 @@ public class BarChartDemo3_1 extends ApplicationFrame {
      */
     private static CategoryDataset createDataset() {
         double[][] data = new double[][]{{4.0, 3.0, -2.0, 3.0, 6.0}};
-        return DatasetUtilities.createCategoryDataset("Series ", "Category ",
+        return DatasetUtils.createCategoryDataset("Series ", "Category ",
                 data);
     }
 

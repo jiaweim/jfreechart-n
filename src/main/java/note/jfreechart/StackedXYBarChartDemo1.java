@@ -1,24 +1,17 @@
-/* ---------------------------
- * StackedXYBarChartDemo1.java
- * ---------------------------
- * (C) Copyright 2004, 2007, by Object Refinery Limited.
- *
- */
+package note.jfreechart;
 
-package tutorial.jfreechart.demo;
-
-import javax.swing.JPanel;
-
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.StackedXYBarRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.xy.DefaultTableXYDataset;
 import org.jfree.data.xy.TableXYDataset;
 import org.jfree.data.xy.XYSeries;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
 
 /**
  * A simple stacked bar chart on an XYPlot.
@@ -28,7 +21,7 @@ public class StackedXYBarChartDemo1 extends ApplicationFrame {
     /**
      * Creates a new demo.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public StackedXYBarChartDemo1(String title) {
         super(title);
@@ -36,39 +29,38 @@ public class StackedXYBarChartDemo1 extends ApplicationFrame {
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         setContentPane(chartPanel);
     }
-    
+
     /**
      * Creates a sample dataset.
-     * 
+     *
      * @return a sample dataset.
      */
     private static TableXYDataset createDataset() {
-        
+
         DefaultTableXYDataset dataset = new DefaultTableXYDataset();
-        
+
         XYSeries s1 = new XYSeries("Series 1", true, false);
         s1.add(1.0, 5.0);
         s1.add(2.0, 15.5);
         s1.add(3.0, 9.5);
         s1.add(4.0, 7.5);
         dataset.addSeries(s1);
-        
+
         XYSeries s2 = new XYSeries("Series 2", true, false);
         s2.add(1, 5.0);
         s2.add(2, 15.5);
         s2.add(3, 9.5);
         s2.add(4, 3.5);
         dataset.addSeries(s2);
-        
+
         return dataset;
-        
+
     }
-    
+
     /**
      * Creates a sample chart.
-     * 
-     * @param dataset  the dataset for the chart.
-     * 
+     *
+     * @param dataset the dataset for the chart.
      * @return a sample chart.
      */
     private static JFreeChart createChart(TableXYDataset dataset) {
@@ -82,29 +74,29 @@ public class StackedXYBarChartDemo1 extends ApplicationFrame {
         XYPlot plot = new XYPlot(dataset, domainAxis, rangeAxis, renderer);
         JFreeChart chart = new JFreeChart("Stacked XY Bar Chart Demo 1", plot);
         return chart;
-        
+
     }
 
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         JFreeChart chart = createChart(createDataset());
         return new ChartPanel(chart);
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         StackedXYBarChartDemo1 demo = new StackedXYBarChartDemo1(
                 "Stacked XY Bar Chart Demo 1");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

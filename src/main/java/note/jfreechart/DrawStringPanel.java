@@ -1,19 +1,3 @@
-/* --------------------
- * DrawStringPanel.java
- * --------------------
- * (C) Copyright 2003-2005, by Object Refinery Limited.
- *
- * Original Author:  David Gilbert (for Object Refinery Limited);
- * Contributor(s):   -;
- *
- * $Id: DrawStringPanel.java,v 1.1 2004/07/15 15:23:31 mungady Exp $
- *
- * Changes
- * -------
- * 10-Jun-2003 : Version 1;
- *
- */
-
 package note.jfreechart;
 
 import org.jfree.chart.text.TextAnchor;
@@ -28,8 +12,7 @@ import java.awt.geom.Rectangle2D;
 /**
  * A panel used by the {@link DrawStringDemo} class.
  */
-public class DrawStringPanel extends JPanel
-{
+public class DrawStringPanel extends JPanel {
 
     /**
      * The preferred size for the panel.

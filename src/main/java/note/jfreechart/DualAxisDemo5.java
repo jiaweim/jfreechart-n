@@ -1,37 +1,29 @@
-/* ------------------
- * DualAxisDemo5.java
- * ------------------
- * (C) Copyright 2002-2005, by Object Refinery Limited.
- *
- */
+package note.jfreechart;
 
-package tutorial.jfreechart.demo;
-
-import java.awt.Color;
-
-import javax.swing.JPanel;
-
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.LegendItem;
-import org.jfree.chart.LegendItemCollection;
 import org.jfree.chart.axis.AxisLocation;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.legend.LegendItem;
+import org.jfree.chart.legend.LegendItemCollection;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
- * This demo shows how to create a dual axis bar chart.  A workaround is used 
- * because the {@link BarRenderer} and {@link CategoryAxis} classes will 
+ * This demo shows how to create a dual axis bar chart.  A workaround is used
+ * because the {@link BarRenderer} and {@link CategoryAxis} classes will
  * overlap the bars for the two datasets - to get around this, an an additional
- * series (containing 'null' values) is added to each dataset, and the 
+ * series (containing 'null' values) is added to each dataset, and the
  * getLegendItems() method in the plot is overridden.
  */
 public class DualAxisDemo5 extends ApplicationFrame {
@@ -39,7 +31,7 @@ public class DualAxisDemo5 extends ApplicationFrame {
     /**
      * Creates a new demo instance.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public DualAxisDemo5(String title) {
         super(title);
@@ -54,7 +46,7 @@ public class DualAxisDemo5 extends ApplicationFrame {
     /**
      * Creates a sample dataset.
      *
-     * @return  The dataset.
+     * @return The dataset.
      */
     private static CategoryDataset createDataset1() {
 
@@ -88,7 +80,7 @@ public class DualAxisDemo5 extends ApplicationFrame {
     /**
      * Creates a sample dataset.
      *
-     * @return  The dataset.
+     * @return The dataset.
      */
     private static CategoryDataset createDataset2() {
 
@@ -121,21 +113,20 @@ public class DualAxisDemo5 extends ApplicationFrame {
 
     /**
      * Creates a chart.
-     * 
-     * @param dataset1  the first dataset.
-     * @param dataset2  the second dataset.
-     * 
+     *
+     * @param dataset1 the first dataset.
+     * @param dataset2 the second dataset.
      * @return A chart.
      */
-    private static JFreeChart createChart(CategoryDataset dataset1, 
-                                          CategoryDataset dataset2) {
+    private static JFreeChart createChart(CategoryDataset dataset1,
+            CategoryDataset dataset2) {
 
         CategoryAxis domainAxis = new CategoryAxis("Category");
         NumberAxis rangeAxis = new NumberAxis("Value");
         BarRenderer renderer1 = new BarRenderer();
-        CategoryPlot plot 
-            = new CategoryPlot(dataset1, domainAxis, rangeAxis, renderer1) {
-            
+        CategoryPlot plot
+                = new CategoryPlot(dataset1, domainAxis, rangeAxis, renderer1) {
+
             /**
              * Override the getLegendItems() method to handle special case.
              *
@@ -168,9 +159,9 @@ public class DualAxisDemo5 extends ApplicationFrame {
                 return result;
 
             }
-            
+
         };
-        
+
         JFreeChart chart = new JFreeChart("Dual Axis Bar Chart", plot);
         chart.setBackgroundPaint(Color.white);
         plot.setBackgroundPaint(new Color(0xEE, 0xEE, 0xFF));
@@ -182,32 +173,31 @@ public class DualAxisDemo5 extends ApplicationFrame {
         plot.setRangeAxisLocation(1, AxisLocation.BOTTOM_OR_RIGHT);
         BarRenderer renderer2 = new BarRenderer();
         plot.setRenderer(1, renderer2);
-        
+
         return chart;
     }
-    
+
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         JFreeChart chart = createChart(createDataset1(), createDataset2());
         return new ChartPanel(chart);
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
         DualAxisDemo5 demo = new DualAxisDemo5("Dual Axis Demo 5");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
-
     }
 
 }

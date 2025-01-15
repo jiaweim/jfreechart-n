@@ -1,30 +1,21 @@
-/* --------------------
- * XYAreaChartDemo.java
- * --------------------
- * (C) Copyright 2002-2004, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.Color;
-import java.awt.Font;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.annotations.XYPointerAnnotation;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
+import org.jfree.chart.text.TextAnchor;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
-import org.jfree.ui.TextAnchor;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * A simple demonstration application showing how to create an area chart.
@@ -34,7 +25,7 @@ public class XYAreaChartDemo1 extends ApplicationFrame {
     /**
      * Creates a new demo.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public XYAreaChartDemo1(String title) {
 
@@ -44,9 +35,8 @@ public class XYAreaChartDemo1 extends ApplicationFrame {
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         setContentPane(chartPanel);
-
     }
-    
+
     private static XYDataset createDataset() {
         XYSeries series1 = new XYSeries("Random 1");
         series1.add(new Integer(1), new Double(500.2));
@@ -77,71 +67,69 @@ public class XYAreaChartDemo1 extends ApplicationFrame {
 
     /**
      * Creates a chart.
-     * 
-     * @param dataset  the dataset.
-     * 
+     *
+     * @param dataset the dataset.
      * @return A chart.
      */
     private static JFreeChart createChart(XYDataset dataset) {
-            
+
         JFreeChart chart = ChartFactory.createXYAreaChart(
-            "XY Area Chart Demo",
-            "Domain (X)", "Range (Y)",
-            dataset,
-            PlotOrientation.VERTICAL,
-            true,  // legend
-            true,  // tool tips
-            false  // URLs
+                "XY Area Chart Demo",
+                "Domain (X)", "Range (Y)",
+                dataset,
+                PlotOrientation.VERTICAL,
+                true,  // legend
+                true,  // tool tips
+                false  // URLs
         );
-        
+
         chart.setBackgroundPaint(Color.white);
-        
-        XYPlot plot = (XYPlot) chart.getPlot();        
+
+        XYPlot plot = (XYPlot) chart.getPlot();
         plot.setBackgroundPaint(Color.lightGray);
         plot.setForegroundAlpha(0.65f);
         plot.setDomainGridlinePaint(Color.white);
         plot.setRangeGridlinePaint(Color.white);
-        
+
         ValueAxis domainAxis = plot.getDomainAxis();
         domainAxis.setTickMarkPaint(Color.black);
         domainAxis.setLowerMargin(0.0);
         domainAxis.setUpperMargin(0.0);
-        
+
         ValueAxis rangeAxis = plot.getRangeAxis();
         rangeAxis.setTickMarkPaint(Color.black);
- 
+
         XYPointerAnnotation pointer = new XYPointerAnnotation(
-            "Test", 5.0, -500.0, 3.0 * Math.PI / 4.0
+                "Test", 5.0, -500.0, 3.0 * Math.PI / 4.0
         );
-        pointer.setTipRadius(0.0); 
-        pointer.setBaseRadius(35.0); 
-        pointer.setFont(new Font("SansSerif", Font.PLAIN, 9)); 
-        pointer.setPaint(Color.blue); 
-        pointer.setTextAnchor(TextAnchor.HALF_ASCENT_RIGHT); 
+        pointer.setTipRadius(0.0);
+        pointer.setBaseRadius(35.0);
+        pointer.setFont(new Font("SansSerif", Font.PLAIN, 9));
+        pointer.setPaint(Color.blue);
+        pointer.setTextAnchor(TextAnchor.HALF_ASCENT_RIGHT);
         plot.addAnnotation(pointer);
         return chart;
-        
     }
-    
+
     /**
      * Creates a panel for the demo.
-     *  
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         return new ChartPanel(createChart(createDataset()));
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
         XYAreaChartDemo1 demo = new XYAreaChartDemo1("XY Area Chart Demo");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
 
     }

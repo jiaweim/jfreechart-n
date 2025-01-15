@@ -1,18 +1,5 @@
-/* --------------------------
- * OverlaidBarChartDemo2.java
- * --------------------------
- * (C) Copyright 2004, by Object Refinery Limited.
- *
- */
+package note.jfreechart;
 
-package tutorial.jfreechart.demo;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-
-import javax.swing.JPanel;
-
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.NumberAxis;
@@ -23,9 +10,13 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.renderer.category.LevelRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Another demo of an overlaid bar chart.
@@ -35,7 +26,7 @@ public class OverlaidBarChartDemo2 extends ApplicationFrame {
     /**
      * Default constructor.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public OverlaidBarChartDemo2(String title) {
         super(title);
@@ -44,14 +35,14 @@ public class OverlaidBarChartDemo2 extends ApplicationFrame {
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         setContentPane(chartPanel);
     }
-    
+
     /**
      * Creates a sample chart.
-     * 
+     *
      * @return A sample chart.
      */
     private static JFreeChart createChart() {
-        
+
         // create the first dataset...
         DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();
         dataset1.addValue(1.0, "S1", "Category 1");
@@ -64,14 +55,14 @@ public class OverlaidBarChartDemo2 extends ApplicationFrame {
         dataset1.addValue(6.0, "S2", "Category 3");
         dataset1.addValue(8.0, "S2", "Category 4");
         dataset1.addValue(4.0, "S2", "Category 5");
-        
+
         // create the first plot...
         CategoryItemRenderer renderer = new BarRenderer();
-        renderer.setToolTipGenerator(new StandardCategoryToolTipGenerator());
+        renderer.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator());
         CategoryPlot plot = new CategoryPlot();
         plot.setDataset(dataset1);
         plot.setRenderer(renderer);
-        
+
         plot.setDomainAxis(new CategoryAxis("Category"));
         plot.setRangeAxis(new NumberAxis("Value"));
 
@@ -97,22 +88,22 @@ public class OverlaidBarChartDemo2 extends ApplicationFrame {
         plot.setDataset(1, dataset2);
         plot.setRenderer(1, renderer2);
         plot.setDatasetRenderingOrder(DatasetRenderingOrder.FORWARD);
-        
+
         plot.setBackgroundPaint(Color.lightGray);
         plot.setRangeGridlinePaint(Color.white);
-        
+
         JFreeChart chart = new JFreeChart(plot);
         chart.setTitle("Overlaid Bar Chart 2");
         chart.setBackgroundPaint(Color.white);
         return chart;
     }
-    
+
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
-    public static JPanel createDemoPanel() { 
+    public static JPanel createDemoPanel() {
         JFreeChart chart = createChart();
         return new ChartPanel(chart);
     }
@@ -120,17 +111,16 @@ public class OverlaidBarChartDemo2 extends ApplicationFrame {
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
         OverlaidBarChartDemo2 demo = new OverlaidBarChartDemo2(
-            "Overlaid Bar Chart Demo 2"
+                "Overlaid Bar Chart Demo 2"
         );
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
-
     }
 
 }

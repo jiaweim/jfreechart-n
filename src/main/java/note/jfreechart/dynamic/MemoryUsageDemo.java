@@ -114,14 +114,14 @@ public class MemoryUsageDemo extends JPanel {
     /**
      * The data generator.
      */
-    class DataGenerator extends Timer implements ActionListener {
+    public class DataGenerator extends Timer implements ActionListener {
 
         /**
          * Constructor.
          *
          * @param interval the interval (in milliseconds)
          */
-        DataGenerator(int interval) {
+        public DataGenerator(int interval) {
             super(interval, null);
             addActionListener(this);
         }

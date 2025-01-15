@@ -1,33 +1,25 @@
-/* ---------------------
- * PriceVolumeDemo1.java
- * ---------------------
- * (C) Copyright 2002-2004, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.date.MonthConstants;
 import org.jfree.chart.labels.StandardXYToolTipGenerator;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.IntervalXYDataset;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.date.MonthConstants;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 
 /**
  * A demonstration application showing how to create a price-volume chart.
@@ -37,7 +29,7 @@ public class PriceVolumeDemo1 extends ApplicationFrame {
     /**
      * Constructs a new demonstration application.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public PriceVolumeDemo1(String title) {
 
@@ -59,13 +51,13 @@ public class PriceVolumeDemo1 extends ApplicationFrame {
         XYDataset priceData = createPriceDataset();
         String title = "Eurodollar Futures Contract (MAR03)";
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
-            title, 
-            "Date", 
-            "Price",
-            priceData, 
-            true,
-            true,
-            false
+                title,
+                "Date",
+                "Price",
+                priceData,
+                true,
+                true,
+                false
         );
         XYPlot plot = (XYPlot) chart.getPlot();
         NumberAxis rangeAxis1 = (NumberAxis) plot.getRangeAxis();
@@ -74,7 +66,7 @@ public class PriceVolumeDemo1 extends ApplicationFrame {
         rangeAxis1.setNumberFormatOverride(format);
 
         XYItemRenderer renderer1 = plot.getRenderer();
-        renderer1.setToolTipGenerator(new StandardXYToolTipGenerator(
+        renderer1.setDefaultToolTipGenerator(new StandardXYToolTipGenerator(
                 StandardXYToolTipGenerator.DEFAULT_TOOL_TIP_FORMAT,
                 new SimpleDateFormat("d-MMM-yyyy"), new DecimalFormat("0.00")));
 
@@ -85,11 +77,11 @@ public class PriceVolumeDemo1 extends ApplicationFrame {
         plot.setRangeAxis(1, rangeAxis2);
         plot.mapDatasetToRangeAxis(1, 1);
         XYBarRenderer renderer2 = new XYBarRenderer(0.20);
-        renderer2.setToolTipGenerator(
-            new StandardXYToolTipGenerator(
-                StandardXYToolTipGenerator.DEFAULT_TOOL_TIP_FORMAT,
-                new SimpleDateFormat("d-MMM-yyyy"), new DecimalFormat("0,000.00")
-            )
+        renderer2.setDefaultToolTipGenerator(
+                new StandardXYToolTipGenerator(
+                        StandardXYToolTipGenerator.DEFAULT_TOOL_TIP_FORMAT,
+                        new SimpleDateFormat("d-MMM-yyyy"), new DecimalFormat("0,000.00")
+                )
         );
         plot.setRenderer(1, renderer2);
         return chart;
@@ -104,7 +96,7 @@ public class PriceVolumeDemo1 extends ApplicationFrame {
     private static XYDataset createPriceDataset() {
 
         // create dataset 1...
-        TimeSeries series1 = new TimeSeries("Price", Day.class);
+        TimeSeries series1 = new TimeSeries("Price");
 
         series1.add(new Day(2, MonthConstants.JANUARY, 2002), 95.565);
         series1.add(new Day(3, MonthConstants.JANUARY, 2002), 95.640);
@@ -374,7 +366,7 @@ public class PriceVolumeDemo1 extends ApplicationFrame {
     private static IntervalXYDataset createVolumeDataset() {
 
         // create dataset 2...
-        TimeSeries series1 = new TimeSeries("Volume", Day.class);
+        TimeSeries series1 = new TimeSeries("Volume");
 
         series1.add(new Day(2, MonthConstants.JANUARY, 2002), 41020);
         series1.add(new Day(3, MonthConstants.JANUARY, 2002), 45586);
@@ -638,24 +630,24 @@ public class PriceVolumeDemo1 extends ApplicationFrame {
 
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         JFreeChart chart = createChart();
         return new ChartPanel(chart);
     }
-    
+
     /**
      * Starting point for the price/volume chart demo application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
         PriceVolumeDemo1 demo = new PriceVolumeDemo1("Price Volume Chart Demo");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
 
     }

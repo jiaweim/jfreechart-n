@@ -5,24 +5,20 @@
  *
  */
 
-package tutorial.jfreechart.demo;
+package note.jfreechart;
 
-import java.awt.BasicStroke;
-import java.awt.BorderLayout;
-import java.awt.Color;
-
-import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.api.RectangleInsets;
 import org.jfree.chart.plot.ThermometerPlot;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
 import org.jfree.data.general.DefaultValueDataset;
 import org.jfree.data.general.ValueDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RectangleInsets;
+
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
 
 /**
  * A simple demonstration application showing how to create a thermometer.
@@ -30,11 +26,11 @@ import org.jfree.ui.RectangleInsets;
 public class ThermometerDemo1 extends ApplicationFrame {
 
     static class ContentPanel extends JPanel implements ChangeListener {
-        
+
         JSlider slider;
-        
+
         DefaultValueDataset dataset;
-        
+
         /**
          * Default constructor.
          */
@@ -53,18 +49,18 @@ public class ThermometerDemo1 extends ApplicationFrame {
         private static JFreeChart createChart(ValueDataset dataset) {
             ThermometerPlot plot = new ThermometerPlot(dataset);
             JFreeChart chart = new JFreeChart(
-                "Thermometer Demo 1",  // chart title
-                JFreeChart.DEFAULT_TITLE_FONT,
-                plot,                  // plot
-                false                  // no legend
-            );               
+                    "Thermometer Demo 1",  // chart title
+                    JFreeChart.DEFAULT_TITLE_FONT,
+                    plot,                  // plot
+                    false                  // no legend
+            );
 
             plot.setInsets(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
             plot.setPadding(new RectangleInsets(10.0, 10.0, 10.0, 10.0));
             plot.setThermometerStroke(new BasicStroke(2.0f));
             plot.setThermometerPaint(Color.lightGray);
             plot.setUnits(ThermometerPlot.UNITS_FAHRENHEIT);
-            return chart;       
+            return chart;
         }
 
         public void stateChanged(ChangeEvent e) {
@@ -72,31 +68,31 @@ public class ThermometerDemo1 extends ApplicationFrame {
         }
 
     }
-    
+
     /**
      * Creates a new demo.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public ThermometerDemo1(String title) {
         super(title);
         JPanel chartPanel = createDemoPanel();
         setContentPane(chartPanel);
     }
-    
+
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         return new ContentPanel();
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         ThermometerDemo1 demo = new ThermometerDemo1("Thermometer Demo 1");

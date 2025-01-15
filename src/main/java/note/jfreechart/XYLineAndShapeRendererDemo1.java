@@ -1,26 +1,19 @@
-/* --------------------------------
- * XYLineAndShapeRendererDemo1.java
- * --------------------------------
- * (C) Copyright 2004, 2005, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.labels.StandardXYToolTipGenerator;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
 
 /**
  * A simple demonstration of the {@link XYLineAndShapeRenderer} class.
@@ -30,7 +23,7 @@ public class XYLineAndShapeRendererDemo1 extends ApplicationFrame {
     /**
      * Constructs the demo application.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public XYLineAndShapeRendererDemo1(String title) {
 
@@ -40,26 +33,24 @@ public class XYLineAndShapeRendererDemo1 extends ApplicationFrame {
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 300));
         setContentPane(chartPanel);
-
     }
-    
+
     /**
      * Creates a sample chart.
-     * 
-     * @param dataset  a dataset for the chart.
-     * 
+     *
+     * @param dataset a dataset for the chart.
      * @return A sample chart.
      */
     private static JFreeChart createChart(XYDataset dataset) {
         JFreeChart chart = ChartFactory.createXYLineChart(
-            "XYLineAndShapeRenderer Demo 1",
-            "X",
-            "Y",
-            dataset,
-            PlotOrientation.VERTICAL,
-            true,
-            true,
-            false
+                "XYLineAndShapeRenderer Demo 1",
+                "X",
+                "Y",
+                dataset,
+                PlotOrientation.VERTICAL,
+                true,
+                true,
+                false
         );
         XYPlot plot = (XYPlot) chart.getPlot();
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
@@ -67,15 +58,15 @@ public class XYLineAndShapeRendererDemo1 extends ApplicationFrame {
         renderer.setSeriesShapesVisible(0, false);
         renderer.setSeriesLinesVisible(1, false);
         renderer.setSeriesShapesVisible(1, true);
-        renderer.setToolTipGenerator(new StandardXYToolTipGenerator());
+        renderer.setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
         renderer.setDefaultEntityRadius(6);
         plot.setRenderer(renderer);
         return chart;
     }
-    
+
     /**
      * Creates a sample dataset.
-     * 
+     *
      * @return A dataset.
      */
     private static XYDataset createDataset() {
@@ -96,28 +87,27 @@ public class XYLineAndShapeRendererDemo1 extends ApplicationFrame {
 
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         JFreeChart chart = createChart(createDataset());
         return new ChartPanel(chart);
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
         XYLineAndShapeRendererDemo1 demo = new XYLineAndShapeRendererDemo1(
-            "XYLineAndShapeRenderer Demo"
+                "XYLineAndShapeRenderer Demo"
         );
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
-
     }
 
 }

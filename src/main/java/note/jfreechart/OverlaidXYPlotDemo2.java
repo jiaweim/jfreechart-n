@@ -1,23 +1,11 @@
-/* ------------------------
- * OverlaidXYPlotDemo2.java
- * ------------------------
- * (C) Copyright 2003-2007, by Object Refinery Limited.
- *
- */
+package note.jfreechart;
 
-package tutorial.jfreechart.demo;
-
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-
-import javax.swing.JPanel;
-
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.DateTickMarkPosition;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.date.MonthConstants;
 import org.jfree.chart.labels.StandardXYToolTipGenerator;
 import org.jfree.chart.plot.DatasetRenderingOrder;
 import org.jfree.chart.plot.PlotOrientation;
@@ -25,15 +13,19 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
 import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimePeriodAnchor;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.IntervalXYDataset;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.date.MonthConstants;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 
 /**
  * A demonstration application showing an overlaid XY plot with dual range axes.
@@ -43,7 +35,7 @@ public class OverlaidXYPlotDemo2 extends ApplicationFrame {
     /**
      * Constructs a new demonstration application.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public OverlaidXYPlotDemo2(String title) {
         super(title);
@@ -66,7 +58,7 @@ public class OverlaidXYPlotDemo2 extends ApplicationFrame {
         // create plot...
         IntervalXYDataset data1 = createDataset1();
         XYItemRenderer renderer1 = new XYBarRenderer(0.20);
-        renderer1.setToolTipGenerator(new StandardXYToolTipGenerator(
+        renderer1.setDefaultToolTipGenerator(new StandardXYToolTipGenerator(
                 StandardXYToolTipGenerator.DEFAULT_TOOL_TIP_FORMAT,
                 new SimpleDateFormat("d-MMM-yyyy"), new DecimalFormat("0.00")));
         XYPlot plot = new XYPlot(data1, domainAxis, rangeAxis, renderer1);
@@ -77,12 +69,12 @@ public class OverlaidXYPlotDemo2 extends ApplicationFrame {
         // create subplot 2...
         XYDataset data2A = createDataset2A();
         XYItemRenderer renderer2A = new StandardXYItemRenderer();
-        renderer2A.setToolTipGenerator(new StandardXYToolTipGenerator(
+        renderer2A.setDefaultToolTipGenerator(new StandardXYToolTipGenerator(
                 StandardXYToolTipGenerator.DEFAULT_TOOL_TIP_FORMAT,
                 new SimpleDateFormat("d-MMM-yyyy"), new DecimalFormat("0.00")));
         plot.setDataset(1, data2A);
         plot.setRenderer(1, renderer2A);
-        
+
         XYDataset data2B = createDataset2B();
         plot.setDataset(2, data2B);
         plot.setRenderer(2, new StandardXYItemRenderer());
@@ -90,8 +82,8 @@ public class OverlaidXYPlotDemo2 extends ApplicationFrame {
 
         plot.setDatasetRenderingOrder(DatasetRenderingOrder.FORWARD);
         plot.setOrientation(PlotOrientation.VERTICAL);
-        
-        return new JFreeChart("Overlaid XYPlot Demo 2", 
+
+        return new JFreeChart("Overlaid XYPlot Demo 2",
                 JFreeChart.DEFAULT_TITLE_FONT, plot, true);
 
     }
@@ -103,7 +95,7 @@ public class OverlaidXYPlotDemo2 extends ApplicationFrame {
      */
     private static IntervalXYDataset createDataset1() {
 
-        TimeSeries series1 = new TimeSeries("Series 1", Day.class);
+        TimeSeries series1 = new TimeSeries("Series 1");
         series1.add(new Day(1, MonthConstants.MARCH, 2002), 12353.3);
         series1.add(new Day(2, MonthConstants.MARCH, 2002), 13734.4);
         series1.add(new Day(3, MonthConstants.MARCH, 2002), 14525.3);
@@ -132,7 +124,7 @@ public class OverlaidXYPlotDemo2 extends ApplicationFrame {
      */
     private static XYDataset createDataset2A() {
 
-        TimeSeries series2 = new TimeSeries("Series 2", Day.class);
+        TimeSeries series2 = new TimeSeries("Series 2");
 
         series2.add(new Day(3, MonthConstants.MARCH, 2002), 16853.2);
         series2.add(new Day(4, MonthConstants.MARCH, 2002), 19642.3);
@@ -162,7 +154,7 @@ public class OverlaidXYPlotDemo2 extends ApplicationFrame {
      */
     private static XYDataset createDataset2B() {
 
-        TimeSeries series2 = new TimeSeries("Series 2B", Day.class);
+        TimeSeries series2 = new TimeSeries("Series 2B");
 
         series2.add(new Day(3, MonthConstants.MARCH, 2002), 43.9);
         series2.add(new Day(4, MonthConstants.MARCH, 2002), 72.6);
@@ -187,10 +179,10 @@ public class OverlaidXYPlotDemo2 extends ApplicationFrame {
 
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
-    public static JPanel createDemoPanel() { 
+    public static JPanel createDemoPanel() {
         JFreeChart chart = createChart();
         return new ChartPanel(chart);
     }
@@ -198,13 +190,13 @@ public class OverlaidXYPlotDemo2 extends ApplicationFrame {
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         OverlaidXYPlotDemo2 demo = new OverlaidXYPlotDemo2(
                 "JFreeChart : OverlaidXYPlotDemo2");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

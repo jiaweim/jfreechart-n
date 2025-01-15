@@ -1,20 +1,13 @@
-/* ----------
- * First.java
- * ----------
- * (C) Copyright 2002-2004, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.swing.ChartFrame;
 import org.jfree.data.general.DefaultPieDataset;
 
 /**
  * A simple introduction to using JFreeChart.  This demo is described in the
- * JFreeChart Developer Guide, available to purchasers of commercial support 
+ * JFreeChart Developer Guide, available to purchasers of commercial support
  * packages for JFreeChart.
  */
 public class First {
@@ -22,7 +15,7 @@ public class First {
     /**
      * The starting point for the demo.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
@@ -34,11 +27,11 @@ public class First {
 
         // create a chart...
         JFreeChart chart = ChartFactory.createPieChart(
-            "Sample Pie Chart",
-            data,
-            true,    // legend?
-            true,    // tooltips?
-            false    // URLs?
+                "Sample Pie Chart",
+                data,
+                true,    // legend?
+                true,    // tooltips?
+                false    // URLs?
         );
 
         // create and display a frame...

@@ -1,40 +1,31 @@
-/* --------------------
- * HideSeriesDemo1.java
- * --------------------
- * (C) Copyright 2004, 2005, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JCheckBox;
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
- * A demonstration application showing a chart where you can show and hide 
+ * A demonstration application showing a chart where you can show and hide
  * individual series.
  */
 public class HideSeriesDemo1 extends ApplicationFrame {
 
     static class DemoPanel extends JPanel implements ActionListener {
-        
+
         private XYItemRenderer renderer;
-        
+
         /**
          * Creates a new self-contained demo panel.
          */
@@ -65,10 +56,10 @@ public class HideSeriesDemo1 extends ApplicationFrame {
             add(boxPanel, BorderLayout.SOUTH);
             chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         }
-        
+
         /**
          * Creates a sample dataset.
-         * 
+         *
          * @return A dataset.
          */
         private XYDataset createSampleDataset() {
@@ -92,43 +83,40 @@ public class HideSeriesDemo1 extends ApplicationFrame {
             dataset.addSeries(series3);
             return dataset;
         }
-        
+
         /**
          * Creates a sample chart.
-         * 
-         * @param dataset  the dataset.
-         * 
+         *
+         * @param dataset the dataset.
          * @return A sample chart.
          */
         private JFreeChart createChart(final XYDataset dataset) {
             JFreeChart chart = ChartFactory.createXYLineChart(
-                "Hide Series Demo 1", 
-                "X", 
-                "Y",
-                dataset, 
-                PlotOrientation.VERTICAL,
-                true, 
-                true, 
-                false
+                    "Hide Series Demo 1",
+                    "X",
+                    "Y",
+                    dataset,
+                    PlotOrientation.VERTICAL,
+                    true,
+                    true,
+                    false
             );
             return chart;
         }
-        
+
         /**
          * Handles a click on the button by adding new (random) data.
          *
-         * @param e  the action event.
+         * @param e the action event.
          */
         public void actionPerformed(ActionEvent e) {
             int series = -1;
             if (e.getActionCommand().equals("S1")) {
                 series = 0;
-            }
-            else if (e.getActionCommand().equals("S2")) {
-                series = 1;   
-            }
-            else if (e.getActionCommand().equals("S3")) {
-                series = 2;   
+            } else if (e.getActionCommand().equals("S2")) {
+                series = 1;
+            } else if (e.getActionCommand().equals("S3")) {
+                series = 2;
             }
             if (series >= 0) {
                 boolean visible = this.renderer.getItemVisible(series, 0);
@@ -137,35 +125,35 @@ public class HideSeriesDemo1 extends ApplicationFrame {
         }
 
     }
-    
+
     /**
      * Constructs a new demonstration application.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public HideSeriesDemo1(String title) {
         super(title);
         setContentPane(new DemoPanel());
     }
-    
+
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         return new DemoPanel();
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         HideSeriesDemo1 demo = new HideSeriesDemo1("Hide Series Demo 1");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

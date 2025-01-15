@@ -1,28 +1,20 @@
-/* --------------------
- * TimeSeriesDemo7.java
- * -------------------- 
- * (C) Copyright 2003-2007, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.geom.GeneralPath;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.date.MonthConstants;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.date.MonthConstants;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.geom.GeneralPath;
 
 /**
  * A time series chart where the legend shows a zig-zag line for the series
@@ -34,7 +26,7 @@ public class TimeSeriesDemo7 extends ApplicationFrame {
      * A demonstration application showing how to create a simple time series
      * chart.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public TimeSeriesDemo7(String title) {
         super(title);
@@ -42,14 +34,14 @@ public class TimeSeriesDemo7 extends ApplicationFrame {
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         setContentPane(chartPanel);
     }
-    
+
     private static JFreeChart createChart(XYDataset dataset) {
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
-                "Time Series Demo 7", "Date", "Value", dataset, 
+                "Time Series Demo 7", "Date", "Value", dataset,
                 true, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
-        XYLineAndShapeRenderer renderer 
-            = (XYLineAndShapeRenderer) plot.getRenderer();
+        XYLineAndShapeRenderer renderer
+                = (XYLineAndShapeRenderer) plot.getRenderer();
         GeneralPath zigzag = new GeneralPath();
         zigzag.moveTo(-6.0f, 0.0f);
         zigzag.lineTo(-3.0f, 6.0f);
@@ -57,14 +49,14 @@ public class TimeSeriesDemo7 extends ApplicationFrame {
         zigzag.lineTo(6.0f, 0.0f);
         renderer.setLegendLine(zigzag);
         return chart;
-       
+
     }
-    
+
     /**
-     * Returns a time series of the daily EUR/GBP exchange rates in 2001 
+     * Returns a time series of the daily EUR/GBP exchange rates in 2001
      * (to date), for use in the JFreeChart demonstration application.
-     * <P>
-     * You wouldn't normally create a time series in this way.  Typically, 
+     * <p>
+     * You wouldn't normally create a time series in this way.  Typically,
      * values would be read from a database.
      *
      * @return A time series.
@@ -307,32 +299,31 @@ public class TimeSeriesDemo7 extends ApplicationFrame {
             t1.add(new Day(28, MonthConstants.NOVEMBER, 2001), new Double(1.6069));
             t1.add(new Day(29, MonthConstants.NOVEMBER, 2001), new Double(1.6044));
             t1.add(new Day(30, MonthConstants.NOVEMBER, 2001), new Double(1.5928));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
         return new TimeSeriesCollection(t1);
     }
-    
+
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         JFreeChart chart = createChart(createDataset());
         return new ChartPanel(chart);
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         TimeSeriesDemo7 demo = new TimeSeriesDemo7("Time Series Demo 7");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

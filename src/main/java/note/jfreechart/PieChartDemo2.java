@@ -1,29 +1,21 @@
-/* ------------------
- * PieChartDemo2.java
- * ------------------
- * (C) Copyright 2003-2005, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.Color;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
-import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.plot.pie.PiePlot;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
- * A simple demonstration application showing how to create a pie chart using 
- * data from a {@link DefaultPieDataset}.  This demo also shows an "exploded" 
+ * A simple demonstration application showing how to create a pie chart using
+ * data from a {@link DefaultPieDataset}.  This demo also shows an "exploded"
  * section in the chart.
  */
 public class PieChartDemo2 extends ApplicationFrame {
@@ -31,7 +23,7 @@ public class PieChartDemo2 extends ApplicationFrame {
     /**
      * Default constructor.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public PieChartDemo2(String title) {
         super(title);
@@ -39,10 +31,10 @@ public class PieChartDemo2 extends ApplicationFrame {
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         setContentPane(chartPanel);
     }
-    
+
     /**
      * Creates a sample dataset.
-     * 
+     *
      * @return A sample dataset.
      */
     private static PieDataset createDataset() {
@@ -55,21 +47,20 @@ public class PieChartDemo2 extends ApplicationFrame {
         dataset.setValue("Six", 19.4);
         return dataset;
     }
-    
+
     /**
      * Creates a sample chart.
-     * 
-     * @param dataset  the dataset.
-     * 
+     *
+     * @param dataset the dataset.
      * @return A chart.
      */
     private static JFreeChart createChart(PieDataset dataset) {
         JFreeChart chart = ChartFactory.createPieChart(
-            "Pie Chart Demo 2",  // chart title
-            dataset,             // dataset
-            true,                // include legend
-            true,
-            false
+                "Pie Chart Demo 2",  // chart title
+                dataset,             // dataset
+                true,                // include legend
+                true,
+                false
         );
         PiePlot plot = (PiePlot) chart.getPlot();
         plot.setSectionPaint("One", new Color(160, 160, 255));
@@ -81,39 +72,38 @@ public class PieChartDemo2 extends ApplicationFrame {
 
         plot.setNoDataMessage("No data available");
         plot.setExplodePercent("Two", 0.50);
-        
+
         plot.setLabelGenerator(new StandardPieSectionLabelGenerator(
                 "{0} ({2} percent)"));
         plot.setLabelBackgroundPaint(new Color(220, 220, 220));
-        
+
         plot.setLegendLabelToolTipGenerator(
                 new StandardPieSectionLabelGenerator(
                         "Tooltip for legend item {0}"));
         return chart;
     }
-    
+
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         JFreeChart chart = createChart(createDataset());
         return new ChartPanel(chart);
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
         PieChartDemo2 demo = new PieChartDemo2("Pie Chart Demo 2");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
-
     }
 
 }

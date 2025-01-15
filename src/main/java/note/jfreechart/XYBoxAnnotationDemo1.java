@@ -1,36 +1,22 @@
-/* -------------------------
- * XYBoxAnnotationDemo1.java
- * -------------------------
- * (C) Copyright 2006, by Object Refinery Limited and Contributors.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Paint;
-import java.awt.Rectangle;
-import java.text.SimpleDateFormat;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.annotations.XYBoxAnnotation;
-import org.jfree.chart.axis.DateAxis;
-import org.jfree.chart.axis.DateTickUnit;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.axis.NumberTickUnit;
+import org.jfree.chart.axis.*;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.time.Day;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.SimpleDateFormat;
 
 /**
  * A demo showing the use of an <code>XYBoxAnnotation</code>.
@@ -39,8 +25,8 @@ public class XYBoxAnnotationDemo1 extends ApplicationFrame {
 
     /**
      * Creates a new demo instance.
-     * 
-     * @param title  the frame title.
+     *
+     * @param title the frame title.
      */
     public XYBoxAnnotationDemo1(String title) {
         super(title);
@@ -577,31 +563,30 @@ public class XYBoxAnnotationDemo1 extends ApplicationFrame {
 
     /**
      * Creates a chart.
-     * 
-     * @param dataset  the dataset.
-     * 
+     *
+     * @param dataset the dataset.
      * @return The chart.
      */
     private static JFreeChart createChart(XYDataset dataset) {
-        JFreeChart chart = ChartFactory.createTimeSeriesChart("Breakdowns", 
-                "Production Date", "Hours of Operation", dataset, true, true, 
+        JFreeChart chart = ChartFactory.createTimeSeriesChart("Breakdowns",
+                "Production Date", "Hours of Operation", dataset, true, true,
                 false);
 
         chart.setBackgroundPaint(Color.white);
 
-        XYPlot plot = (XYPlot) chart.getPlot(); 
-        XYLineAndShapeRenderer renderer 
+        XYPlot plot = (XYPlot) chart.getPlot();
+        XYLineAndShapeRenderer renderer
                 = (XYLineAndShapeRenderer) plot.getRenderer();
 
         //Configure the presentation of the items.
-        renderer.setShape(new Rectangle(2, 2));
-        renderer.setBaseLinesVisible(false);
-        renderer.setBaseShapesFilled(true);
-        renderer.setBaseShapesVisible(true);
+        renderer.setDefaultShape(new Rectangle(2, 2));
+        renderer.setDefaultLinesVisible(false);
+        renderer.setDefaultShapesFilled(true);
+        renderer.setDefaultShapesVisible(true);
 
         // don't generate tooltips for data items
-        renderer.setBaseToolTipGenerator(null);
-        
+        renderer.setDefaultToolTipGenerator(null);
+
         //Set the colors for the two different series of shapes
         renderer.setSeriesPaint(0, Color.blue);
         renderer.setSeriesPaint(1, Color.red);
@@ -615,38 +600,38 @@ public class XYBoxAnnotationDemo1 extends ApplicationFrame {
         rangeAxis.setTickUnit(new NumberTickUnit(50000));
 
         //Configure the X axis
-        
+
         DateAxis domainAxis = (DateAxis) plot.getDomainAxis();
-        domainAxis.setTickUnit(new DateTickUnit(DateTickUnit.MONTH, 1));
+        domainAxis.setTickUnit(new DateTickUnit(DateTickUnitType.MONTH, 1));
         domainAxis.setDateFormatOverride(new SimpleDateFormat("MMM.yy"));
         domainAxis.setVerticalTickLabels(true);
-        
+
         Paint transpRed = new Color(255, 0, 0, 60);
         Paint transpGreen = new Color(0, 255, 0, 60);
 
         XYBoxAnnotation annotation = new XYBoxAnnotation(
-                new Day(01, 1, 2004).getMiddleMillisecond(), 0, 
-                new Day(31, 1, 2004).getMiddleMillisecond(), 50000, 
+                new Day(01, 1, 2004).getMiddleMillisecond(), 0,
+                new Day(31, 1, 2004).getMiddleMillisecond(), 50000,
                 new BasicStroke(0.0f), transpRed, transpRed);
         annotation.setToolTipText("Value: 2.9");
         renderer.addAnnotation(annotation);
 
         annotation = new XYBoxAnnotation(
-                new Day(01, 2, 2004).getMiddleMillisecond(), 0, 
+                new Day(01, 2, 2004).getMiddleMillisecond(), 0,
                 new Day(29, 2, 2004).getMiddleMillisecond(), 50000,
                 new BasicStroke(0.0f), transpRed, transpRed);
         annotation.setToolTipText("Value: 2.5");
         renderer.addAnnotation(annotation);
 
         annotation = new XYBoxAnnotation(
-                new Day(01, 5, 2004).getMiddleMillisecond(), 50000, 
+                new Day(01, 5, 2004).getMiddleMillisecond(), 50000,
                 new Day(31, 5, 2004).getMiddleMillisecond(),
                 100000, new BasicStroke(0.0f), transpRed, transpRed);
         annotation.setToolTipText("Value: 1.8");
         renderer.addAnnotation(annotation);
 
         annotation = new XYBoxAnnotation(
-                new Day(01, 6, 2005).getMiddleMillisecond(), 0, 
+                new Day(01, 6, 2005).getMiddleMillisecond(), 0,
                 new Day(30, 6, 2005).getMiddleMillisecond(), 50000,
                 new BasicStroke(0.0f), transpGreen, transpGreen);
         annotation.setToolTipText("Value: 3.7");
@@ -657,7 +642,7 @@ public class XYBoxAnnotationDemo1 extends ApplicationFrame {
 
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
@@ -668,14 +653,14 @@ public class XYBoxAnnotationDemo1 extends ApplicationFrame {
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
         XYBoxAnnotationDemo1 demo = new XYBoxAnnotationDemo1(
                 "XYBoxAnnotationDemo1");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
 
     }

@@ -1,16 +1,8 @@
-/* --------------------------
- * TimePeriodValuesDemo3.java
- * --------------------------
- * (C) Copyright 2004, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
+package note.jfreechart;
 
 import java.text.DateFormat;
 import java.util.Date;
 
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.NumberAxis;
@@ -18,12 +10,13 @@ import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.time.SimpleTimePeriod;
 import org.jfree.data.time.TimePeriodValues;
 import org.jfree.data.time.TimePeriodValuesCollection;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
 
 /**
  * This demo shows a bar chart with time based data where the time periods are slightly
@@ -94,7 +87,7 @@ public class TimePeriodValuesDemo3 extends ApplicationFrame {
 
         TimePeriodValuesCollection dataset = new TimePeriodValuesCollection();
         dataset.addSeries(s1);
-        dataset.setDomainIsPointsInTime(false);
+//        dataset.setDomainIsPointsInTime(false);
 
         return dataset;
 
@@ -109,7 +102,7 @@ public class TimePeriodValuesDemo3 extends ApplicationFrame {
 
         TimePeriodValuesDemo3 demo = new TimePeriodValuesDemo3("Time Period Values Demo 3");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
 
     }

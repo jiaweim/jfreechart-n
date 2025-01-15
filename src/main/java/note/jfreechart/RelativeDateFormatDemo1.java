@@ -1,33 +1,25 @@
-/* ----------------------------
- * RelativeDateFormatDemo1.java
- * ----------------------------
- * (C) Copyright 2006, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.Color;
-import java.text.DecimalFormat;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.api.RectangleInsets;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.chart.util.RelativeDateFormat;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
+import org.jfree.chart.text.format.RelativeDateFormat;
 import org.jfree.data.time.Minute;
 import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RectangleInsets;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.DecimalFormat;
 
 /**
  * A demo for the RelativeDateFormat class.
@@ -37,7 +29,7 @@ public class RelativeDateFormatDemo1 extends ApplicationFrame {
     /**
      * A demo.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public RelativeDateFormatDemo1(String title) {
         super(title);
@@ -48,21 +40,20 @@ public class RelativeDateFormatDemo1 extends ApplicationFrame {
 
     /**
      * Creates a chart.
-     * 
-     * @param dataset  a dataset.
-     * 
+     *
+     * @param dataset a dataset.
      * @return A chart.
      */
     private static JFreeChart createChart(XYDataset dataset) {
 
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
-            "Exercise Chart",        // title
-            "Elapsed Time",             // x-axis label
-            "Beats Per Minute",   // y-axis label
-            dataset,            // data
-            true,               // create legend?
-            true,               // generate tooltips?
-            false               // generate URLs?
+                "Exercise Chart",        // title
+                "Elapsed Time",             // x-axis label
+                "Beats Per Minute",   // y-axis label
+                dataset,            // data
+                true,               // create legend?
+                true,               // generate tooltips?
+                false               // generate URLs?
         );
 
         chart.setBackgroundPaint(Color.white);
@@ -74,14 +65,14 @@ public class RelativeDateFormatDemo1 extends ApplicationFrame {
         plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);
-        
+
         XYItemRenderer r = plot.getRenderer();
         if (r instanceof XYLineAndShapeRenderer) {
             XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
-            renderer.setBaseShapesVisible(true);
-            renderer.setBaseShapesFilled(true);
+            renderer.setDefaultShapesVisible(true);
+            renderer.setDefaultShapesFilled(true);
         }
-        
+
         DateAxis axis = (DateAxis) plot.getDomainAxis();
         Minute base = new Minute(0, 9, 1, 10, 2006);
         RelativeDateFormat rdf = new RelativeDateFormat(base.getFirstMillisecond());
@@ -91,7 +82,7 @@ public class RelativeDateFormatDemo1 extends ApplicationFrame {
         return chart;
 
     }
-    
+
     /**
      * Creates a dataset, consisting of two series of monthly data.
      *
@@ -99,7 +90,7 @@ public class RelativeDateFormatDemo1 extends ApplicationFrame {
      */
     private static XYDataset createDataset() {
 
-        TimeSeries s1 = new TimeSeries("Heart Rate", Second.class);
+        TimeSeries s1 = new TimeSeries("Heart Rate");
         s1.add(new Second(45, 6, 9, 1, 10, 2006), 143);
         s1.add(new Second(33, 8, 9, 1, 10, 2006), 167);
         s1.add(new Second(10, 10, 9, 1, 10, 2006), 189);
@@ -119,25 +110,25 @@ public class RelativeDateFormatDemo1 extends ApplicationFrame {
 
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         JFreeChart chart = createChart(createDataset());
         return new ChartPanel(chart);
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
         RelativeDateFormatDemo1 demo = new RelativeDateFormatDemo1(
                 "JFreeChart - RelativeDateFormatDemo1");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
 
     }

@@ -1,35 +1,27 @@
-/* ----------------------
- * XYBlockChartDemo1.java
- * ----------------------
- * (C) Copyright 2006, 2007, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
+package note.jfreechart;
 
 import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JPanel;
 
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.api.RectangleEdge;
+import org.jfree.chart.api.RectangleInsets;
 import org.jfree.chart.axis.AxisLocation;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.block.BlockBorder;
+import org.jfree.chart.legend.PaintScaleLegend;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.GrayPaintScale;
 import org.jfree.chart.renderer.PaintScale;
 import org.jfree.chart.renderer.xy.XYBlockRenderer;
-import org.jfree.chart.title.PaintScaleLegend;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.DomainOrder;
 import org.jfree.data.general.DatasetChangeListener;
-import org.jfree.data.general.DatasetGroup;
 import org.jfree.data.xy.XYZDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RectangleEdge;
-import org.jfree.ui.RectangleInsets;
-import org.jfree.ui.RefineryUtilities;
 
 /**
  * A simple demonstration application showing a chart created using 
@@ -85,7 +77,7 @@ public class XYBlockChartDemo1 extends ApplicationFrame {
         scaleAxis.setAxisLinePaint(Color.white);
         scaleAxis.setTickMarkPaint(Color.white);
         scaleAxis.setTickLabelFont(new Font("Dialog", Font.PLAIN, 7));
-        PaintScaleLegend legend = new PaintScaleLegend(new GrayPaintScale(), 
+        PaintScaleLegend legend = new PaintScaleLegend(new GrayPaintScale(),
                 scaleAxis);
         legend.setAxisLocation(AxisLocation.BOTTOM_OR_LEFT);
         legend.setAxisOffset(5.0);
@@ -137,12 +129,6 @@ public class XYBlockChartDemo1 extends ApplicationFrame {
             public void removeChangeListener(DatasetChangeListener listener) {
                 // ignore
             }
-            public DatasetGroup getGroup() {
-                return null;
-            }
-            public void setGroup(DatasetGroup group) {
-                // ignore
-            }
             public Comparable getSeriesKey(int series) {
                 return "sin(sqrt(x + y))";
             }
@@ -173,7 +159,7 @@ public class XYBlockChartDemo1 extends ApplicationFrame {
         XYBlockChartDemo1 demo = new XYBlockChartDemo1(
                 "JFreeChart: XYBlockChartDemo1");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

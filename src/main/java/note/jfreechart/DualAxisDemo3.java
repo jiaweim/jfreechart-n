@@ -1,36 +1,28 @@
-/* ------------------
- * DualAxisDemo3.java
- * ------------------
- * (C) Copyright 2002-2005, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.Color;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.api.RectangleEdge;
 import org.jfree.chart.axis.AxisLocation;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.legend.LegendTitle;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.DatasetRenderingOrder;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
-import org.jfree.chart.title.LegendTitle;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RectangleEdge;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
- * A simple demonstration application showing how to create a dual axis chart 
+ * A simple demonstration application showing how to create a dual axis chart
  * based on data from two {@link CategoryDataset} instances.
  */
 public class DualAxisDemo3 extends ApplicationFrame {
@@ -38,7 +30,7 @@ public class DualAxisDemo3 extends ApplicationFrame {
     /**
      * Creates a new demo instance.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public DualAxisDemo3(String title) {
 
@@ -47,22 +39,21 @@ public class DualAxisDemo3 extends ApplicationFrame {
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         setContentPane(chartPanel);
-
     }
-    
+
     private static JFreeChart createChart() {
         CategoryDataset dataset1 = createDataset1();
 
         // create the chart...
         JFreeChart chart = ChartFactory.createBarChart(
-            "Dual Axis Chart",           // chart title
-            "Category",                  // domain axis label
-            "Value",                     // range axis label
-            dataset1,                    // dataset
-            PlotOrientation.HORIZONTAL,  // orientation
-            true,                        // include legend
-            true,
-            false
+                "Dual Axis Chart",           // chart title
+                "Category",                  // domain axis label
+                "Value",                     // range axis label
+                dataset1,                    // dataset
+                PlotOrientation.HORIZONTAL,  // orientation
+                true,                        // include legend
+                true,
+                false
         );
 
         // NOW DO SOME OPTIONAL CUSTOMISATION OF THE CHART...
@@ -92,7 +83,7 @@ public class DualAxisDemo3 extends ApplicationFrame {
     /**
      * Creates a sample dataset.
      *
-     * @return  The dataset.
+     * @return The dataset.
      */
     private static CategoryDataset createDataset1() {
 
@@ -148,7 +139,7 @@ public class DualAxisDemo3 extends ApplicationFrame {
     /**
      * Creates a sample dataset.
      *
-     * @return  The dataset.
+     * @return The dataset.
      */
     private static CategoryDataset createDataset2() {
 
@@ -183,26 +174,25 @@ public class DualAxisDemo3 extends ApplicationFrame {
 
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         JFreeChart chart = createChart();
         return new ChartPanel(chart);
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
         DualAxisDemo3 demo = new DualAxisDemo3("Dual Axis Demo 3");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
-
     }
 
 }

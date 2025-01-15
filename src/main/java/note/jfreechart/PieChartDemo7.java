@@ -1,33 +1,24 @@
-/* ------------------
- * PieChartDemo7.java
- * ------------------
- * (C) Copyright 2003, 2004, 2006, by Object Refinery Limited.
- *
- */
+package note.jfreechart;
 
-package tutorial.jfreechart.demo;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
+import org.jfree.chart.plot.pie.PiePlot;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.general.PieDataset;
 
-import java.awt.Color;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 
-import javax.swing.JPanel;
-import javax.swing.Timer;
-
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
-import org.jfree.chart.plot.PiePlot;
-import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.data.general.PieDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
-
 /**
- * A simple demonstration application showing how to create a pie chart using 
- * data from a {@link DefaultPieDataset}.  This chart has a lot of labels and 
+ * A simple demonstration application showing how to create a pie chart using
+ * data from a {@link DefaultPieDataset}.  This chart has a lot of labels and
  * rotates, so it is useful for testing the label distribution algorithm.
  */
 public class PieChartDemo7 extends ApplicationFrame {
@@ -35,7 +26,7 @@ public class PieChartDemo7 extends ApplicationFrame {
     /**
      * Default constructor.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public PieChartDemo7(final String title) {
         super(title);
@@ -44,9 +35,8 @@ public class PieChartDemo7 extends ApplicationFrame {
 
     /**
      * Creates a sample dataset.
-     * 
-     * @param sections  the number of sections.
-     * 
+     *
+     * @param sections the number of sections.
      * @return A sample dataset.
      */
     private static PieDataset createDataset(int sections) {
@@ -57,10 +47,10 @@ public class PieChartDemo7 extends ApplicationFrame {
         }
         return result;
     }
-    
+
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
@@ -68,11 +58,11 @@ public class PieChartDemo7 extends ApplicationFrame {
 
         // create the chart...
         JFreeChart chart = ChartFactory.createPieChart(
-            "Pie Chart Demo 7",  // chart title
-            dataset,             // dataset
-            false,               // include legend
-            true,
-            false
+                "Pie Chart Demo 7",  // chart title
+                dataset,             // dataset
+                false,               // include legend
+                true,
+                false
         );
 
         // set the background color for the chart...
@@ -81,28 +71,28 @@ public class PieChartDemo7 extends ApplicationFrame {
         plot.setBackgroundPaint(Color.white);
         plot.setCircular(true);
         plot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0} = {2}",
-                NumberFormat.getNumberInstance(), 
+                NumberFormat.getNumberInstance(),
                 NumberFormat.getPercentInstance()));
         plot.setNoDataMessage("No data available");
 
         // add the chart to a panel...
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
-        
+
         Rotator rotator = new Rotator(plot);
         rotator.start();
         return chartPanel;
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         PieChartDemo7 demo = new PieChartDemo7("Pie Chart Demo 7");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 
@@ -111,16 +101,20 @@ public class PieChartDemo7 extends ApplicationFrame {
      */
     static class Rotator extends Timer implements ActionListener {
 
-        /** The plot. */
+        /**
+         * The plot.
+         */
         private PiePlot plot;
 
-        /** The angle. */
+        /**
+         * The angle.
+         */
         private int angle = 270;
 
         /**
          * Constructor.
          *
-         * @param plot  the plot.
+         * @param plot the plot.
          */
         Rotator(PiePlot plot) {
             super(100, null);
@@ -131,7 +125,7 @@ public class PieChartDemo7 extends ApplicationFrame {
         /**
          * Modifies the starting angle.
          *
-         * @param event  the action event.
+         * @param event the action event.
          */
         public void actionPerformed(ActionEvent event) {
             this.plot.setStartAngle(this.angle);

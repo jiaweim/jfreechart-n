@@ -1,33 +1,22 @@
-/* -----------------------
- * MouseListenerDemo2.java
- * -----------------------
- * (C) Copyright 2002-2006, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartMouseEvent;
-import org.jfree.chart.ChartMouseListener;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.entity.ChartEntity;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.swing.*;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
 
 /**
  * A simple demonstration application for chart mouse events with a bar chart.
  */
-public class MouseListenerDemo2 extends ApplicationFrame 
-                                implements ChartMouseListener {
+public class MouseListenerDemo2 extends ApplicationFrame
+        implements ChartMouseListener {
 
     /**
      * Creates a new demo.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public MouseListenerDemo2(String title) {
 
@@ -57,16 +46,16 @@ public class MouseListenerDemo2 extends ApplicationFrame
         dataset.addValue(3.0, "S3", "C6");
         dataset.addValue(4.0, "S3", "C7");
         dataset.addValue(3.0, "S3", "C8");
-        
+
         JFreeChart chart = ChartFactory.createBarChart(
-            "Test", 
-            "Category", 
-            "Value",
-            dataset, 
-            PlotOrientation.VERTICAL,
-            true, 
-            true, 
-            false
+                "Test",
+                "Category",
+                "Value",
+                dataset,
+                PlotOrientation.VERTICAL,
+                true,
+                true,
+                false
         );
 
         // add the chart to a panel...
@@ -80,14 +69,13 @@ public class MouseListenerDemo2 extends ApplicationFrame
     /**
      * Receives chart mouse click events.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     public void chartMouseClicked(ChartMouseEvent event) {
         ChartEntity entity = event.getEntity();
         if (entity != null) {
             System.out.println("Mouse clicked: " + entity.toString());
-        }
-        else {
+        } else {
             System.out.println("Mouse clicked: null entity.");
         }
     }
@@ -95,18 +83,17 @@ public class MouseListenerDemo2 extends ApplicationFrame
     /**
      * Receives chart mouse moved events.
      *
-     * @param event  the event.
+     * @param event the event.
      */
     public void chartMouseMoved(ChartMouseEvent event) {
         int x = event.getTrigger().getX();
         int y = event.getTrigger().getY();
         ChartEntity entity = event.getEntity();
         if (entity != null) {
-            System.out.println("Mouse moved: " + x + ", " + y + ": " 
+            System.out.println("Mouse moved: " + x + ", " + y + ": "
                     + entity.toString());
-        }
-        else {
-            System.out.println("Mouse moved: " + x + ", " + y 
+        } else {
+            System.out.println("Mouse moved: " + x + ", " + y
                     + ": null entity.");
         }
     }
@@ -114,13 +101,13 @@ public class MouseListenerDemo2 extends ApplicationFrame
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         MouseListenerDemo2 demo = new MouseListenerDemo2(
                 "Mouse Listener Demo 2");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

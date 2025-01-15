@@ -1,35 +1,27 @@
-/* --------------------
- * TimeSeriesDemo1.java
- * --------------------
- * (C) Copyright 2002-2005, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.Color;
-import java.text.SimpleDateFormat;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.api.RectangleInsets;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.time.Month;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RectangleInsets;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.SimpleDateFormat;
 
 /**
- * An example of a time series chart.  For the most part, default settings are 
- * used, except that the renderer is modified to show filled shapes (as well as 
+ * An example of a time series chart.  For the most part, default settings are
+ * used, except that the renderer is modified to show filled shapes (as well as
  * lines) at each data point.
  * <p>
  * IMPORTANT NOTE:  THIS DEMO IS DOCUMENTED IN THE JFREECHART DEVELOPER GUIDE.
@@ -38,10 +30,10 @@ import org.jfree.ui.RefineryUtilities;
 public class TimeSeriesDemo1 extends ApplicationFrame {
 
     /**
-     * A demonstration application showing how to create a simple time series 
+     * A demonstration application showing how to create a simple time series
      * chart.  This example uses monthly data.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public TimeSeriesDemo1(String title) {
         super(title);
@@ -55,21 +47,20 @@ public class TimeSeriesDemo1 extends ApplicationFrame {
 
     /**
      * Creates a chart.
-     * 
-     * @param dataset  a dataset.
-     * 
+     *
+     * @param dataset a dataset.
      * @return A chart.
      */
     private static JFreeChart createChart(XYDataset dataset) {
 
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
-            "Legal & General Unit Trust Prices",  // title
-            "Date",             // x-axis label
-            "Price Per Unit",   // y-axis label
-            dataset,            // data
-            true,               // create legend?
-            true,               // generate tooltips?
-            false               // generate URLs?
+                "Legal & General Unit Trust Prices",  // title
+                "Date",             // x-axis label
+                "Price Per Unit",   // y-axis label
+                dataset,            // data
+                true,               // create legend?
+                true,               // generate tooltips?
+                false               // generate URLs?
         );
 
         chart.setBackgroundPaint(Color.white);
@@ -81,21 +72,21 @@ public class TimeSeriesDemo1 extends ApplicationFrame {
         plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);
-        
+
         XYItemRenderer r = plot.getRenderer();
         if (r instanceof XYLineAndShapeRenderer) {
             XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
-            renderer.setBaseShapesVisible(true);
-            renderer.setBaseShapesFilled(true);
+            renderer.setDefaultShapesVisible(true);
+            renderer.setDefaultShapesFilled(true);
         }
-        
+
         DateAxis axis = (DateAxis) plot.getDomainAxis();
         axis.setDateFormatOverride(new SimpleDateFormat("MMM-yyyy"));
-        
+
         return chart;
 
     }
-    
+
     /**
      * Creates a dataset, consisting of two series of monthly data.
      *
@@ -103,7 +94,7 @@ public class TimeSeriesDemo1 extends ApplicationFrame {
      */
     private static XYDataset createDataset() {
 
-        TimeSeries s1 = new TimeSeries("L&G European Index Trust", Month.class);
+        TimeSeries s1 = new TimeSeries("L&G European Index Trust");
         s1.add(new Month(2, 2001), 181.8);
         s1.add(new Month(3, 2001), 167.3);
         s1.add(new Month(4, 2001), 153.8);
@@ -123,7 +114,7 @@ public class TimeSeriesDemo1 extends ApplicationFrame {
         s1.add(new Month(6, 2002), 137.0);
         s1.add(new Month(7, 2002), 132.8);
 
-        TimeSeries s2 = new TimeSeries("L&G UK Index Trust", Month.class);
+        TimeSeries s2 = new TimeSeries("L&G UK Index Trust");
         s2.add(new Month(2, 2001), 129.6);
         s2.add(new Month(3, 2001), 123.2);
         s2.add(new Month(4, 2001), 117.2);
@@ -153,26 +144,25 @@ public class TimeSeriesDemo1 extends ApplicationFrame {
 
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         JFreeChart chart = createChart(createDataset());
         return new ChartPanel(chart);
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
         TimeSeriesDemo1 demo = new TimeSeriesDemo1("Time Series Demo 1");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
-
     }
 
 }

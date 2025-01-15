@@ -1,18 +1,4 @@
-/* --------------------
- * XYBarChartDemo1.java
- * --------------------
- * (C) Copyright 2002-2006, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.Color;
-import java.awt.Font;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -22,13 +8,19 @@ import org.jfree.chart.labels.StandardXYToolTipGenerator;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.time.Year;
 import org.jfree.data.xy.IntervalXYDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 
 /**
  * A simple demonstration application showing how to create a bar chart using
@@ -39,7 +31,7 @@ public class XYBarChartDemo1 extends ApplicationFrame {
     /**
      * Constructs the demo application.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public XYBarChartDemo1(String title) {
 
@@ -49,18 +41,18 @@ public class XYBarChartDemo1 extends ApplicationFrame {
         setContentPane(chartPanel);
 
     }
-    
+
     private static JFreeChart createChart(IntervalXYDataset dataset) {
         JFreeChart chart = ChartFactory.createXYBarChart(
-            "State Executions - USA",
-            "Year",
-            true,
-            "Number of People",
-            dataset,
-            PlotOrientation.VERTICAL,
-            true,
-            false,
-            false
+                "State Executions - USA",
+                "Year",
+                true,
+                "Number of People",
+                dataset,
+                PlotOrientation.VERTICAL,
+                true,
+                false,
+                false
         );
 
         // then customise it a little...
@@ -68,13 +60,13 @@ public class XYBarChartDemo1 extends ApplicationFrame {
                 "Source: http://www.amnestyusa.org/abolish/listbyyear.do",
                 new Font("Dialog", Font.ITALIC, 10)));
         chart.setBackgroundPaint(Color.white);
-        
-        XYPlot plot = (XYPlot) chart.getPlot(); 
+
+        XYPlot plot = (XYPlot) chart.getPlot();
         XYItemRenderer renderer = plot.getRenderer();
         StandardXYToolTipGenerator generator = new StandardXYToolTipGenerator(
-            "{1} = {2}", new SimpleDateFormat("yyyy"), new DecimalFormat("0"));
-        renderer.setToolTipGenerator(generator);
-        
+                "{1} = {2}", new SimpleDateFormat("yyyy"), new DecimalFormat("0"));
+        renderer.setDefaultToolTipGenerator(generator);
+
         plot.setBackgroundPaint(Color.lightGray);
         plot.setRangeGridlinePaint(Color.white);
         DateAxis axis = (DateAxis) plot.getDomainAxis();
@@ -83,13 +75,13 @@ public class XYBarChartDemo1 extends ApplicationFrame {
         axis.setUpperMargin(0.01);
         return chart;
     }
-    
+
     /**
      * Creates a sample dataset.
      */
     private static IntervalXYDataset createDataset() {
 
-        TimeSeries t1 = new TimeSeries("Executions", "Year", "Count", Year.class);
+        TimeSeries t1 = new TimeSeries("Executions");
         try {
             t1.add(new Year(1976), new Integer(0));
             t1.add(new Year(1977), new Integer(1));
@@ -122,36 +114,34 @@ public class XYBarChartDemo1 extends ApplicationFrame {
             t1.add(new Year(2004), new Integer(59));
             t1.add(new Year(2005), new Integer(60));
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
         TimeSeriesCollection tsc = new TimeSeriesCollection(t1);
         return tsc;
 
     }
-    
+
     /**
      * Creates a panel for the demo.
-     *  
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         return new ChartPanel(createChart(createDataset()));
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
         XYBarChartDemo1 demo = new XYBarChartDemo1("State Executions - USA");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
-
     }
 
 }

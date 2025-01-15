@@ -1,26 +1,19 @@
-/* ---------------------------
- * MinMaxCategoryPlotDemo.java
- * ---------------------------
- * (C) Copyright 2002-2005, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.Color;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.MinMaxCategoryRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import java.awt.*;
 
 /**
- * A simple demonstration application showing how to create a min/max category 
+ * A simple demonstration application showing how to create a min/max category
  * plot.
  */
 public class MinMaxCategoryPlotDemo extends ApplicationFrame {
@@ -28,7 +21,7 @@ public class MinMaxCategoryPlotDemo extends ApplicationFrame {
     /**
      * Creates a new demo.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public MinMaxCategoryPlotDemo(String title) {
 
@@ -63,14 +56,14 @@ public class MinMaxCategoryPlotDemo extends ApplicationFrame {
 
         // create the chart...
         JFreeChart chart = ChartFactory.createBarChart(
-            "Min/Max Category Plot",  // chart title
-            "Category",               // domain axis label
-            "Value",                  // range axis label
-            dataset,                  // data
-            PlotOrientation.HORIZONTAL,
-            true,                     // include legend
-            true,                     // tooltips
-            false                     // urls
+                "Min/Max Category Plot",  // chart title
+                "Category",               // domain axis label
+                "Value",                  // range axis label
+                dataset,                  // data
+                PlotOrientation.HORIZONTAL,
+                true,                     // include legend
+                true,                     // tooltips
+                false                     // urls
         );
 
         chart.setBackgroundPaint(Color.white);
@@ -86,22 +79,20 @@ public class MinMaxCategoryPlotDemo extends ApplicationFrame {
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         setContentPane(chartPanel);
-
     }
 
-   /**
+    /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
         MinMaxCategoryPlotDemo demo = new MinMaxCategoryPlotDemo(
                 "Min/Max Category Chart Demo");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
-
     }
 
 }

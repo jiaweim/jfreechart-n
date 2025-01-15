@@ -1,35 +1,24 @@
-/* -------------------------
- * MultipleDatasetDemo1.java
- * -------------------------
- * (C) Copyright 2004, 2005, by Object Refinery Limited.
- * 
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.api.RectangleInsets;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.RegularTimePeriod;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RectangleInsets;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * A demo showing the addition and removal of multiple datasets / renderers.
@@ -37,13 +26,17 @@ import org.jfree.ui.RefineryUtilities;
 public class MultipleDatasetDemo1 extends ApplicationFrame {
 
     static class DemoPanel extends JPanel implements ActionListener {
-        
-        /** The plot. */
+
+        /**
+         * The plot.
+         */
         private XYPlot plot;
-       
-        /** The index of the last dataset added. */
+
+        /**
+         * The index of the last dataset added.
+         */
         private int datasetIndex = 0;
-        
+
         /**
          * Creates a new self-contained demo panel.
          */
@@ -51,10 +44,10 @@ public class MultipleDatasetDemo1 extends ApplicationFrame {
             super(new BorderLayout());
             TimeSeriesCollection dataset1 = createRandomDataset("Series 1");
             JFreeChart chart = ChartFactory.createTimeSeriesChart(
-                    "Multiple Dataset Demo 1", "Time", "Value", dataset1, 
+                    "Multiple Dataset Demo 1", "Time", "Value", dataset1,
                     true, true, false);
             chart.setBackgroundPaint(Color.white);
-            
+
             this.plot = (XYPlot) chart.getPlot();
             this.plot.setBackgroundPaint(Color.lightGray);
             this.plot.setDomainGridlinePaint(Color.white);
@@ -65,16 +58,16 @@ public class MultipleDatasetDemo1 extends ApplicationFrame {
 
             NumberAxis rangeAxis2 = new NumberAxis("Range Axis 2");
             rangeAxis2.setAutoRangeIncludesZero(false);
-            
+
             JPanel content = new JPanel(new BorderLayout());
 
             ChartPanel chartPanel = new ChartPanel(chart);
             content.add(chartPanel);
-            
+
             JButton button1 = new JButton("Add Dataset");
             button1.setActionCommand("ADD_DATASET");
             button1.addActionListener(this);
-            
+
             JButton button2 = new JButton("Remove Dataset");
             button2.setActionCommand("REMOVE_DATASET");
             button2.addActionListener(this);
@@ -82,7 +75,7 @@ public class MultipleDatasetDemo1 extends ApplicationFrame {
             JPanel buttonPanel = new JPanel(new FlowLayout());
             buttonPanel.add(button1);
             buttonPanel.add(button2);
-            
+
             content.add(buttonPanel, BorderLayout.SOUTH);
             chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
             add(content);
@@ -90,9 +83,8 @@ public class MultipleDatasetDemo1 extends ApplicationFrame {
 
         /**
          * Creates a random dataset.
-         * 
-         * @param name  the series name.
-         * 
+         *
+         * @param name the series name.
          * @return The dataset.
          */
         private TimeSeriesCollection createRandomDataset(final String name) {
@@ -106,44 +98,43 @@ public class MultipleDatasetDemo1 extends ApplicationFrame {
             }
             return new TimeSeriesCollection(series);
         }
-        
+
         /**
          * Handles a click on the button by adding new (random) data.
          *
-         * @param e  the action event.
+         * @param e the action event.
          */
         public void actionPerformed(final ActionEvent e) {
-           
+
             if (e.getActionCommand().equals("ADD_DATASET")) {
                 if (this.datasetIndex < 20) {
                     this.datasetIndex++;
                     this.plot.setDataset(
-                        this.datasetIndex, createRandomDataset(
-                            "S" + this.datasetIndex
-                        )
+                            this.datasetIndex, createRandomDataset(
+                                    "S" + this.datasetIndex
+                            )
                     );
                     this.plot.setRenderer(
-                        this.datasetIndex, new StandardXYItemRenderer()
+                            this.datasetIndex, new StandardXYItemRenderer()
                     );
                 }
-            }
-            else if (e.getActionCommand().equals("REMOVE_DATASET")) {
+            } else if (e.getActionCommand().equals("REMOVE_DATASET")) {
                 if (this.datasetIndex >= 1) {
                     this.plot.setDataset(this.datasetIndex, null);
                     this.plot.setRenderer(this.datasetIndex, null);
                     this.datasetIndex--;
                 }
             }
-            
+
         }
 
     }
-        
-    
+
+
     /**
      * Constructs a new demonstration application.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public MultipleDatasetDemo1(String title) {
         super(title);
@@ -152,7 +143,7 @@ public class MultipleDatasetDemo1 extends ApplicationFrame {
 
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
@@ -162,16 +153,15 @@ public class MultipleDatasetDemo1 extends ApplicationFrame {
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
         MultipleDatasetDemo1 demo = new MultipleDatasetDemo1(
                 "Multiple Dataset Demo 1");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
-
     }
 
 }

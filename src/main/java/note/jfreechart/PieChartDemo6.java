@@ -1,40 +1,30 @@
-/* ------------------
- * PieChartDemo8.java
- * ------------------
- * (C) Copyright 2006, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
-import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.plot.pie.PiePlot;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * A demo showing four pie charts of the same dataset which contains a null
- * value, a zero value and a negative value.  Each chart has a different 
+ * value, a zero value and a negative value.  Each chart has a different
  * setting for the ignoreNullValues and ignoreZeroValues flags.
  */
 public class PieChartDemo6 extends ApplicationFrame {
 
     /**
      * Creates a new demo instance.
-     * 
-     * @param title  the frame title.
+     *
+     * @param title the frame title.
      */
     public PieChartDemo6(String title) {
         super(title);
@@ -44,9 +34,9 @@ public class PieChartDemo6 extends ApplicationFrame {
     }
 
     /**
-     * Creates a sample dataset containing a null value, a zero value and a 
+     * Creates a sample dataset containing a null value, a zero value and a
      * negative value.
-     * 
+     *
      * @return A sample dataset.
      */
     private static PieDataset createDataset() {
@@ -56,29 +46,28 @@ public class PieChartDemo6 extends ApplicationFrame {
         dataset.setValue("S3", 0.0);
         dataset.setValue("S4", 3.0);
         dataset.setValue("S5", -1.0);
-        return dataset;        
+        return dataset;
     }
 
     /**
      * Creates a chart with the specified title and dataset.
-     * 
-     * @param title  the chart title.
-     * @param dataset  the dataset.
-     * 
+     *
+     * @param title   the chart title.
+     * @param dataset the dataset.
      * @return A chart.
      */
     private static JFreeChart createChart(String title, PieDataset dataset) {
-        JFreeChart chart = ChartFactory.createPieChart(title, dataset, true, 
+        JFreeChart chart = ChartFactory.createPieChart(title, dataset, true,
                 true, false);
         PiePlot plot = (PiePlot) chart.getPlot();
         plot.setLabelGenerator(new StandardPieSectionLabelGenerator(
                 "{0} = {1}"));
         return chart;
     }
-    
+
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
@@ -115,16 +104,16 @@ public class PieChartDemo6 extends ApplicationFrame {
         panel.add(new ChartPanel(chart4));
         return panel;
     }
-    
+
     /**
      * The starting point for the demo.
-     * 
-     * @param args  ignored.
+     *
+     * @param args ignored.
      */
     public static void main(String[] args) {
         PieChartDemo6 demo = new PieChartDemo6("Pie Chart Demo 6");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

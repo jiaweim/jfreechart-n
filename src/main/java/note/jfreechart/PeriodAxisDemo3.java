@@ -1,35 +1,24 @@
-/* --------------------
- * PeriodAxisDemo3.java
- * --------------------
- * (C) Copyright 2006, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.text.SimpleDateFormat;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.api.RectangleInsets;
 import org.jfree.chart.axis.PeriodAxis;
 import org.jfree.chart.axis.PeriodAxisLabelInfo;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.Month;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.IntervalXYDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RectangleInsets;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.SimpleDateFormat;
 
 /**
  * In this demo, the {@link PeriodAxis} class is used to display both date and
@@ -38,10 +27,10 @@ import org.jfree.ui.RefineryUtilities;
 public class PeriodAxisDemo3 extends ApplicationFrame {
 
     /**
-     * A demonstration application showing how to create a simple time series 
+     * A demonstration application showing how to create a simple time series
      * chart.  This example uses monthly data.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public PeriodAxisDemo3(String title) {
         super(title);
@@ -52,15 +41,14 @@ public class PeriodAxisDemo3 extends ApplicationFrame {
 
     /**
      * Creates a chart.
-     * 
-     * @param dataset  a dataset.
-     * 
+     *
+     * @param dataset a dataset.
      * @return A chart.
      */
     private static JFreeChart createChart(IntervalXYDataset dataset) {
 
-        JFreeChart chart = ChartFactory.createXYBarChart("Maximum Temperature", 
-                "Day", true, "Temperature", dataset, PlotOrientation.VERTICAL, 
+        JFreeChart chart = ChartFactory.createXYBarChart("Maximum Temperature",
+                "Day", true, "Temperature", dataset, PlotOrientation.VERTICAL,
                 true, true, false);
 
         chart.setBackgroundPaint(Color.white);
@@ -73,22 +61,22 @@ public class PeriodAxisDemo3 extends ApplicationFrame {
         plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);
-        
+
         PeriodAxis domainAxis = new PeriodAxis("Day");
         domainAxis.setAutoRangeTimePeriodClass(Day.class);
         PeriodAxisLabelInfo[] info = new PeriodAxisLabelInfo[3];
         info[0] = new PeriodAxisLabelInfo(Day.class, new SimpleDateFormat("d"));
-        info[1] = new PeriodAxisLabelInfo(Day.class, new SimpleDateFormat("E"), 
-            new RectangleInsets(2, 2, 2, 2), new Font("SansSerif", Font.BOLD, 
-            10), Color.blue, false, new BasicStroke(0.0f), Color.lightGray);
-        info[2] = new PeriodAxisLabelInfo(Month.class, 
-            new SimpleDateFormat("MMM"));
+        info[1] = new PeriodAxisLabelInfo(Day.class, new SimpleDateFormat("E"),
+                new RectangleInsets(2, 2, 2, 2), new Font("SansSerif", Font.BOLD,
+                10), Color.blue, false, new BasicStroke(0.0f), Color.lightGray);
+        info[2] = new PeriodAxisLabelInfo(Month.class,
+                new SimpleDateFormat("MMM"));
         domainAxis.setLabelInfo(info);
         plot.setDomainAxis(domainAxis);
         return chart;
 
     }
-    
+
     /**
      * Creates a dataset, consisting of two series of monthly data.
      *
@@ -117,23 +105,23 @@ public class PeriodAxisDemo3 extends ApplicationFrame {
 
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         JFreeChart chart = createChart(createDataset());
         return new ChartPanel(chart);
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         PeriodAxisDemo3 demo = new PeriodAxisDemo3("Period Axis Demo 3");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

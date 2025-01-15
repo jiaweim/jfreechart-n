@@ -1,11 +1,4 @@
-/* -----------------------------
- * SimpleIntervalXYDataset2.java
- * -----------------------------
- * (C) Copyright 2003, 2004, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
+package note.jfreechart;
 
 import org.jfree.data.general.DatasetChangeListener;
 import org.jfree.data.xy.AbstractIntervalXYDataset;
@@ -14,29 +7,35 @@ import org.jfree.data.xy.IntervalXYDataset;
 /**
  * A quick and dirty sample dataset.
  */
-public class SimpleIntervalXYDataset2 extends AbstractIntervalXYDataset 
-                                      implements IntervalXYDataset {
+public class SimpleIntervalXYDataset2 extends AbstractIntervalXYDataset
+        implements IntervalXYDataset {
 
-    /** The start values. */
+    /**
+     * The start values.
+     */
     private Double[] yStart;
-    
-    /** The end values. */
+
+    /**
+     * The end values.
+     */
     private Double[] yEnd = new Double[3];
 
-    /** The x values. */
+    /**
+     * The x values.
+     */
     private Double[] xValues = new Double[3];
 
     /**
      * Creates a new dataset.
-     * 
-     * @param itemCount  the number of items to generate.
+     *
+     * @param itemCount the number of items to generate.
      */
     public SimpleIntervalXYDataset2(int itemCount) {
 
         this.xValues = new Double[itemCount];
         this.yStart = new Double[itemCount];
         this.yEnd = new Double[itemCount];
-        
+
         double base = 100;
         for (int i = 1; i <= itemCount; i++) {
             this.xValues[i - 1] = new Double(i);
@@ -59,7 +58,6 @@ public class SimpleIntervalXYDataset2 extends AbstractIntervalXYDataset
      * Returns the key for a series.
      *
      * @param series the series (zero-based index).
-     *
      * @return The series key.
      */
     public Comparable getSeriesKey(int series) {
@@ -70,7 +68,6 @@ public class SimpleIntervalXYDataset2 extends AbstractIntervalXYDataset
      * Returns the number of items in a series.
      *
      * @param series the series (zero-based index).
-     *
      * @return the number of items within a series.
      */
     public int getItemCount(int series) {
@@ -79,14 +76,13 @@ public class SimpleIntervalXYDataset2 extends AbstractIntervalXYDataset
 
     /**
      * Returns the x-value for an item within a series.
-     * <P>
+     * <p>
      * The implementation is responsible for ensuring that the x-values are presented in ascending
      * order.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
-     * @return  the x-value for an item within a series.
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
+     * @return the x-value for an item within a series.
      */
     public Number getX(int series, int item) {
         return this.xValues[item];
@@ -95,9 +91,8 @@ public class SimpleIntervalXYDataset2 extends AbstractIntervalXYDataset
     /**
      * Returns the y-value for an item within a series.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return the y-value for an item within a series.
      */
     public Number getY(int series, int item) {
@@ -107,9 +102,8 @@ public class SimpleIntervalXYDataset2 extends AbstractIntervalXYDataset
     /**
      * Returns the starting X value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item within a series (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item within a series (zero-based index).
      * @return the start x value.
      */
     public Number getStartX(int series, int item) {
@@ -119,9 +113,8 @@ public class SimpleIntervalXYDataset2 extends AbstractIntervalXYDataset
     /**
      * Returns the ending X value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item within a series (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item within a series (zero-based index).
      * @return the end x value.
      */
     public Number getEndX(int series, int item) {
@@ -131,9 +124,8 @@ public class SimpleIntervalXYDataset2 extends AbstractIntervalXYDataset
     /**
      * Returns the starting Y value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item within a series (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item within a series (zero-based index).
      * @return the start y value.
      */
     public Number getStartY(int series, int item) {
@@ -143,9 +135,8 @@ public class SimpleIntervalXYDataset2 extends AbstractIntervalXYDataset
     /**
      * Returns the ending Y value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item within a series (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item within a series (zero-based index).
      * @return the end y value.
      */
     public Number getEndY(int series, int item) {
@@ -155,7 +146,7 @@ public class SimpleIntervalXYDataset2 extends AbstractIntervalXYDataset
     /**
      * Registers an object for notification of changes to the dataset.
      *
-     * @param listener  the object to register.
+     * @param listener the object to register.
      */
     public void addChangeListener(DatasetChangeListener listener) {
         // ignored
@@ -164,7 +155,7 @@ public class SimpleIntervalXYDataset2 extends AbstractIntervalXYDataset
     /**
      * Deregisters an object for notification of changes to the dataset.
      *
-     * @param listener  the object to deregister.
+     * @param listener the object to deregister.
      */
     public void removeChangeListener(DatasetChangeListener listener) {
         // ignored

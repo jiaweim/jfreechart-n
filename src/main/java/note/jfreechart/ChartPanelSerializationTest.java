@@ -1,60 +1,46 @@
-/* --------------------------------
- * ChartPanelSerializationTest.java
- * --------------------------------
- * (C) Copyright 2002-2005, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.Color;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
-import java.text.SimpleDateFormat;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.api.RectangleInsets;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.time.Month;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RectangleInsets;
-import org.jfree.ui.RefineryUtilities;
-import org.jfree.util.Log;
-import org.jfree.util.PrintStreamLogTarget;
+
+import java.awt.*;
+import java.io.*;
+import java.text.SimpleDateFormat;
 
 /**
- * This demo tests the ability to serialize/deserialize a {@link ChartPanel}.  
+ * This demo tests the ability to serialize/deserialize a {@link ChartPanel}.
  * The basics are working, but more testing is needed to iron out the remaining
  * bugs.
  */
 public class ChartPanelSerializationTest extends ApplicationFrame {
 
     /**
-     * A demonstration application showing how to create a simple time series 
+     * A demonstration application showing how to create a simple time series
      * chart.  This example uses monthly data.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public ChartPanelSerializationTest(String title) {
-        
+
         super(title);
         XYDataset dataset = createDataset();
         JFreeChart chart = createChart(dataset);
         ChartPanel chartPanel1 = new ChartPanel(chart);
         chartPanel1.setPreferredSize(new java.awt.Dimension(500, 270));
         chartPanel1.setMouseZoomable(true, false);
-        
+
         ChartPanel chartPanel2 = null;
         try {
             ByteArrayOutputStream buffer = new ByteArrayOutputStream();
@@ -63,35 +49,32 @@ public class ChartPanelSerializationTest extends ApplicationFrame {
             out.close();
 
             ObjectInput in = new ObjectInputStream(
-                new ByteArrayInputStream(buffer.toByteArray())
+                    new ByteArrayInputStream(buffer.toByteArray())
             );
             chartPanel2 = (ChartPanel) in.readObject();
             in.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        
-        setContentPane(chartPanel2);
 
+        setContentPane(chartPanel2);
     }
 
     /**
      * Creates a chart.
-     * 
-     * @param dataset  a dataset.
-     * 
+     *
+     * @param dataset a dataset.
      * @return A chart.
      */
     private JFreeChart createChart(XYDataset dataset) {
 
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
-            "Legal & General Unit Trust Prices",
-            "Date", "Price Per Unit",
-            dataset,
-            true,
-            true,
-            false
+                "Legal & General Unit Trust Prices",
+                "Date", "Price Per Unit",
+                dataset,
+                true,
+                true,
+                false
         );
 
         chart.setBackgroundPaint(Color.white);
@@ -103,22 +86,22 @@ public class ChartPanelSerializationTest extends ApplicationFrame {
         plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);
-        
+
         XYItemRenderer renderer = plot.getRenderer();
         if (renderer instanceof StandardXYItemRenderer) {
             StandardXYItemRenderer rr = (StandardXYItemRenderer) renderer;
             rr.setBaseShapesVisible(true);
-            rr.setShapesFilled(true);
-            rr.setItemLabelsVisible(true);
+            rr.setBaseShapesFilled(true);
+            rr.setDefaultItemLabelsVisible(true);
         }
-        
+
         DateAxis axis = (DateAxis) plot.getDomainAxis();
         axis.setDateFormatOverride(new SimpleDateFormat("MMM-yyyy"));
-        
+
         return chart;
 
     }
-    
+
     /**
      * Creates a dataset, consisting of two series of monthly data.
      *
@@ -126,7 +109,7 @@ public class ChartPanelSerializationTest extends ApplicationFrame {
      */
     private XYDataset createDataset() {
 
-        TimeSeries s1 = new TimeSeries("L&G European Index Trust", Month.class);
+        TimeSeries s1 = new TimeSeries("L&G European Index Trust");
         s1.add(new Month(2, 2001), 181.8);
         s1.add(new Month(3, 2001), 167.3);
         s1.add(new Month(4, 2001), 153.8);
@@ -146,7 +129,7 @@ public class ChartPanelSerializationTest extends ApplicationFrame {
         s1.add(new Month(6, 2002), 137.0);
         s1.add(new Month(7, 2002), 132.8);
 
-        TimeSeries s2 = new TimeSeries("L&G UK Index Trust", Month.class);
+        TimeSeries s2 = new TimeSeries("L&G UK Index Trust");
         s2.add(new Month(2, 2001), 129.6);
         s2.add(new Month(3, 2001), 123.2);
         s2.add(new Month(4, 2001), 117.2);
@@ -177,16 +160,16 @@ public class ChartPanelSerializationTest extends ApplicationFrame {
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
-        Log.getInstance().addTarget(new PrintStreamLogTarget());
+//        Log.getInstance().addTarget(new PrintStreamLogTarget());
         ChartPanelSerializationTest demo = new ChartPanelSerializationTest(
-            "Serialization Test"
+                "Serialization Test"
         );
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
 
     }

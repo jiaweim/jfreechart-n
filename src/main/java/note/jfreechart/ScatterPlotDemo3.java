@@ -1,11 +1,4 @@
-/* ---------------------
- * ScatterPlotDemo3.java
- * ---------------------
- * (C) Copyright 2004-2006, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
+package note.jfreechart;
 
 import java.awt.Point;
 import java.awt.geom.Point2D;
@@ -14,18 +7,14 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.JPanel;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartMouseEvent;
-import org.jfree.chart.ChartMouseListener;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartRenderingInfo;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.swing.*;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
 
 /**
  * A demo scatter plot with some code showing how to convert between Java2D 
@@ -141,7 +130,7 @@ public class ScatterPlotDemo3 extends ApplicationFrame {
     public static void main(String[] args) {
         ScatterPlotDemo3 demo = new ScatterPlotDemo3("Scatter Plot Demo 3");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

@@ -1,26 +1,18 @@
-/* ------------------
- * PieChartDemo8.java
- * ------------------
- * (C) Copyright 2004, 2006, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.font.TextAttribute;
-import java.text.AttributedString;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.labels.PieSectionLabelGenerator;
-import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.plot.pie.PiePlot;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.font.TextAttribute;
+import java.text.AttributedString;
 
 /**
  * A pie chart with a custom label generator.
@@ -30,7 +22,7 @@ public class PieChartDemo8 extends ApplicationFrame {
     /**
      * Creates a new demo instance.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public PieChartDemo8(String title) {
         super(title);
@@ -41,7 +33,7 @@ public class PieChartDemo8 extends ApplicationFrame {
 
     /**
      * Creates a sample dataset.
-     * 
+     *
      * @return a sample dataset.
      */
     private static PieDataset createDataset() {
@@ -52,75 +44,72 @@ public class PieChartDemo8 extends ApplicationFrame {
         dataset.setValue("Four", new Double(17.5));
         dataset.setValue("Five", new Double(11.0));
         dataset.setValue("Six", new Double(19.4));
-        return dataset;        
+        return dataset;
     }
-    
+
     /**
      * Creates a chart.
-     * 
-     * @param dataset  the dataset.
-     * 
+     *
+     * @param dataset the dataset.
      * @return a chart.
      */
     private static JFreeChart createChart(PieDataset dataset) {
         JFreeChart chart = ChartFactory.createPieChart(
-            "Pie Chart Demo 8",  // chart title
-            dataset,             // data
-            false,               // include legend
-            true,
-            false
+                "Pie Chart Demo 8",  // chart title
+                dataset,             // data
+                false,               // include legend
+                true,
+                false
         );
         PiePlot plot = (PiePlot) chart.getPlot();
         plot.setLabelGenerator(new CustomLabelGenerator());
         return chart;
     }
-    
+
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         JFreeChart chart = createChart(createDataset());
         return new ChartPanel(chart);
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         PieChartDemo8 demo = new PieChartDemo8("Pie Chart Demo 8");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
-
     }
-    
+
     /**
      * A custom label generator (returns null for one item as a test).
      */
     static class CustomLabelGenerator implements PieSectionLabelGenerator {
-        
+
         /**
          * Generates a label for a pie section.
-         * 
-         * @param dataset  the dataset (<code>null</code> not permitted).
-         * @param key  the section key (<code>null</code> not permitted).
-         * 
+         *
+         * @param dataset the dataset (<code>null</code> not permitted).
+         * @param key     the section key (<code>null</code> not permitted).
          * @return The label (possibly <code>null</code>).
          */
         public String generateSectionLabel(PieDataset dataset, Comparable key) {
-            String result = null;    
+            String result = null;
             if (dataset != null) {
                 if (!key.equals("Two")) {
-                    result = key.toString();   
+                    result = key.toString();
                 }
             }
             return result;
         }
-        
+
         public AttributedString generateAttributedSectionLabel(
                 PieDataset dataset, Comparable key) {
             AttributedString result = null;
@@ -131,7 +120,7 @@ public class PieChartDemo8 extends ApplicationFrame {
                     0, keyStr.length() - 1);
             return result;
         }
-   
+
     }
 
 }

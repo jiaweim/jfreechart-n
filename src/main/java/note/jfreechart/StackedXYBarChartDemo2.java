@@ -1,21 +1,7 @@
-/* ---------------------------
- * StackedXYBarChartDemo2.java
- * ---------------------------
- * (C) Copyright 2005, 2007, by Object Refinery Limited.
- *
- */
+package note.jfreechart;
 
-package tutorial.jfreechart.demo;
-
-import java.awt.Color;
-import java.awt.Font;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-
-import javax.swing.JPanel;
-
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.api.RectangleEdge;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.DateTickMarkPosition;
 import org.jfree.chart.axis.NumberAxis;
@@ -24,17 +10,22 @@ import org.jfree.chart.labels.ItemLabelAnchor;
 import org.jfree.chart.labels.ItemLabelPosition;
 import org.jfree.chart.labels.StandardXYItemLabelGenerator;
 import org.jfree.chart.labels.StandardXYToolTipGenerator;
+import org.jfree.chart.legend.LegendTitle;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.StackedXYBarRenderer;
-import org.jfree.chart.title.LegendTitle;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
+import org.jfree.chart.text.TextAnchor;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.time.TimeTableXYDataset;
 import org.jfree.data.time.Year;
 import org.jfree.data.xy.TableXYDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RectangleEdge;
-import org.jfree.ui.RefineryUtilities;
-import org.jfree.ui.TextAnchor;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 
 /**
  * A simple stacked bar chart using time series data.
@@ -44,7 +35,7 @@ public class StackedXYBarChartDemo2 extends ApplicationFrame {
     /**
      * Creates a new demo.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public StackedXYBarChartDemo2(String title) {
         super(title);
@@ -52,10 +43,10 @@ public class StackedXYBarChartDemo2 extends ApplicationFrame {
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         setContentPane(chartPanel);
     }
-    
+
     /**
      * Creates a sample dataset.
-     * 
+     *
      * @return a sample dataset.
      */
     private static TableXYDataset createDataset() {
@@ -104,12 +95,11 @@ public class StackedXYBarChartDemo2 extends ApplicationFrame {
         dataset.add(new Year(2003), 32, "Aces");
         return dataset;
     }
-    
+
     /**
      * Creates a sample chart.
-     * 
-     * @param dataset  the dataset for the chart.
-     * 
+     *
+     * @param dataset the dataset for the chart.
      * @return a sample chart.
      */
     private static JFreeChart createChart(TableXYDataset dataset) {
@@ -122,15 +112,15 @@ public class StackedXYBarChartDemo2 extends ApplicationFrame {
         rangeAxis.setUpperMargin(0.10);  // leave some space for item labels
         StackedXYBarRenderer renderer = new StackedXYBarRenderer(0.15);
         renderer.setDrawBarOutline(false);
-        renderer.setItemLabelsVisible(true);
-        renderer.setItemLabelGenerator(new StandardXYItemLabelGenerator());
-        renderer.setPositiveItemLabelPosition(new ItemLabelPosition(
+        renderer.setDefaultItemLabelsVisible(true);
+        renderer.setDefaultItemLabelGenerator(new StandardXYItemLabelGenerator());
+        renderer.setDefaultPositiveItemLabelPosition(new ItemLabelPosition(
                 ItemLabelAnchor.OUTSIDE12, TextAnchor.BOTTOM_CENTER));
 
-        renderer.setBaseToolTipGenerator(new StandardXYToolTipGenerator(
-                "{0} : {1} = {2}", new SimpleDateFormat("yyyy"), 
+        renderer.setDefaultToolTipGenerator(new StandardXYToolTipGenerator(
+                "{0} : {1} = {2}", new SimpleDateFormat("yyyy"),
                 new DecimalFormat("0")));
-        
+
         XYPlot plot = new XYPlot(dataset, domainAxis, rangeAxis, renderer);
         JFreeChart chart = new JFreeChart("Holes-In-One / Double Eagles", plot);
         chart.removeLegend();
@@ -139,16 +129,16 @@ public class StackedXYBarChartDemo2 extends ApplicationFrame {
         chart.addSubtitle(source);
         LegendTitle legend = new LegendTitle(plot);
         legend.setBackgroundPaint(Color.white);
-        legend.setBorder(new BlockBorder());
+        legend.setFrame(new BlockBorder());
         legend.setPosition(RectangleEdge.BOTTOM);
         chart.addSubtitle(legend);
         return chart;
-        
+
     }
 
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
@@ -159,13 +149,13 @@ public class StackedXYBarChartDemo2 extends ApplicationFrame {
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         StackedXYBarChartDemo2 demo = new StackedXYBarChartDemo2(
                 "JFreeChart: Stacked XY Bar Chart Demo 2");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

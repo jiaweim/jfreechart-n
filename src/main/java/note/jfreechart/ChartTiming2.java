@@ -7,20 +7,20 @@
 
 package tutorial.jfreechart.demo;
 
-import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-
-import javax.swing.Timer;
-
+import note.jfreechart.SampleXYDataset2;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYDotRenderer;
 import org.jfree.data.xy.XYDataset;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 
 /**
  * Draws a scatter plot over and over for 10 seconds.  Reports on how many redraws were achieved.
@@ -29,7 +29,9 @@ import org.jfree.data.xy.XYDataset;
  */
 public class ChartTiming2 implements ActionListener {
 
-    /** A flag that indicates when time is up. */
+    /**
+     * A flag that indicates when time is up.
+     */
     private boolean finished;
 
     /**
@@ -52,10 +54,10 @@ public class ChartTiming2 implements ActionListener {
         // create a scatter chart...
         boolean withLegend = true;
         JFreeChart chart = ChartFactory.createScatterPlot(
-            "Scatter plot timing", "X", "Y",
-            data, 
-            PlotOrientation.VERTICAL,
-            withLegend, false, false
+                "Scatter plot timing", "X", "Y",
+                data,
+                PlotOrientation.VERTICAL,
+                withLegend, false, false
         );
 
         XYPlot plot = (XYPlot) chart.getPlot();
@@ -84,7 +86,7 @@ public class ChartTiming2 implements ActionListener {
     /**
      * Receives notification of action events (in this case, from the Timer).
      *
-     * @param event  the event.
+     * @param event the event.
      */
     public void actionPerformed(ActionEvent event) {
         this.finished = true;
@@ -93,7 +95,7 @@ public class ChartTiming2 implements ActionListener {
     /**
      * Starting point for the application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 

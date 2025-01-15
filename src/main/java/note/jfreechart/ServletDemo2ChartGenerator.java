@@ -1,23 +1,16 @@
-/* -------------------------------
- * ServletDemo2ChartGenerator.java
- * -------------------------------
- * (C) Copyright 2002-2004, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
+package note.jfreechart;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.date.MonthConstants;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
@@ -25,7 +18,6 @@ import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.date.MonthConstants;
 
 /**
  * A servlet that returns one of three charts as a PNG image file.  This servlet is
@@ -72,7 +64,7 @@ public class ServletDemo2ChartGenerator extends HttpServlet {
             }
             if (chart != null) {
                 response.setContentType("image/png");
-                ChartUtilities.writeChartAsPNG(out, chart, 400, 300);
+                ChartUtils.writeChartAsPNG(out, chart, 400, 300);
             }
         }
         catch (Exception e) {
@@ -152,7 +144,7 @@ public class ServletDemo2ChartGenerator extends HttpServlet {
         dataset.addValue(11.0, "S9", "C3");
         dataset.addValue(-10.0, "S9", "C4");
             
-        JFreeChart chart = ChartFactory.createBarChart3D(
+        JFreeChart chart = ChartFactory.createBarChart(
             "Bar Chart",
             "Category",
             "Value",

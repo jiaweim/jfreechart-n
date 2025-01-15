@@ -1,29 +1,18 @@
-/* --------------------
- * MeterChartDemo1.java
- * --------------------
- * (C) Copyright 2005, by Object Refinery Limited.
- *
- */
+package note.jfreechart;
 
-package tutorial.jfreechart.demo;
-
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-
-import javax.swing.JPanel;
-
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.DialShape;
 import org.jfree.chart.plot.MeterInterval;
 import org.jfree.chart.plot.MeterPlot;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.Range;
 import org.jfree.data.general.DefaultValueDataset;
 import org.jfree.data.general.ValueDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * A simple demonstration application showing how to create a meter chart.
@@ -31,11 +20,11 @@ import org.jfree.ui.RefineryUtilities;
 public class MeterChartDemo1 extends ApplicationFrame {
 
     private static DefaultValueDataset dataset;
-    
+
     /**
      * Creates a new demo.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public MeterChartDemo1(String title) {
         super(title);
@@ -43,24 +32,23 @@ public class MeterChartDemo1 extends ApplicationFrame {
         chartPanel.setPreferredSize(new Dimension(500, 270));
         setContentPane(chartPanel);
     }
-    
+
     /**
      * Creates a sample chart.
-     * 
-     * @param dataset  a dataset.
-     * 
+     *
+     * @param dataset a dataset.
      * @return The chart.
      */
     private static JFreeChart createChart(ValueDataset dataset) {
         MeterPlot plot = new MeterPlot(dataset);
         plot.setRange(new Range(0, 60));
-        plot.addInterval(new MeterInterval("Normal", new Range(0.0, 35.0), 
-                Color.lightGray, new BasicStroke(2.0f), 
+        plot.addInterval(new MeterInterval("Normal", new Range(0.0, 35.0),
+                Color.lightGray, new BasicStroke(2.0f),
                 new Color(0, 255, 0, 64)));
-        plot.addInterval(new MeterInterval("Warning", new Range(35.0, 50.0), 
+        plot.addInterval(new MeterInterval("Warning", new Range(35.0, 50.0),
                 Color.lightGray, new BasicStroke(2.0f), new Color(255, 255, 0, 64)));
-        plot.addInterval(new MeterInterval("Critical", new Range(50.0, 60.0), 
-                Color.lightGray, new BasicStroke(2.0f), 
+        plot.addInterval(new MeterInterval("Critical", new Range(50.0, 60.0),
+                Color.lightGray, new BasicStroke(2.0f),
                 new Color(255, 0, 0, 128)));
         plot.setNeedlePaint(Color.darkGray);
         plot.setDialBackgroundPaint(Color.white);
@@ -72,18 +60,18 @@ public class MeterChartDemo1 extends ApplicationFrame {
         plot.setTickLabelPaint(Color.darkGray);
         plot.setTickSize(5.0);
         plot.setTickPaint(Color.lightGray);
-        
+
         plot.setValuePaint(Color.black);
         plot.setValueFont(new Font("Dialog", Font.BOLD, 14));
-        
-        JFreeChart chart = new JFreeChart("Meter Chart 1", 
+
+        JFreeChart chart = new JFreeChart("Meter Chart 1",
                 JFreeChart.DEFAULT_TITLE_FONT, plot, true);
         return chart;
     }
-    
+
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
@@ -92,16 +80,16 @@ public class MeterChartDemo1 extends ApplicationFrame {
         JPanel panel = new ChartPanel(chart);
         return panel;
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         MeterChartDemo1 demo = new MeterChartDemo1("Meter Chart Demo 1");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

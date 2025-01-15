@@ -1,28 +1,20 @@
-/* ------------------
- * PieChartDemo1.java
- * ------------------
- * (C) Copyright 2002-2005, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.Font;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.plot.pie.PiePlot;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
- * A simple demonstration application showing how to create a pie chart using 
+ * A simple demonstration application showing how to create a pie chart using
  * data from a {@link DefaultPieDataset}.
  */
 public class PieChartDemo1 extends ApplicationFrame {
@@ -30,7 +22,7 @@ public class PieChartDemo1 extends ApplicationFrame {
     /**
      * Default constructor.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public PieChartDemo1(String title) {
         super(title);
@@ -41,7 +33,7 @@ public class PieChartDemo1 extends ApplicationFrame {
 
     /**
      * Creates a sample dataset.
-     * 
+     *
      * @return a sample dataset.
      */
     private static PieDataset createDataset() {
@@ -52,59 +44,57 @@ public class PieChartDemo1 extends ApplicationFrame {
         dataset.setValue("Four", new Double(17.5));
         dataset.setValue("Five", new Double(11.0));
         dataset.setValue("Six", new Double(19.4));
-        return dataset;        
+        return dataset;
     }
-    
+
     /**
      * Creates a chart.
-     * 
-     * @param dataset  the dataset.
-     * 
+     *
+     * @param dataset the dataset.
      * @return a chart.
      */
     private static JFreeChart createChart(PieDataset dataset) {
-        
+
         JFreeChart chart = ChartFactory.createPieChart(
-            "Pie Chart Demo 1",  // chart title
-            dataset,             // data
-            true,                // include legend
-            true,
-            false
+                "Pie Chart Demo 1",  // chart title
+                dataset,             // data
+                true,                // include legend
+                true,
+                false
         );
         TextTitle title = chart.getTitle();
         title.setToolTipText("A title tooltip!");
-        
+
         PiePlot plot = (PiePlot) chart.getPlot();
         plot.setLabelFont(new Font("SansSerif", Font.PLAIN, 12));
         plot.setNoDataMessage("No data available");
         plot.setCircular(false);
         plot.setLabelGap(0.02);
         return chart;
-        
+
     }
-    
+
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         JFreeChart chart = createChart(createDataset());
         return new ChartPanel(chart);
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
         PieChartDemo1 demo = new PieChartDemo1("Pie Chart Demo 1");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
-
     }
 
 }

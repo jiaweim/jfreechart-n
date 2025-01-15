@@ -1,11 +1,4 @@
-/* ---------------------
- * PerformanceTest1.java
- * ---------------------
- * (C) Copyright 2004, 2005, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
+package note.jfreechart;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -16,20 +9,20 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.api.RectangleInsets;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.time.FixedMillisecond;
 import org.jfree.data.time.Millisecond;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RectangleInsets;
-import org.jfree.ui.RefineryUtilities;
 
 /**
  * This test has been put together to investigate a performance problem 
@@ -48,7 +41,7 @@ public class PerformanceTest1 extends ApplicationFrame {
     public PerformanceTest1(String title) {
         
         super(title);
-        this.timings = new TimeSeries("Timings", Millisecond.class);
+        this.timings = new TimeSeries("Timings");
         TimeSeriesCollection dataset = new TimeSeriesCollection(this.timings);
         JFreeChart chart = createChart(dataset);
         ChartPanel chartPanel = new ChartPanel(chart);
@@ -124,9 +117,9 @@ public class PerformanceTest1 extends ApplicationFrame {
 
         PerformanceTest1 demo = new PerformanceTest1("Performance Test 1");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
-        TimeSeries series = new TimeSeries("Test", Millisecond.class);
+        TimeSeries series = new TimeSeries("Test");
         series.setMaximumItemAge(200);
         while (true) {
             Millisecond t = new Millisecond();

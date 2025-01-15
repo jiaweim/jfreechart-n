@@ -1,24 +1,16 @@
-/* -------------------
- * WindChartDemo1.java
- * -------------------
- * (C) Copyright 2003-2006, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.util.Calendar;
-import java.util.Date;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.xy.DefaultWindDataset;
 import org.jfree.data.xy.WindDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * A simple demonstration application showing how to create a wind chart.
@@ -28,7 +20,7 @@ public class WindChartDemo1 extends ApplicationFrame {
     /**
      * Creates a new demo.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public WindChartDemo1(String title) {
         super(title);
@@ -36,23 +28,23 @@ public class WindChartDemo1 extends ApplicationFrame {
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         setContentPane(chartPanel);
     }
-    
+
     private static long millisForDate(int day, int month, int year) {
         Calendar c = Calendar.getInstance();
         c.set(year, month - 1, day, 12, 0);
         return c.getTimeInMillis();
     }
-    
+
     private static Object[] createItem(long millis, int dir, int force) {
-        return new Object[] {new Date(millis), new Integer(dir), 
+        return new Object[]{new Date(millis), new Integer(dir),
                 new Integer(force)};
     }
-    
+
     /**
      * Creates a sample dataset.  The code here is intended to illustrate the
      * structure of the array, rather than the most flexible way to create
      * a new dataset.
-     * 
+     *
      * @return A sample dataset.
      */
     public static WindDataset createDataset() {
@@ -70,37 +62,36 @@ public class WindChartDemo1 extends ApplicationFrame {
         Object[] item12 = createItem(millisForDate(14, 1, 1999), 11, 9);
         Object[] item13 = createItem(millisForDate(15, 1, 1999), 12, 11);
         Object[] item14 = createItem(millisForDate(16, 1, 1999), 0, 0);
-        Object[][] series1 = new Object[][] {item1, item2, item3, item4, item5, 
-                item6, item7, item8, item9, item10, item11, item12, item13, 
+        Object[][] series1 = new Object[][]{item1, item2, item3, item4, item5,
+                item6, item7, item8, item9, item10, item11, item12, item13,
                 item14};
-        
-        Object[][][] data = new Object[][][] {series1};
+
+        Object[][][] data = new Object[][][]{series1};
         return new DefaultWindDataset(data);
     }
-    
+
     /**
      * Creates a chart.
-     * 
-     * @param dataset  the dataset.
-     * 
+     *
+     * @param dataset the dataset.
      * @return The chart.
      */
     private static JFreeChart createChart(WindDataset dataset) {
         JFreeChart chart = ChartFactory.createWindPlot(
-            "Wind Chart Demo", 
-            "Date", 
-            "Direction / Force", 
-            dataset,
-            true,
-            false,
-            false
+                "Wind Chart Demo",
+                "Date",
+                "Direction / Force",
+                dataset,
+                true,
+                false,
+                false
         );
-        return chart;   
+        return chart;
     }
 
     /**
      * Creates a panel for the demo.
-     *  
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
@@ -110,12 +101,12 @@ public class WindChartDemo1 extends ApplicationFrame {
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         WindChartDemo1 demo = new WindChartDemo1("Wind Chart Demo 1");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

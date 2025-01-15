@@ -1,44 +1,32 @@
-/* ------------------
- * DualAxisDemo1.java
- * ------------------
- * (C) Copyright 2002-2005, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.Color;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.AxisLocation;
-import org.jfree.chart.axis.CategoryAxis;
-import org.jfree.chart.axis.CategoryLabelPositions;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.api.RectangleEdge;
+import org.jfree.chart.api.RectangleInsets;
+import org.jfree.chart.axis.*;
 import org.jfree.chart.block.BlockBorder;
 import org.jfree.chart.block.BlockContainer;
 import org.jfree.chart.block.BorderArrangement;
 import org.jfree.chart.block.EmptyBlock;
 import org.jfree.chart.labels.StandardCategoryToolTipGenerator;
+import org.jfree.chart.legend.LegendTitle;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.DatasetRenderingOrder;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.chart.title.CompositeTitle;
-import org.jfree.chart.title.LegendTitle;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RectangleEdge;
-import org.jfree.ui.RectangleInsets;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
- * A simple demonstration application showing how to create a dual axis chart 
+ * A simple demonstration application showing how to create a dual axis chart
  * based on data from two {@link CategoryDataset} instances.
  */
 public class DualAxisDemo1 extends ApplicationFrame {
@@ -46,7 +34,7 @@ public class DualAxisDemo1 extends ApplicationFrame {
     /**
      * Creates a new demo instance.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public DualAxisDemo1(String title) {
         super(title);
@@ -56,11 +44,11 @@ public class DualAxisDemo1 extends ApplicationFrame {
         setContentPane(chartPanel);
     }
 
-    
+
     /**
      * Creates a sample dataset.
      *
-     * @return  The dataset.
+     * @return The dataset.
      */
     private static CategoryDataset createDataset1() {
 
@@ -116,7 +104,7 @@ public class DualAxisDemo1 extends ApplicationFrame {
     /**
      * Creates a sample dataset.
      *
-     * @return  The dataset.
+     * @return The dataset.
      */
     private static CategoryDataset createDataset2() {
 
@@ -148,23 +136,23 @@ public class DualAxisDemo1 extends ApplicationFrame {
         return dataset;
 
     }
-    
+
     /**
      * Creates the demo chart.
-     * 
+     *
      * @return The chart.
      */
     private static JFreeChart createChart() {
         // create the chart...
         JFreeChart chart = ChartFactory.createBarChart(
-            "Dual Axis Chart",        // chart title
-            "Category",               // domain axis label
-            "Value",                  // range axis label
-            createDataset1(),         // data
-            PlotOrientation.VERTICAL,
-            false,                    // include legend
-            true,                     // tooltips?
-            false                     // URL generator?  Not required...
+                "Dual Axis Chart",        // chart title
+                "Category",               // domain axis label
+                "Value",                  // range axis label
+                createDataset1(),         // data
+                PlotOrientation.VERTICAL,
+                false,                    // include legend
+                true,                     // tooltips?
+                false                     // URL generator?  Not required...
         );
 
         // NOW DO SOME OPTIONAL CUSTOMISATION OF THE CHART...
@@ -185,18 +173,19 @@ public class DualAxisDemo1 extends ApplicationFrame {
         plot.setRangeAxis(1, axis2);
 
         LineAndShapeRenderer renderer2 = new LineAndShapeRenderer();
-        renderer2.setToolTipGenerator(new StandardCategoryToolTipGenerator());
+        renderer2.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator());
         plot.setRenderer(1, renderer2);
         plot.setDatasetRenderingOrder(DatasetRenderingOrder.FORWARD);
-        
+
         LegendTitle legend1 = new LegendTitle(plot.getRenderer(0));
         legend1.setMargin(new RectangleInsets(2, 2, 2, 2));
-        legend1.setBorder(new BlockBorder());
-        
+//        legend1.setBorder(new BlockBorder());
+        legend1.setFrame(new BlockBorder());
+
         LegendTitle legend2 = new LegendTitle(plot.getRenderer(1));
         legend2.setMargin(new RectangleInsets(2, 2, 2, 2));
-        legend2.setBorder(new BlockBorder());
-        
+        legend2.setFrame(new BlockBorder());
+
         BlockContainer container = new BlockContainer(new BorderArrangement());
         container.add(legend1, RectangleEdge.LEFT);
         container.add(legend2, RectangleEdge.RIGHT);
@@ -211,23 +200,23 @@ public class DualAxisDemo1 extends ApplicationFrame {
 
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         JFreeChart chart = createChart();
         return new ChartPanel(chart);
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         DualAxisDemo1 demo = new DualAxisDemo1("Dual Axis Demo 1");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 

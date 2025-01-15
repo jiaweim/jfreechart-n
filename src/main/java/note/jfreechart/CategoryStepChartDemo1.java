@@ -13,6 +13,7 @@ import org.jfree.chart.swing.ApplicationFrame;
 import org.jfree.chart.swing.ChartPanel;
 import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.general.DatasetUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -50,7 +51,7 @@ public class CategoryStepChartDemo1 extends ApplicationFrame {
                 {1.0, 4.0, 3.0, 5.0, 5.0, 7.0, 7.0, 8.0},
                 {5.0, 7.0, 6.0, 8.0, 4.0, 4.0, 2.0, 1.0},
                 {4.0, 3.0, 2.0, 3.0, 6.0, 3.0, 4.0, 3.0}};
-        CategoryDataset dataset = DatasetUtilities.createCategoryDataset(
+        CategoryDataset dataset = DatasetUtils.createCategoryDataset(
                 "Series ", "Type ", data);
         return dataset;
     }

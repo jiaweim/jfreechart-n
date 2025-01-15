@@ -1,27 +1,20 @@
-/* ----------------------
- * SymbolicAxisDemo1.java
- * ----------------------
- * (C) Copyright 2005, by Object Refinery Limited.
- *
- */
+package note.jfreechart;
 
-package tutorial.jfreechart.demo;
-
-import javax.swing.JPanel;
-
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.SymbolAxis;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
 
 /**
- * A simple demonstration application showing how to use the 
+ * A simple demonstration application showing how to use the
  * {@link SymbolAxis} class with an {@link XYPlot}.
  */
 public class SymbolAxisDemo1 extends ApplicationFrame {
@@ -29,7 +22,7 @@ public class SymbolAxisDemo1 extends ApplicationFrame {
     /**
      * Constructs the demo application.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public SymbolAxisDemo1(String title) {
 
@@ -37,21 +30,20 @@ public class SymbolAxisDemo1 extends ApplicationFrame {
         JPanel chartPanel = createDemoPanel();
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 300));
         setContentPane(chartPanel);
-
     }
-    
+
     private static JFreeChart createChart(XYDataset dataset) {
-        SymbolAxis domainAxis = new SymbolAxis("Domain", 
-                new String[] {"A", "B", "C", "D"});
-        SymbolAxis rangeAxis = new SymbolAxis("Range", 
-                new String[] {"V", "X", "Y", "Z"});
+        SymbolAxis domainAxis = new SymbolAxis("Domain",
+                new String[]{"A", "B", "C", "D"});
+        SymbolAxis rangeAxis = new SymbolAxis("Range",
+                new String[]{"V", "X", "Y", "Z"});
         rangeAxis.setUpperMargin(0.0);
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer(false, true);
         XYPlot plot = new XYPlot(dataset, domainAxis, rangeAxis, renderer);
         JFreeChart chart = new JFreeChart("SymbolicAxis Demo 1", plot);
         return chart;
     }
-    
+
     /**
      * Creates a sample dataset.
      */
@@ -66,33 +58,32 @@ public class SymbolAxisDemo1 extends ApplicationFrame {
         s2.add(1, 2);
         s2.add(2, 1);
         s2.add(3, 3);
-        
+
         XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(s1);
         dataset.addSeries(s2);
         return dataset;
     }
-    
+
     /**
      * Creates a panel for the demo.
-     *  
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         return new ChartPanel(createChart(createDataset()));
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
         SymbolAxisDemo1 demo = new SymbolAxisDemo1("Symbolic Axis Demo");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
-
     }
 
 }

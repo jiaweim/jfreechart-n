@@ -1,33 +1,25 @@
-/* -----------------------
- * EventFrequencyDemo.java
- * -----------------------
- * (C) Copyright 2002-2005, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
-
-import java.awt.Color;
-import java.text.DateFormat;
-
-import javax.swing.JPanel;
+package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
+import org.jfree.chart.date.MonthConstants;
 import org.jfree.chart.labels.CategoryToolTipGenerator;
 import org.jfree.chart.labels.StandardCategoryToolTipGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+import org.jfree.chart.swing.ApplicationFrame;
+import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.swing.UIUtils;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.time.Day;
-import org.jfree.date.MonthConstants;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.DateFormat;
 
 /**
  * A demo application showing how to display category data against a date axis.
@@ -37,7 +29,7 @@ public class EventFrequencyDemo1 extends ApplicationFrame {
     /**
      * Creates a new demo.
      *
-     * @param title  the frame title.
+     * @param title the frame title.
      */
     public EventFrequencyDemo1(String title) {
 
@@ -47,49 +39,47 @@ public class EventFrequencyDemo1 extends ApplicationFrame {
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         setContentPane(chartPanel);
-
     }
 
     /**
      * Creates a sample chart.
-     * 
-     * @param dataset  a dataset.
-     * 
+     *
+     * @param dataset a dataset.
      * @return A sample chart.
      */
     private static JFreeChart createChart(CategoryDataset dataset) {
 
         JFreeChart chart = ChartFactory.createBarChart(
-            "Event Frequency Demo",      // title
-            "Category",                  // domain axis label
-            "Value",                     // range axis label
-            dataset,                     // dataset
-            PlotOrientation.HORIZONTAL,  // orientation
-            true,                        // include legend
-            true,                        // tooltips
-            false                        // URLs
+                "Event Frequency Demo",      // title
+                "Category",                  // domain axis label
+                "Value",                     // range axis label
+                dataset,                     // dataset
+                PlotOrientation.HORIZONTAL,  // orientation
+                true,                        // include legend
+                true,                        // tooltips
+                false                        // URLs
         );
 
         chart.setBackgroundPaint(new Color(0xFF, 0xFF, 0xCC));
-        
+
         // get a reference to the plot for further customisation...
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.getDomainAxis().setMaximumCategoryLabelWidthRatio(10.0f);
         plot.setRangeAxis(new DateAxis("Date"));
-        CategoryToolTipGenerator toolTipGenerator 
-            = new StandardCategoryToolTipGenerator(
-                  "", DateFormat.getDateInstance()
-              );
+        CategoryToolTipGenerator toolTipGenerator
+                = new StandardCategoryToolTipGenerator(
+                "", DateFormat.getDateInstance()
+        );
         CategoryItemRenderer renderer = new LineAndShapeRenderer(false, true);
-        renderer.setToolTipGenerator(toolTipGenerator);
+        renderer.setDefaultToolTipGenerator(toolTipGenerator);
         plot.setRenderer(renderer);
 
         return chart;
     }
-    
+
     /**
      * Creates a sample dataset.
-     * 
+     *
      * @return A sample dataset.
      */
     private static CategoryDataset createDataset() {
@@ -104,54 +94,51 @@ public class EventFrequencyDemo1 extends ApplicationFrame {
         Day d6 = new Day(22, MonthConstants.AUGUST, 2002);
 
         dataset.setValue(
-            new Long(d1.getMiddleMillisecond()), "Series 1", "Requirement 1"
+                new Long(d1.getMiddleMillisecond()), "Series 1", "Requirement 1"
         );
         dataset.setValue(
-            new Long(d1.getMiddleMillisecond()), "Series 1", "Requirement 2"
+                new Long(d1.getMiddleMillisecond()), "Series 1", "Requirement 2"
         );
         dataset.setValue(
-            new Long(d2.getMiddleMillisecond()), "Series 1", "Requirement 3"
+                new Long(d2.getMiddleMillisecond()), "Series 1", "Requirement 3"
         );
         dataset.setValue(
-            new Long(d3.getMiddleMillisecond()), "Series 2", "Requirement 1"
+                new Long(d3.getMiddleMillisecond()), "Series 2", "Requirement 1"
         );
         dataset.setValue(
-            new Long(d4.getMiddleMillisecond()), "Series 2", "Requirement 3"
+                new Long(d4.getMiddleMillisecond()), "Series 2", "Requirement 3"
         );
         dataset.setValue(
-            new Long(d5.getMiddleMillisecond()), "Series 3", "Requirement 2"
+                new Long(d5.getMiddleMillisecond()), "Series 3", "Requirement 2"
         );
         dataset.setValue(
-            new Long(d6.getMiddleMillisecond()), "Series 1", "Requirement 4"
+                new Long(d6.getMiddleMillisecond()), "Series 1", "Requirement 4"
         );
 
         return dataset;
     }
-    
+
     /**
      * Creates a panel for the demo (used by SuperDemo.java).
-     * 
+     *
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
         JFreeChart chart = createChart(createDataset());
         return new ChartPanel(chart);
     }
-    
+
     /**
      * Starting point for the demonstration application.
      *
-     * @param args  ignored.
+     * @param args ignored.
      */
     public static void main(String[] args) {
 
-        EventFrequencyDemo1 demo = new EventFrequencyDemo1(
-            "Event Frequency Demo"
-        );
+        EventFrequencyDemo1 demo = new EventFrequencyDemo1("Event Frequency Demo");
         demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
+        UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
-
     }
 
 }
