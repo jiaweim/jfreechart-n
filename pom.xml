@@ -5,17 +5,21 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>tutorial</groupId>
-    <artifactId>JFreeChart-tutorial</artifactId>
+    <artifactId>JFreeChart</artifactId>
     <version>1.1.0</version>
 
     <dependencies>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>3.5.2</version>
+        </dependency>
         <!-- custom build with addition exports-->
         <dependency>
             <groupId>org.jfree</groupId>
             <artifactId>jfreechart</artifactId>
             <version>2.0.0-SNAPSHOT</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.jfree/org.jfree.chart3d -->
         <dependency>
             <groupId>org.jfree</groupId>
             <artifactId>org.jfree.chart3d</artifactId>
@@ -28,19 +32,18 @@
         </dependency>
         <dependency>
             <groupId>org.jfree</groupId>
+            <artifactId>org.jfree.pdf</artifactId>
+            <version>2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jfree</groupId>
             <artifactId>org.jfree.svg</artifactId>
             <version>5.0.5</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.jfree</groupId>-->
-<!--            <artifactId>jcommon</artifactId>-->
-<!--            <version>1.0.24</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
             <version>6.1.0</version>
-            <scope>provided</scope>
         </dependency>
 
     </dependencies>
@@ -52,8 +55,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.6.1</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>21</source>
+                    <target>21</target>
                 </configuration>
             </plugin>
             <plugin>

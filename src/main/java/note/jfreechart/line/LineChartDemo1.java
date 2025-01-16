@@ -25,7 +25,7 @@ import java.net.URL;
  * data from a {@link CategoryDataset}.
  *
  * @author Jiawei Mao
- * @version 0.1.0
+ * @version 0.1.0 ⭐
  * @since 26 Dec 2023, 10:35 AM
  */
 public class LineChartDemo1 extends ApplicationFrame {

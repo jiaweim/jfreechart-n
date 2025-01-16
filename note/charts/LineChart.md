@@ -1,6 +1,7 @@
 # 折线图
 
-2023-12-26, 11:29⭐
+2025-01-15 添加函数图像
+2023-12-26, 11:29⭐⭐
 ***
 
 ## 简介
@@ -9,7 +10,7 @@
 
 ## CategoryDataset 折线图
 
-基于 CategoryDataset 的折线图直接用直线将数据 (category, value) 连起来。
+基于 `CategoryDataset` 的折线图直接用直线将数据 (category, value) 连起来。
 
 ### 数据集
 
@@ -104,116 +105,9 @@ NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
 rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 ```
 
-### 完整代码
+[完整代码](../../src/main/java/note/jfreechart/line/LineChartDemo1.java)。效果：
 
-```java
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.api.HorizontalAlignment;
-import org.jfree.chart.api.RectangleEdge;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.renderer.category.LineAndShapeRenderer;
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.ChartPanel;
-import org.jfree.chart.swing.UIUtils;
-import org.jfree.chart.title.TextTitle;
-import org.jfree.data.category.CategoryDataset;
-import org.jfree.data.category.DefaultCategoryDataset;
-
-import java.awt.*;
-
-public class LineChartDemo2 extends ApplicationFrame {
-
-/**
- * Constructs a new application frame.
- *
- * @param title the frame title.
- */
-public LineChartDemo2(String title) {
-    super(title);
-
-    CategoryDataset<String, String> dataset = createDataset();
-    JFreeChart chart = createChart(dataset);
-    ChartPanel chartPanel = new ChartPanel(chart);
-    chartPanel.setPreferredSize(new Dimension(500, 270));
-    setContentPane(chartPanel);
-}
-
-/**
- * Creates a sample dataset.
- *
- * @return The dataset.
- */
-private static CategoryDataset<String, String> createDataset() {
-    DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
-    dataset.addValue(212, "Classes", "JDK 1.0");
-    dataset.addValue(504, "Classes", "JDK 1.1");
-    dataset.addValue(1520, "Classes", "SDK 1.2");
-    dataset.addValue(1842, "Classes", "SDK 1.3");
-    dataset.addValue(2991, "Classes", "SDK 1.4");
-    return dataset;
-}
-
-/**
- * Creates a sample chart.
- *
- * @param dataset a dataset.
- * @return The chart.
- */
-private static JFreeChart createChart(CategoryDataset dataset) {
-    // create the chart...
-    JFreeChart chart = ChartFactory.createLineChart(
-            "Java Standard Class Library", // chart title
-            "Release", // domain axis label
-            "Class Count", // range axis label
-            dataset, // data
-            PlotOrientation.VERTICAL, // orientation
-            false, // include legend
-            true, // tooltips
-            false // urls
-    );
-    chart.addSubtitle(new TextTitle("Number of Classes By Release"));
-
-    TextTitle source = new TextTitle("Source: Java In A Nutshell (4th Edition) by David Flanagan (O'Reilly)");
-    source.setFont(new Font("SansSerif", Font.PLAIN, 10));
-    source.setPosition(RectangleEdge.BOTTOM);
-    source.setHorizontalAlignment(HorizontalAlignment.RIGHT);
-    chart.addSubtitle(source);
-
-    chart.setBackgroundPaint(Color.WHITE);
-
-    CategoryPlot<String, String> plot = (CategoryPlot) chart.getPlot();
-    plot.setBackgroundPaint(Color.LIGHT_GRAY);
-    plot.setRangeGridlinePaint(Color.WHITE);
-
-    // customise the range axis...
-    NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
-    rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-
-    // customise the renderer...
-    LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
-    renderer.setDefaultShapesVisible(true);
-    renderer.setDrawOutlines(true);
-    renderer.setUseFillPaint(true);
-
-    renderer.setDefaultFillPaint(Color.WHITE);
-    return chart;
-}
-
-public static void main(String[] args) {
-    EventQueue.invokeLater(() -> {
-        LineChartDemo2 demo1 = new LineChartDemo2("Line Chart Demo");
-        demo1.pack();
-        UIUtils.centerFrameOnScreen(demo1);
-        demo1.setVisible(true);
-    });
-}
-}
-```
-
-<img src="images/2023-12-26-11-05-54.png" width="500"/>
+<img src="./images/image-20250115162025357.png" alt="image-20250115162025357" style="zoom:67%;" />
 
 ## XYDataset 折线图
 
@@ -432,6 +326,37 @@ public static void main(String[] args) {
 }
 }
 ```
+
+### 函数图
+
+折线图常用于绘制函数图像。jfreechart 使用 `Function2D` 表示函数，从正态函数抽样：
+
+```java
+Function2D normal = new NormalDistributionFunction2D(0.0, 1.0);
+XYDataset dataset = DatasetUtils.sampleFunction2D(normal, -5.0,
+        5.0, 100, "Normal"); // 从 -5 到 5 均匀抽样 100 个点
+```
+
+然后使用该数据集绘制折线图：
+
+```java
+JFreeChart chart = ChartFactory.createXYLineChart(
+        "Normal Distribution",
+        "X",
+        "Y",
+        dataset,
+        PlotOrientation.VERTICAL,
+        true,
+        true,
+        false
+);
+```
+
+效果如下：
+
+<img src="./images/image-20250115154240704.png" alt="image-20250115154240704" style="zoom:67%;" />
+
+[完整代码](../../src/main/java/note/jfreechart/NormalDistributionDemo1.java)
 
 ## 自定义
 

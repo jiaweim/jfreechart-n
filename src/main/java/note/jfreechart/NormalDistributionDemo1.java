@@ -85,5 +85,4 @@ public class NormalDistributionDemo1 extends ApplicationFrame {
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
-
 }

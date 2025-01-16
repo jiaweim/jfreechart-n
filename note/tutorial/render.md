@@ -1,4 +1,4 @@
-# org.jfree.chart.renderer.xy
+# Renderer
 
 ## 简介
 

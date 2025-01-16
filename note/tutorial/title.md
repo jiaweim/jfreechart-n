@@ -28,6 +28,8 @@ chart.getTitle().setPosition(RectangleEdge.BOTTOM);
 
 如果**不需要标题**，将其设置为 `null`。
 
+
+
 ## 副标题
 
 Chart 可以有任意个副标题。副标题为类型为 `Title` 任意子类。添加副标题：
