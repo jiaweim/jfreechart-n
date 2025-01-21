@@ -35,7 +35,7 @@ import org.jfree.chart3d.style.ChartStyle;
 @SuppressWarnings("serial")
 public class OrsonChartsDemoComponent extends JPanel implements TreeSelectionListener {
     
-    private static final String PREFIX = "com.orsoncharts.demo.";
+    private static final String PREFIX = "note.jfreechart.chart3d.";
     
     private static final String ABOUT_PREFIX = "/com/orsoncharts/demo/";
     
