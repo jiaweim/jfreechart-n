@@ -7,3 +7,6 @@
 	- [[item_label|数据标签]]
 	- [标题](./tutorial/title.md)
 
+实现以下函数图表：
+
+https://www.desmos.com/calculator/gaa5aqyb5s?lang=zh-CN
