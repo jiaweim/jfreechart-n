@@ -1,19 +1,19 @@
 package note.jfreechart.bar;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.api.HorizontalAlignment;
-import org.jfree.chart.api.RectangleEdge;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.labels.StandardCategorySeriesLabelGenerator;
-import org.jfree.chart.legend.LegendTitle;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.StandardBarPainter;
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.ChartPanel;
-import org.jfree.chart.swing.UIUtils;
+import org.jfree.chart.title.LegendTitle;
 import org.jfree.chart.title.TextTitle;
+import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.ui.HorizontalAlignment;
+import org.jfree.chart.ui.RectangleEdge;
+import org.jfree.chart.ui.UIUtils;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -41,8 +41,8 @@ public class BarChartDemo1 extends ApplicationFrame {
         this.setContentPane(chartPanel);
     }
 
-    private static CategoryDataset<String, String> createDataset() {
-        DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
+    private static CategoryDataset createDataset() {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         String series1 = "Males";
         String series2 = "Females";
         String category1 = "18 to 39";

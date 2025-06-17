@@ -1,11 +1,11 @@
 package note.jfreechart;
 
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.MeterInterval;
 import org.jfree.chart.plot.MeterPlot;
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.ChartPanel;
-import org.jfree.chart.swing.UIUtils;
+import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.ui.UIUtils;
 import org.jfree.data.Range;
 import org.jfree.data.general.DefaultValueDataset;
 import org.jfree.data.general.ValueDataset;
@@ -66,7 +66,7 @@ public class MeterChartDemo2 extends ApplicationFrame {
         slider.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 JSlider s = (JSlider) e.getSource();
-                dataset.setValue(new Integer(s.getValue()));
+                dataset.setValue(s.getValue());
             }
         });
         panel.add(new ChartPanel(chart));

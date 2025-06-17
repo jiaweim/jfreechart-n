@@ -1,6 +1,7 @@
 package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.labels.AbstractCategoryItemLabelGenerator;
@@ -8,9 +9,8 @@ import org.jfree.chart.labels.CategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.ChartPanel;
-import org.jfree.chart.swing.UIUtils;
+import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.ui.UIUtils;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -86,9 +86,9 @@ public class ItemLabelDemo1 extends ApplicationFrame {
      *
      * @return The dataset.
      */
-    private static CategoryDataset<String, String> createDataset() {
+    private static CategoryDataset createDataset() {
 
-        DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         dataset.addValue(11.0, "S1", "C1");
         dataset.addValue(44.3, "S1", "C2");
         dataset.addValue(93.0, "S1", "C3");

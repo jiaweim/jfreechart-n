@@ -1,15 +1,15 @@
 package note.jfreechart.line;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.api.RectangleInsets;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.ChartPanel;
-import org.jfree.chart.swing.UIUtils;
+import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.ui.RectangleInsets;
+import org.jfree.chart.ui.UIUtils;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
@@ -31,7 +31,7 @@ public class LineChartDemo2 extends ApplicationFrame {
     public LineChartDemo2(String title) {
         super(title);
 
-        XYDataset<String> dataset = createDataset();
+        XYDataset dataset = createDataset();
         JFreeChart chart = createChart(dataset);
         ChartPanel panel = new ChartPanel(chart);
         panel.setPreferredSize(new Dimension(500, 270));
@@ -41,8 +41,8 @@ public class LineChartDemo2 extends ApplicationFrame {
     /**
      * @return a sample dataset.
      */
-    private static XYDataset<String> createDataset() {
-        XYSeries<String> series1 = new XYSeries<>("First");
+    private static XYDataset createDataset() {
+        XYSeries series1 = new XYSeries("First");
         series1.add(1.0, 1.0);
         series1.add(2.0, 4.0);
         series1.add(3.0, 3.0);
@@ -52,7 +52,7 @@ public class LineChartDemo2 extends ApplicationFrame {
         series1.add(7.0, 7.0);
         series1.add(8.0, 8.0);
 
-        XYSeries<String> series2 = new XYSeries<>("Second");
+        XYSeries series2 = new XYSeries("Second");
         series2.add(1.0, 5.0);
         series2.add(2.0, 7.0);
         series2.add(3.0, 6.0);
@@ -62,7 +62,7 @@ public class LineChartDemo2 extends ApplicationFrame {
         series2.add(7.0, 2.0);
         series2.add(8.0, 1.0);
 
-        XYSeries<String> series3 = new XYSeries<>("Third");
+        XYSeries series3 = new XYSeries("Third");
         series3.add(3.0, 4.0);
         series3.add(4.0, 3.0);
         series3.add(5.0, 2.0);
@@ -72,7 +72,7 @@ public class LineChartDemo2 extends ApplicationFrame {
         series3.add(9.0, 4.0);
         series3.add(10.0, 3.0);
 
-        XYSeriesCollection<String> dataset = new XYSeriesCollection<>();
+        XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(series1);
         dataset.addSeries(series2);
         dataset.addSeries(series3);
@@ -80,7 +80,7 @@ public class LineChartDemo2 extends ApplicationFrame {
         return dataset;
     }
 
-    private static JFreeChart createChart(XYDataset<String> dataset) {
+    private static JFreeChart createChart(XYDataset dataset) {
         JFreeChart chart = ChartFactory.createXYLineChart(
                 "Line Chart Demo 2", // chart title
                 "X", // x axis label
@@ -93,7 +93,7 @@ public class LineChartDemo2 extends ApplicationFrame {
         );
         chart.setBackgroundPaint(Color.WHITE);
 
-        XYPlot<String> plot = (XYPlot) chart.getPlot();
+        XYPlot plot = (XYPlot) chart.getPlot();
         plot.setBackgroundPaint(Color.LIGHT_GRAY);
         plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
         plot.setDomainGridlinePaint(Color.WHITE);

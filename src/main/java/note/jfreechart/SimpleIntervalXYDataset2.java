@@ -38,10 +38,10 @@ public class SimpleIntervalXYDataset2 extends AbstractIntervalXYDataset
 
         double base = 100;
         for (int i = 1; i <= itemCount; i++) {
-            this.xValues[i - 1] = new Double(i);
+            this.xValues[i - 1] = (double) i;
             base = base * (1 + (Math.random() / 10 - 0.05));
-            this.yStart[i - 1] = new Double(base);
-            this.yEnd[i - 1] = new Double(this.yStart[i - 1].doubleValue() + Math.random() * 30);
+            this.yStart[i - 1] = base;
+            this.yEnd[i - 1] = this.yStart[i - 1].doubleValue() + Math.random() * 30;
         }
     }
 

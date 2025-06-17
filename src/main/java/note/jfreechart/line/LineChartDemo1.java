@@ -1,17 +1,17 @@
 package note.jfreechart.line;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.api.HorizontalAlignment;
-import org.jfree.chart.api.RectangleEdge;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.ChartPanel;
-import org.jfree.chart.swing.UIUtils;
 import org.jfree.chart.title.TextTitle;
+import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.ui.HorizontalAlignment;
+import org.jfree.chart.ui.RectangleEdge;
+import org.jfree.chart.ui.UIUtils;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -38,7 +38,7 @@ public class LineChartDemo1 extends ApplicationFrame {
     public LineChartDemo1(String title) {
         super(title);
 
-        CategoryDataset<String, String> dataset = createDataset();
+        CategoryDataset dataset = createDataset();
         JFreeChart chart = createChart(dataset);
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new Dimension(500, 270));
@@ -50,8 +50,8 @@ public class LineChartDemo1 extends ApplicationFrame {
      *
      * @return The dataset.
      */
-    private static CategoryDataset<String, String> createDataset() {
-        DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
+    private static CategoryDataset createDataset() {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         dataset.addValue(212, "Classes", "JDK 1.0");
         dataset.addValue(504, "Classes", "JDK 1.1");
         dataset.addValue(1520, "Classes", "SDK 1.2");
@@ -89,7 +89,7 @@ public class LineChartDemo1 extends ApplicationFrame {
 
         chart.setBackgroundPaint(Color.WHITE);
 
-        CategoryPlot<String, String> plot = (CategoryPlot) chart.getPlot();
+        CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setBackgroundPaint(Color.LIGHT_GRAY);
         plot.setRangeGridlinesVisible(false);
         URL imageURL = LineChartDemo1.class.getClassLoader().getResource("OnBridge11small.png");

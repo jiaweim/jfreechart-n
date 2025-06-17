@@ -1,15 +1,5 @@
 # 柱状图
 
-- [柱状图](#柱状图)
-  - [简介](#简介)
-    - [创建 Dataset](#创建-dataset)
-    - [创建柱状图](#创建柱状图)
-  - [ChartFactory](#chartfactory)
-  - [个性化](#个性化)
-  - [自定义 Renderer](#自定义-renderer)
-    - [Bar 颜色](#bar-颜色)
-    - [Bar Spacing](#bar-spacing)
-
 2023-12-26, 10:17⭐
 
 ****

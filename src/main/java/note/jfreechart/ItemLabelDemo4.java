@@ -1,19 +1,19 @@
 package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.api.HorizontalAlignment;
-import org.jfree.chart.api.RectangleEdge;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.ChartPanel;
-import org.jfree.chart.swing.UIUtils;
 import org.jfree.chart.title.TextTitle;
+import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.ui.HorizontalAlignment;
+import org.jfree.chart.ui.RectangleEdge;
+import org.jfree.chart.ui.UIUtils;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -23,8 +23,7 @@ import java.awt.*;
 /**
  * A line chart with item labels.
  */
-public class ItemLabelDemo4 extends ApplicationFrame
-{
+public class ItemLabelDemo4 extends ApplicationFrame {
 
     /**
      * Creates a new demo.
@@ -43,8 +42,8 @@ public class ItemLabelDemo4 extends ApplicationFrame
      *
      * @return The dataset.
      */
-    private static CategoryDataset<String, String> createDataset() {
-        DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
+    private static CategoryDataset createDataset() {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         dataset.addValue(212, "Classes", "JDK 1.0");
         dataset.addValue(504, "Classes", "JDK 1.1");
         dataset.addValue(1520, "Classes", "JDK 1.2");
@@ -59,7 +58,7 @@ public class ItemLabelDemo4 extends ApplicationFrame
      * @param dataset a dataset.
      * @return The chart.
      */
-    private static JFreeChart createChart(CategoryDataset<String, String> dataset) {
+    private static JFreeChart createChart(CategoryDataset dataset) {
 
         // create the chart...
         JFreeChart chart = ChartFactory.createLineChart(

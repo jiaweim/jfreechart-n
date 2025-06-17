@@ -1,6 +1,7 @@
 package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.date.MonthConstants;
@@ -10,9 +11,8 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.ChartPanel;
-import org.jfree.chart.swing.UIUtils;
+import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.ui.UIUtils;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.time.Day;
@@ -94,25 +94,25 @@ public class EventFrequencyDemo1 extends ApplicationFrame {
         Day d6 = new Day(22, MonthConstants.AUGUST, 2002);
 
         dataset.setValue(
-                new Long(d1.getMiddleMillisecond()), "Series 1", "Requirement 1"
+                d1.getMiddleMillisecond(), "Series 1", "Requirement 1"
         );
         dataset.setValue(
-                new Long(d1.getMiddleMillisecond()), "Series 1", "Requirement 2"
+                d1.getMiddleMillisecond(), "Series 1", "Requirement 2"
         );
         dataset.setValue(
-                new Long(d2.getMiddleMillisecond()), "Series 1", "Requirement 3"
+                d2.getMiddleMillisecond(), "Series 1", "Requirement 3"
         );
         dataset.setValue(
-                new Long(d3.getMiddleMillisecond()), "Series 2", "Requirement 1"
+                d3.getMiddleMillisecond(), "Series 2", "Requirement 1"
         );
         dataset.setValue(
-                new Long(d4.getMiddleMillisecond()), "Series 2", "Requirement 3"
+                d4.getMiddleMillisecond(), "Series 2", "Requirement 3"
         );
         dataset.setValue(
-                new Long(d5.getMiddleMillisecond()), "Series 3", "Requirement 2"
+                d5.getMiddleMillisecond(), "Series 3", "Requirement 2"
         );
         dataset.setValue(
-                new Long(d6.getMiddleMillisecond()), "Series 1", "Requirement 4"
+                d6.getMiddleMillisecond(), "Series 1", "Requirement 4"
         );
 
         return dataset;

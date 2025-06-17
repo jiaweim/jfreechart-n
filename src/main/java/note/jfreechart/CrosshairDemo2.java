@@ -1,18 +1,21 @@
 package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.api.RectangleInsets;
 import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.event.*;
+import org.jfree.chart.event.ChartChangeEvent;
+import org.jfree.chart.event.ChartChangeListener;
+import org.jfree.chart.event.ChartProgressEvent;
+import org.jfree.chart.event.ChartProgressListener;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.ChartPanel;
-import org.jfree.chart.swing.NumberCellRenderer;
-import org.jfree.chart.swing.UIUtils;
+import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.ui.NumberCellRenderer;
+import org.jfree.chart.ui.RectangleInsets;
+import org.jfree.chart.ui.UIUtils;
 import org.jfree.data.time.*;
 import org.jfree.data.xy.XYDataset;
 
@@ -74,12 +77,12 @@ public class CrosshairDemo2 extends ApplicationFrame {
                 XYPlot plot = (XYPlot) chart.getPlot();
                 this.model.setValueAt(plot.getDataset(row).getSeriesKey(0),
                         row, 0);
-                this.model.setValueAt(new Double("0.00"), row, 1);
-                this.model.setValueAt(new Double("0.00"), row, 2);
-                this.model.setValueAt(new Double("0.00"), row, 3);
-                this.model.setValueAt(new Double("0.00"), row, 4);
-                this.model.setValueAt(new Double("0.00"), row, 5);
-                this.model.setValueAt(new Double("0.00"), row, 6);
+                this.model.setValueAt(Double.parseDouble("0.00"), row, 1);
+                this.model.setValueAt(Double.parseDouble("0.00"), row, 2);
+                this.model.setValueAt(Double.parseDouble("0.00"), row, 3);
+                this.model.setValueAt(Double.parseDouble("0.00"), row, 4);
+                this.model.setValueAt(Double.parseDouble("0.00"), row, 5);
+                this.model.setValueAt(Double.parseDouble("0.00"), row, 6);
 
             }
             JTable table = new JTable(this.model);
@@ -144,7 +147,7 @@ public class CrosshairDemo2 extends ApplicationFrame {
                     this.model.setValueAt(seriesKey, 0, 0);
                     long millis = (long) xx;
                     for (int row = 0; row < SERIES_COUNT; row++) {
-                        this.model.setValueAt(new Long(millis), row, 1);
+                        this.model.setValueAt(millis, row, 1);
                         int[] bounds
                                 = this.datasets[row].getSurroundingItems(0, millis);
                         long prevX = 0;
@@ -158,15 +161,15 @@ public class CrosshairDemo2 extends ApplicationFrame {
                             Number y = prevItem.getValue();
                             if (y != null) {
                                 prevY = y.doubleValue();
-                                this.model.setValueAt(new Double(prevY), row,
+                                this.model.setValueAt(prevY, row,
                                         4);
                             } else {
                                 this.model.setValueAt(null, row, 4);
                             }
-                            this.model.setValueAt(new Long(prevX), row, 3);
+                            this.model.setValueAt(prevX, row, 3);
                         } else {
-                            this.model.setValueAt(new Double(0.00), row, 4);
-                            this.model.setValueAt(new Double(plot.getDomainAxis().getRange().getLowerBound()), row, 3);
+                            this.model.setValueAt(0.00, row, 4);
+                            this.model.setValueAt(plot.getDomainAxis().getRange().getLowerBound(), row, 3);
                         }
                         if (bounds[1] >= 0) {
                             TimeSeriesDataItem nextItem
@@ -175,15 +178,15 @@ public class CrosshairDemo2 extends ApplicationFrame {
                             Number y = nextItem.getValue();
                             if (y != null) {
                                 nextY = y.doubleValue();
-                                this.model.setValueAt(new Double(nextY), row,
+                                this.model.setValueAt(nextY, row,
                                         6);
                             } else {
                                 this.model.setValueAt(null, row, 6);
                             }
-                            this.model.setValueAt(new Long(nextX), row, 5);
+                            this.model.setValueAt(nextX, row, 5);
                         } else {
-                            this.model.setValueAt(new Double(0.00), row, 6);
-                            this.model.setValueAt(new Double(plot.getDomainAxis().getRange().getUpperBound()), row, 5);
+                            this.model.setValueAt(0.00, row, 6);
+                            this.model.setValueAt(plot.getDomainAxis().getRange().getUpperBound(), row, 5);
                         }
                         double interpolatedY = 0.0;
                         if ((nextX - prevX) > 0) {
@@ -193,7 +196,7 @@ public class CrosshairDemo2 extends ApplicationFrame {
                         } else {
                             interpolatedY = prevY;
                         }
-                        this.model.setValueAt(new Double(interpolatedY), row,
+                        this.model.setValueAt(interpolatedY, row,
                                 2);
                     }
                 }
@@ -257,7 +260,7 @@ public class CrosshairDemo2 extends ApplicationFrame {
          * @param event the event.
          */
         public void chartProgress(ChartProgressEvent event) {
-            if (event.getType() != ChartProgressEventType.DRAWING_FINISHED) {
+            if (event.getType() != ChartProgressEvent.DRAWING_FINISHED) {
                 return;
             }
             if (this.chartPanel != null) {
@@ -270,7 +273,7 @@ public class CrosshairDemo2 extends ApplicationFrame {
                     // update the table...
                     this.model.setValueAt(seriesKey, 0, 0);
                     long millis = (long) xx;
-                    this.model.setValueAt(new Long(millis), 0, 1);
+                    this.model.setValueAt(millis, 0, 1);
                     for (int i = 0; i < SERIES_COUNT; i++) {
                         int itemIndex = this.series[i].getIndex(new Minute(
                                 new Date(millis)));
@@ -290,12 +293,12 @@ public class CrosshairDemo2 extends ApplicationFrame {
                             long nextX = nextItem.getPeriod()
                                     .getMiddleMillisecond();
                             double nextY = nextItem.getValue().doubleValue();
-                            this.model.setValueAt(new Long(x), i, 1);
-                            this.model.setValueAt(new Double(y), i, 2);
-                            this.model.setValueAt(new Long(prevX), i, 3);
-                            this.model.setValueAt(new Double(prevY), i, 4);
-                            this.model.setValueAt(new Long(nextX), i, 5);
-                            this.model.setValueAt(new Double(nextY), i, 6);
+                            this.model.setValueAt(x, i, 1);
+                            this.model.setValueAt(y, i, 2);
+                            this.model.setValueAt(prevX, i, 3);
+                            this.model.setValueAt(prevY, i, 4);
+                            this.model.setValueAt(nextX, i, 5);
+                            this.model.setValueAt(nextY, i, 6);
                         }
                     }
 

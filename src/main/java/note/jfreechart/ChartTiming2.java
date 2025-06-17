@@ -1,13 +1,5 @@
-/* -----------------
- * ChartTiming2.java
- * -----------------
- * (C) Copyright 2002-2004, by Object Refinery Limited.
- *
- */
+package note.jfreechart;
 
-package tutorial.jfreechart.demo;
-
-import note.jfreechart.SampleXYDataset2;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;

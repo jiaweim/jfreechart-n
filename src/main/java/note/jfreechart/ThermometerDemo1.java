@@ -1,17 +1,10 @@
-/* ---------------------
- * ThermometerDemo1.java
- * ---------------------
- * (C) Copyright 2002-2007, by Object Refinery Limited.
- *
- */
-
 package note.jfreechart;
 
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.api.RectangleInsets;
 import org.jfree.chart.plot.ThermometerPlot;
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.ChartPanel;
+import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.ui.RectangleInsets;
 import org.jfree.data.general.DefaultValueDataset;
 import org.jfree.data.general.ValueDataset;
 
@@ -64,9 +57,8 @@ public class ThermometerDemo1 extends ApplicationFrame {
         }
 
         public void stateChanged(ChangeEvent e) {
-            this.dataset.setValue(new Integer(this.slider.getValue()));
+            this.dataset.setValue(this.slider.getValue());
         }
-
     }
 
     /**

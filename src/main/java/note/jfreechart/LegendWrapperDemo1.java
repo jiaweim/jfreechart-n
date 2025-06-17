@@ -1,18 +1,18 @@
 package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.api.HorizontalAlignment;
-import org.jfree.chart.api.RectangleEdge;
 import org.jfree.chart.block.BlockBorder;
 import org.jfree.chart.block.BlockContainer;
 import org.jfree.chart.block.BorderArrangement;
 import org.jfree.chart.block.LabelBlock;
-import org.jfree.chart.legend.LegendTitle;
-import org.jfree.chart.plot.pie.PiePlot;
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.ChartPanel;
-import org.jfree.chart.swing.UIUtils;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.title.LegendTitle;
+import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.ui.HorizontalAlignment;
+import org.jfree.chart.ui.RectangleEdge;
+import org.jfree.chart.ui.UIUtils;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 
@@ -40,14 +40,14 @@ public class LegendWrapperDemo1 extends ApplicationFrame {
      *
      * @return a sample dataset.
      */
-    private static PieDataset createDataset() {
-        DefaultPieDataset dataset = new DefaultPieDataset();
-        dataset.setValue("One", new Double(43.2));
-        dataset.setValue("Two", new Double(10.0));
-        dataset.setValue("Three", new Double(27.5));
-        dataset.setValue("Four", new Double(17.5));
-        dataset.setValue("Five", new Double(11.0));
-        dataset.setValue("Six", new Double(19.4));
+    private static PieDataset<String> createDataset() {
+        DefaultPieDataset<String> dataset = new DefaultPieDataset<>();
+        dataset.setValue("One", 43.2);
+        dataset.setValue("Two", 10.0);
+        dataset.setValue("Three", 27.5);
+        dataset.setValue("Four", 17.5);
+        dataset.setValue("Five", 11.0);
+        dataset.setValue("Six", 19.4);
         return dataset;
     }
 
@@ -67,7 +67,7 @@ public class LegendWrapperDemo1 extends ApplicationFrame {
                 false
         );
 
-        PiePlot plot = (PiePlot) chart.getPlot();
+        PiePlot<String> plot = (PiePlot) chart.getPlot();
         plot.setLabelFont(new Font("SansSerif", Font.PLAIN, 12));
         plot.setNoDataMessage("No data available");
         plot.setCircular(true);

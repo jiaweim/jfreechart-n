@@ -1,15 +1,15 @@
 package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.annotations.XYPointerAnnotation;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.ChartPanel;
-import org.jfree.chart.swing.UIUtils;
-import org.jfree.chart.text.TextAnchor;
+import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.ui.TextAnchor;
+import org.jfree.chart.ui.UIUtils;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
@@ -39,24 +39,24 @@ public class XYAreaChartDemo1 extends ApplicationFrame {
 
     private static XYDataset createDataset() {
         XYSeries series1 = new XYSeries("Random 1");
-        series1.add(new Integer(1), new Double(500.2));
-        series1.add(new Integer(2), new Double(694.1));
-        series1.add(new Integer(3), new Double(-734.4));
-        series1.add(new Integer(4), new Double(453.2));
-        series1.add(new Integer(5), new Double(500.2));
-        series1.add(new Integer(6), new Double(300.7));
-        series1.add(new Integer(7), new Double(734.4));
-        series1.add(new Integer(8), new Double(453.2));
+        series1.add(1, 500.2);
+        series1.add(2, 694.1);
+        series1.add(3, -734.4);
+        series1.add(4, 453.2);
+        series1.add(5, 500.2);
+        series1.add(6, 300.7);
+        series1.add(7, 734.4);
+        series1.add(8, 453.2);
 
         XYSeries series2 = new XYSeries("Random 2");
-        series2.add(new Integer(1), new Double(700.2));
-        series2.add(new Integer(2), new Double(534.1));
-        series2.add(new Integer(3), new Double(323.4));
-        series2.add(new Integer(4), new Double(125.2));
-        series2.add(new Integer(5), new Double(653.2));
-        series2.add(new Integer(6), new Double(432.7));
-        series2.add(new Integer(7), new Double(564.4));
-        series2.add(new Integer(8), new Double(322.2));
+        series2.add(1, 700.2);
+        series2.add(2, 534.1);
+        series2.add(3, 323.4);
+        series2.add(4, 125.2);
+        series2.add(5, 653.2);
+        series2.add(6, 432.7);
+        series2.add(7, 564.4);
+        series2.add(8, 322.2);
 
         XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(series1);

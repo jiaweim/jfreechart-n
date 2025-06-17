@@ -1,6 +1,7 @@
 package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.labels.ItemLabelAnchor;
@@ -10,10 +11,9 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.DefaultDrawingSupplier;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.StackedBarRenderer;
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.ChartPanel;
-import org.jfree.chart.swing.UIUtils;
-import org.jfree.chart.text.TextAnchor;
+import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.ui.TextAnchor;
+import org.jfree.chart.ui.UIUtils;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -25,8 +25,7 @@ import java.text.NumberFormat;
  * This demo shows how to force long labels to be displayed within the bars of a stacked bar chart, even when some
  * labels don't fit completely within each bar.
  */
-public class ItemLabelDemo5 extends ApplicationFrame
-{
+public class ItemLabelDemo5 extends ApplicationFrame {
 
     /**
      * Creates a new demo instance.
@@ -46,7 +45,7 @@ public class ItemLabelDemo5 extends ApplicationFrame
      * @return The dataset.
      */
     public static CategoryDataset createDataset() {
-        DefaultCategoryDataset<String, String> categoryDataset = new DefaultCategoryDataset<>();
+        DefaultCategoryDataset categoryDataset = new DefaultCategoryDataset();
 
         categoryDataset.addValue(52.83, "Germany", "Western EU");
         categoryDataset.addValue(20.83, "France", "Western EU");
@@ -123,8 +122,7 @@ public class ItemLabelDemo5 extends ApplicationFrame
 
     }
 
-    private static class MyStackedBarRenderer extends StackedBarRenderer
-    {
+    private static class MyStackedBarRenderer extends StackedBarRenderer {
 
         int oldColumn = -99;
 

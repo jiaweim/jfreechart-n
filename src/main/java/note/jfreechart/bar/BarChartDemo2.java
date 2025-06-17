@@ -1,12 +1,12 @@
 package note.jfreechart.bar;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.ChartPanel;
-import org.jfree.chart.swing.UIUtils;
+import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.ui.UIUtils;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import java.awt.*;
@@ -26,7 +26,7 @@ public class BarChartDemo2 extends ApplicationFrame {
     public BarChartDemo2(String title) {
         super(title);
 
-        DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         dataset.addValue(1.0, "Row 1", "Column 1");
         dataset.addValue(5.0, "Row 1", "Column 2");
         dataset.addValue(3.0, "Row 1", "Column 3");
@@ -44,7 +44,7 @@ public class BarChartDemo2 extends ApplicationFrame {
                 false // url
         );
         chart.setBackgroundPaint(Color.WHITE);
-        CategoryPlot<String, String> plot = (CategoryPlot<String, String>) chart.getPlot();
+        CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setBackgroundPaint(Color.lightGray);
         plot.setRangeGridlinePaint(Color.WHITE);
 

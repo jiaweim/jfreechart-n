@@ -1,6 +1,7 @@
 package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.NumberAxis;
@@ -11,10 +12,9 @@ import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.ChartPanel;
-import org.jfree.chart.swing.UIUtils;
-import org.jfree.chart.text.TextAnchor;
+import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.ui.TextAnchor;
+import org.jfree.chart.ui.UIUtils;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -25,8 +25,7 @@ import java.text.NumberFormat;
 /**
  * A demo showing how to use a label generator to write the category name inside the bars in a bar chart.
  */
-public class ItemLabelDemo3 extends ApplicationFrame
-{
+public class ItemLabelDemo3 extends ApplicationFrame {
     /**
      * Creates a new demo instance.
      *
@@ -45,9 +44,9 @@ public class ItemLabelDemo3 extends ApplicationFrame
      *
      * @return The dataset.
      */
-    private static CategoryDataset<String, String> createDataset() {
+    private static CategoryDataset createDataset() {
 
-        DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         dataset.addValue(51.0, "Series 1", "Apples");
         dataset.addValue(44.3, "Series 1", "Bananas");
         dataset.addValue(93.0, "Series 1", "Oranges");
@@ -79,7 +78,7 @@ public class ItemLabelDemo3 extends ApplicationFrame
 
         chart.setBackgroundPaint(Color.white);
 
-        CategoryPlot<String, String> plot = (CategoryPlot) chart.getPlot();
+        CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setRangePannable(true);
         plot.setRangeZeroBaselineVisible(true);
         plot.setBackgroundPaint(Color.lightGray);

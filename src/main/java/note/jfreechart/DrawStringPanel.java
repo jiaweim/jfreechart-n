@@ -1,7 +1,7 @@
 package note.jfreechart;
 
-import org.jfree.chart.text.TextAnchor;
 import org.jfree.chart.text.TextUtils;
+import org.jfree.chart.ui.TextAnchor;
 
 import javax.swing.*;
 import java.awt.*;

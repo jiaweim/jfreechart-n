@@ -1,12 +1,12 @@
 package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.ChartPanel;
-import org.jfree.chart.swing.UIUtils;
+import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.ui.UIUtils;
 import org.jfree.data.statistics.BoxAndWhiskerCategoryDataset;
 import org.jfree.data.statistics.DefaultBoxAndWhiskerCategoryDataset;
 
@@ -26,12 +26,12 @@ public class BoxAndWhiskerChartDemo1 extends ApplicationFrame {
         setContentPane(chartPanel);
     }
 
-    private static BoxAndWhiskerCategoryDataset<String, String> createDataset() {
+    private static BoxAndWhiskerCategoryDataset createDataset() {
         int SERIES_COUNT = 3;
         int CATEGORY_COUNT = 5;
         int VALUE_COUNT = 20;
-        DefaultBoxAndWhiskerCategoryDataset<String, String> result
-                = new DefaultBoxAndWhiskerCategoryDataset<>();
+        DefaultBoxAndWhiskerCategoryDataset result
+                = new DefaultBoxAndWhiskerCategoryDataset();
         for (int s = 0; s < SERIES_COUNT; s++) {
             for (int c = 0; c < CATEGORY_COUNT; c++) {
                 List<Double> values = createValueList(0, 20.0, VALUE_COUNT);
@@ -57,11 +57,11 @@ public class BoxAndWhiskerChartDemo1 extends ApplicationFrame {
      * @param dataset the dataset.
      * @return The chart.
      */
-    private static JFreeChart createChart(BoxAndWhiskerCategoryDataset<String, String> dataset) {
+    private static JFreeChart createChart(BoxAndWhiskerCategoryDataset dataset) {
         JFreeChart chart = ChartFactory.createBoxAndWhiskerChart(
                 "Box and Whisker Chart Demo 1", "Category", "Value", dataset,
                 true);
-        CategoryPlot<String, String> plot = (CategoryPlot) chart.getPlot();
+        CategoryPlot plot = (CategoryPlot) chart.getPlot();
         NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
         chart.setBackgroundPaint(Color.white);
 

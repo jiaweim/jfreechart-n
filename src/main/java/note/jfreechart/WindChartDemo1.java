@@ -1,10 +1,10 @@
 package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.ChartPanel;
-import org.jfree.chart.swing.UIUtils;
+import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.ui.UIUtils;
 import org.jfree.data.xy.DefaultWindDataset;
 import org.jfree.data.xy.WindDataset;
 
@@ -36,8 +36,7 @@ public class WindChartDemo1 extends ApplicationFrame {
     }
 
     private static Object[] createItem(long millis, int dir, int force) {
-        return new Object[]{new Date(millis), new Integer(dir),
-                new Integer(force)};
+        return new Object[]{new Date(millis), dir, force};
     }
 
     /**

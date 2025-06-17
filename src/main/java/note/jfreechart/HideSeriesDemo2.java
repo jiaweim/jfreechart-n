@@ -1,14 +1,14 @@
 package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.renderer.category.StatisticalLineAndShapeRenderer;
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.ChartPanel;
-import org.jfree.chart.swing.UIUtils;
+import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.ui.UIUtils;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -117,7 +117,7 @@ public class HideSeriesDemo2 extends ApplicationFrame {
             }
             if (series >= 0) {
                 boolean visible = this.renderer.getItemVisible(series, 0);
-                this.renderer.setSeriesVisible(series, new Boolean(!visible));
+                this.renderer.setSeriesVisible(series, !visible);
             }
         }
 

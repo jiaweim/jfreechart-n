@@ -1,6 +1,7 @@
 package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
@@ -9,10 +10,10 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.DatasetRenderingOrder;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.ChartPanel;
-import org.jfree.chart.swing.UIUtils;
 import org.jfree.chart.title.TextTitle;
+import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.ui.UIUtils;
+import org.jfree.chart.util.SortOrder;
 import org.jfree.data.DataUtils;
 import org.jfree.data.DefaultKeyedValues;
 import org.jfree.data.KeyedValues;
@@ -95,18 +96,18 @@ public class ParetoChartDemo1 extends ApplicationFrame {
      */
     public static CategoryDataset[] createDatasets() {
         DefaultKeyedValues data = new DefaultKeyedValues();
-        data.addValue("C", new Integer(4843));
-        data.addValue("C++", new Integer(2098));
-        data.addValue("C#", new Integer(26));
-        data.addValue("Java", new Integer(1901));
-        data.addValue("Perl", new Integer(2507));
-        data.addValue("PHP", new Integer(1689));
-        data.addValue("Python", new Integer(948));
-        data.addValue("Ruby", new Integer(100));
-        data.addValue("SQL", new Integer(263));
-        data.addValue("Unix Shell", new Integer(485));
+        data.addValue("C", 4843);
+        data.addValue("C++", 2098);
+        data.addValue("C#", 26);
+        data.addValue("Java", 1901);
+        data.addValue("Perl", 2507);
+        data.addValue("PHP", 1689);
+        data.addValue("Python", 948);
+        data.addValue("Ruby", 100);
+        data.addValue("SQL", 263);
+        data.addValue("Unix Shell", 485);
 
-        data.sortByValues(org.jfree.chart.api.SortOrder.DESCENDING);
+        data.sortByValues(SortOrder.DESCENDING);
         KeyedValues cumulative = DataUtils.getCumulativePercentages(data);
         CategoryDataset dataset = DatasetUtils.createCategoryDataset(
                 "Languages", data);

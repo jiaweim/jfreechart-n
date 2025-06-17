@@ -54,7 +54,7 @@ public class SampleXYDataset extends AbstractXYDataset implements XYDataset {
      * @return the x-value for the specified series and item.
      */
     public Number getX(int series, int item) {
-        return new Double(-10.0 + this.translate + (item / 10.0));
+        return -10.0 + this.translate + (item / 10.0);
     }
 
     /**
@@ -67,10 +67,10 @@ public class SampleXYDataset extends AbstractXYDataset implements XYDataset {
      */
     public Number getY(int series, int item) {
         if (series == 0) {
-            return new Double(Math.cos(-10.0 + this.translate + (item / 10.0)));
+            return Math.cos(-10.0 + this.translate + (item / 10.0));
         } else {
-            return new Double(2 * (Math.sin(-10.0 + this.translate
-                    + (item / 10.0))));
+            return 2 * (Math.sin(-10.0 + this.translate
+                    + (item / 10.0)));
         }
     }
 

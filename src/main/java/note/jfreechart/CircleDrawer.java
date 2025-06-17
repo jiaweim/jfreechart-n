@@ -1,6 +1,6 @@
 package note.jfreechart;
 
-import org.jfree.chart.Drawable;
+import org.jfree.chart.ui.Drawable;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;

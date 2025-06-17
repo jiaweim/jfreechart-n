@@ -1,19 +1,19 @@
 
 package note.jfreechart;
 
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.api.RectangleEdge;
-import org.jfree.chart.api.RectangleInsets;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.SymbolAxis;
-import org.jfree.chart.legend.PaintScaleLegend;
+import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.plot.pie.PiePlot;
 import org.jfree.chart.renderer.LookupPaintScale;
 import org.jfree.chart.renderer.xy.XYBlockRenderer;
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.ChartPanel;
-import org.jfree.chart.swing.UIUtils;
+import org.jfree.chart.title.PaintScaleLegend;
+import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.ui.RectangleEdge;
+import org.jfree.chart.ui.RectangleInsets;
+import org.jfree.chart.ui.UIUtils;
 import org.jfree.data.xy.DefaultXYZDataset;
 import org.jfree.data.xy.XYZDataset;
 
@@ -57,9 +57,9 @@ public class XYBlockChartDemo3 extends ApplicationFrame {
         XYBlockRenderer renderer = new XYBlockRenderer();
         LookupPaintScale paintScale = new LookupPaintScale(0.5, 3.5,
                 Color.black);
-        paintScale.add(new Double(0.5), Color.green);
-        paintScale.add(new Double(1.5), Color.orange);
-        paintScale.add(new Double(2.5), Color.red);
+        paintScale.add(0.5, Color.green);
+        paintScale.add(1.5, Color.orange);
+        paintScale.add(2.5, Color.red);
         renderer.setPaintScale(paintScale);
         XYPlot plot = new XYPlot(dataset, xAxis, yAxis, renderer);
         plot.setBackgroundPaint(Color.lightGray);

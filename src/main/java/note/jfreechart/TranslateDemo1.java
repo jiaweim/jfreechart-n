@@ -1,15 +1,15 @@
 package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.api.RectangleInsets;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.ChartPanel;
-import org.jfree.chart.swing.UIUtils;
+import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.ui.RectangleInsets;
+import org.jfree.chart.ui.UIUtils;
 import org.jfree.data.Range;
 import org.jfree.data.general.DatasetChangeEvent;
 import org.jfree.data.general.DatasetChangeListener;
@@ -234,11 +234,11 @@ public class TranslateDemo1 extends ApplicationFrame {
             }
 
             public Number getX(int series, int item) {
-                return new Double(getXValue(series, item));
+                return getXValue(series, item);
             }
 
             public Number getY(int series, int item) {
-                return new Double(getYValue(series, item));
+                return getYValue(series, item);
             }
 
             public double getYValue(int series, int item) {

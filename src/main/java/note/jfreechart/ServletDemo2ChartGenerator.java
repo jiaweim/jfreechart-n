@@ -85,12 +85,12 @@ public class ServletDemo2ChartGenerator extends HttpServlet {
 
         // create a dataset...
         DefaultPieDataset data = new DefaultPieDataset();
-        data.setValue("One", new Double(43.2));
-        data.setValue("Two", new Double(10.0));
-        data.setValue("Three", new Double(27.5));
-        data.setValue("Four", new Double(17.5));
-        data.setValue("Five", new Double(11.0));
-        data.setValue("Six", new Double(19.4));
+        data.setValue("One",43.2);
+        data.setValue("Two",10.0);
+        data.setValue("Three", 27.5);
+        data.setValue("Four", 17.5);
+        data.setValue("Five", 11.0);
+        data.setValue("Six", 19.4);
 
         JFreeChart chart = ChartFactory.createPieChart(
             "Pie Chart", data, true, true, false

@@ -1,9 +1,9 @@
 package note.jfreechart;
 
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.UIUtils;
-import org.jfree.chart.swing.editor.FontChooserPanel;
-import org.jfree.chart.text.TextAnchor;
+import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.ui.FontChooserPanel;
+import org.jfree.chart.ui.TextAnchor;
+import org.jfree.chart.ui.UIUtils;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

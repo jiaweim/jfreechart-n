@@ -1,11 +1,4 @@
-/* -----------------
- * ChartTiming3.java
- * -----------------
- * (C) Copyright 2002-2004, by Object Refinery Limited.
- *
- */
-
-package tutorial.jfreechart.demo;
+package note.jfreechart;
 
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;

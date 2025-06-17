@@ -1,6 +1,5 @@
 package note.jfreechart.chart3d;
 
-import com.formdev.flatlaf.FlatLightLaf;
 import org.jfree.chart3d.Chart3D;
 import org.jfree.chart3d.Chart3DPanel;
 import org.jfree.chart3d.style.ChartStyle;
@@ -20,17 +19,19 @@ import java.util.List;
  */
 @SuppressWarnings("serial")
 public class OrsonChartsDemo extends JFrame implements ActionListener {
-    
-    /** Default size for the content panel in the demo applications. */
-    public static final Dimension DEFAULT_CONTENT_SIZE 
+
+    /**
+     * Default size for the content panel in the demo applications.
+     */
+    public static final Dimension DEFAULT_CONTENT_SIZE
             = new Dimension(892, 640);
-    
+
     private OrsonChartsDemoComponent demoComponent;
 
-    /** 
+    /**
      * Creates a new demo instance with the specified frame title.
-     * 
-     * @param title  the title.
+     *
+     * @param title the title.
      */
     public OrsonChartsDemo(String title) {
         super(title);
@@ -38,11 +39,11 @@ public class OrsonChartsDemo extends JFrame implements ActionListener {
         setJMenuBar(createMenuBar());
         add(createContent());
     }
-    
+
     /**
      * Creates the menu bar.
-     * 
-     * @return The menu bar. 
+     *
+     * @return The menu bar.
      */
     private JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
@@ -50,13 +51,12 @@ public class OrsonChartsDemo extends JFrame implements ActionListener {
         menuBar.add(createStyleMenu("Style"));
         return menuBar;
     }
-    
+
     /**
      * Creates the file menu.
-     * 
-     * @param title  the menu title.
-     * 
-     * @return The menu. 
+     *
+     * @param title the menu title.
+     * @return The menu.
      */
     private JMenu createFileMenu(String title) {
         JMenu fileMenu = new JMenu(title);
@@ -66,13 +66,13 @@ public class OrsonChartsDemo extends JFrame implements ActionListener {
         fileMenu.add(exitItem);
         return fileMenu;
     }
-    
+
     private JMenu createStyleMenu(String title) {
         JMenu styleMenu = new JMenu(title);
         JMenuItem noStyleMenuItem = new JRadioButtonMenuItem("No Style (style as coded)");
         noStyleMenuItem.setActionCommand("NO_STYLE");
         noStyleMenuItem.addActionListener(this);
-        
+
         JMenuItem orson1StyleMenuItem = new JRadioButtonMenuItem("Orson 1 Style");
         orson1StyleMenuItem.setActionCommand("ORSON1_STYLE");
         orson1StyleMenuItem.addActionListener(this);
@@ -84,11 +84,11 @@ public class OrsonChartsDemo extends JFrame implements ActionListener {
         JMenuItem iceCubeStyleMenuItem = new JRadioButtonMenuItem("Ice Cube Style");
         iceCubeStyleMenuItem.setActionCommand("ICE_CUBE_STYLE");
         iceCubeStyleMenuItem.addActionListener(this);
-        
+
         JMenuItem pastelStyleMenuItem = new JRadioButtonMenuItem("Pastel");
         pastelStyleMenuItem.setActionCommand("PASTEL_STYLE");
         pastelStyleMenuItem.addActionListener(this);
-        
+
         JMenuItem logicalFontStyleMenuItem = new JRadioButtonMenuItem("Logical Font Style");
         logicalFontStyleMenuItem.setActionCommand("LOGICAL_FONT_STYLE");
         logicalFontStyleMenuItem.addActionListener(this);
@@ -112,12 +112,12 @@ public class OrsonChartsDemo extends JFrame implements ActionListener {
 
         return styleMenu;
     }
-    
+
     /**
-     * Creates the main content of the demo application, a tabbed pane with 
+     * Creates the main content of the demo application, a tabbed pane with
      * one tab showing the demo charts and another showing general information
      * about Orson Charts.
-     * 
+     *
      * @return The content component.
      */
     private JComponent createContent() {
@@ -127,11 +127,11 @@ public class OrsonChartsDemo extends JFrame implements ActionListener {
         tabs.add("About", createAboutPanel());
         return tabs;
     }
-    
+
     /**
      * Creates a panel containing information about Orson Charts.
-     * 
-     * @return A panel containing information about Orson Charts. 
+     *
+     * @return A panel containing information about Orson Charts.
      */
     private JPanel createAboutPanel() {
         JPanel result = new JPanel(new BorderLayout());
@@ -150,8 +150,8 @@ public class OrsonChartsDemo extends JFrame implements ActionListener {
         result.add(scroller);
         return result;
     }
-    
-    private void applyStyleToChartsInPanels(List<Chart3DPanel> panels, 
+
+    private void applyStyleToChartsInPanels(List<Chart3DPanel> panels,
             ChartStyle style) {
         for (Chart3DPanel panel : panels) {
             Chart3D chart = (Chart3D) panel.getDrawable();
@@ -159,7 +159,7 @@ public class OrsonChartsDemo extends JFrame implements ActionListener {
             chart.setStyle(s);
         }
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if ("EXIT".equals(e.getActionCommand())) {
@@ -172,7 +172,7 @@ public class OrsonChartsDemo extends JFrame implements ActionListener {
             if ("NO_STYLE".equals(e.getActionCommand())) {
                 this.demoComponent.setChartStyle(null);
             }
-            
+
             if ("ORSON1_STYLE".equals(e.getActionCommand())) {
                 this.demoComponent.setChartStyle(ChartStyles.createOrson1Style());
                 applyStyleToChartsInPanels(chartPanels, ChartStyles.createOrson1Style());
@@ -203,16 +203,15 @@ public class OrsonChartsDemo extends JFrame implements ActionListener {
 
     /**
      * Starting point for the demo application.
-     * 
-     * @param args  ignored.
+     *
+     * @param args ignored.
      */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            FlatLightLaf.setup();
             OrsonChartsDemo app = new OrsonChartsDemo("Orson Charts Demo 2.1");
             app.pack();
             app.setVisible(true);
         });
     }
-   
+
 }

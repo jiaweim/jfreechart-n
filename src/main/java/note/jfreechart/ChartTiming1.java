@@ -38,12 +38,12 @@ public class ChartTiming1 implements ActionListener {
 
         // create a dataset...
         DefaultPieDataset data = new DefaultPieDataset();
-        data.setValue("One", new Double(10.3));
-        data.setValue("Two", new Double(8.5));
-        data.setValue("Three", new Double(3.9));
-        data.setValue("Four", new Double(3.9));
-        data.setValue("Five", new Double(3.9));
-        data.setValue("Six", new Double(3.9));
+        data.setValue("One", 10.3);
+        data.setValue("Two", 8.5);
+        data.setValue("Three", 3.9);
+        data.setValue("Four", 3.9);
+        data.setValue("Five", 3.9);
+        data.setValue("Six", 3.9);
 
         // create a pie chart...
         boolean withLegend = true;

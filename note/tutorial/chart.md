@@ -1,17 +1,6 @@
 # JFreeChart
 
-- [JFreeChart](#jfreechart)
-  - [简介](#简介)
-  - [边框](#边框)
-  - [背景色](#背景色)
-  - [背景图片](#背景图片)
-  - [渲染提示](#渲染提示)
-  - [ChartColor](#chartcolor)
-  - [ChartFactory](#chartfactory)
-    - [Chart Theme](#chart-theme)
-    - [BarChart](#barchart)
-
-2023-12-26, 13:54
+2023-12-26
 ***
 
 ## 简介

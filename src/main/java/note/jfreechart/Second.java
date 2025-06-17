@@ -1,13 +1,13 @@
 package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
-import org.jfree.chart.swing.ChartFrame;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -25,18 +25,18 @@ public class Second {
 
         // create some data...
         XYSeries series1 = new XYSeries("Advisory Range");
-        series1.add(new Integer(1200), new Integer(1));
-        series1.add(new Integer(1500), new Integer(1));
+        series1.add(1200, 1);
+        series1.add(1500, 1);
 
         XYSeries series2 = new XYSeries("Normal Range");
-        series2.add(new Integer(2000), new Integer(4));
-        series2.add(new Integer(2300), new Integer(4));
+        series2.add(2000, 4);
+        series2.add(2300, 4);
 
         XYSeries series3 = new XYSeries("Recommended");
-        series3.add(new Integer(2100), new Integer(2));
+        series3.add(2100, 2);
 
         XYSeries series4 = new XYSeries("Current");
-        series4.add(new Integer(2400), new Integer(3));
+        series4.add(2400, 3);
 
         XYSeriesCollection data = new XYSeriesCollection();
         data.addSeries(series1);

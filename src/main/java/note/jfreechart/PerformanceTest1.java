@@ -9,14 +9,14 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.api.RectangleInsets;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.ChartPanel;
-import org.jfree.chart.swing.UIUtils;
+import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.ui.RectangleInsets;
+import org.jfree.chart.ui.UIUtils;
 import org.jfree.data.time.FixedMillisecond;
 import org.jfree.data.time.Millisecond;
 import org.jfree.data.time.TimeSeries;
@@ -185,7 +185,7 @@ public class PerformanceTest1 extends ApplicationFrame {
         List list = new ArrayList();
        
         for (int i = 0; i < LIST_SIZE; i++) {
-            list.add(new Double(Math.random()));
+            list.add(Math.random());
         }
         int x = 0;
         for (int i = 0; i < LOOP_COUNT; i++) {

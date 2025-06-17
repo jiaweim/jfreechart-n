@@ -1,9 +1,9 @@
 package note.jfreechart;
 
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.JFreeChart;
+import org.jfree.chart.*;
 import org.jfree.chart.entity.ChartEntity;
-import org.jfree.chart.swing.*;
+import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.ui.UIUtils;
 import org.jfree.data.general.DefaultPieDataset;
 
 /**
@@ -23,9 +23,9 @@ public class MouseListenerDemo1 extends ApplicationFrame
 
         // create a dataset...
         DefaultPieDataset data = new DefaultPieDataset();
-        data.setValue("Java", new Double(43.2));
-        data.setValue("Visual Basic", new Double(0.0));
-        data.setValue("C/C++", new Double(17.5));
+        data.setValue("Java", 43.2);
+        data.setValue("Visual Basic", 0.0);
+        data.setValue("C/C++", 17.5);
 
         // create the chart...
         JFreeChart chart = ChartFactory.createPieChart(

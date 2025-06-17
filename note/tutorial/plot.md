@@ -1,12 +1,5 @@
 # Plot
 
-- [Plot](#plot)
-  - [简介](#简介)
-  - [Plot 属性](#plot-属性)
-    - [Plot 背景色](#plot-背景色)
-    - [Plot 背景图片](#plot-背景图片)
-  - [XYPlot](#xyplot)
-
 2025-01-15
 @author Jiawei Mao
 ***

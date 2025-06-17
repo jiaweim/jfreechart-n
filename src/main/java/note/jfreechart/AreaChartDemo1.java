@@ -1,20 +1,16 @@
 package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.api.RectangleEdge;
-import org.jfree.chart.api.RectangleInsets;
-import org.jfree.chart.api.UnitType;
-import org.jfree.chart.api.VerticalAlignment;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.ChartPanel;
-import org.jfree.chart.swing.UIUtils;
 import org.jfree.chart.title.TextTitle;
+import org.jfree.chart.ui.*;
+import org.jfree.chart.util.UnitType;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -34,7 +30,7 @@ public class AreaChartDemo1 extends ApplicationFrame {
      */
     public AreaChartDemo1(String title) {
         super(title);
-        CategoryDataset<String, String> dataset = createDataset();
+        CategoryDataset dataset = createDataset();
         JFreeChart chart = createChart(dataset);
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new Dimension(500, 270));
@@ -47,8 +43,8 @@ public class AreaChartDemo1 extends ApplicationFrame {
      *
      * @return A sample dataset.
      */
-    private static CategoryDataset<String, String> createDataset() {
-        DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
+    private static CategoryDataset createDataset() {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         dataset.addValue(1.0, "Series 1", "Type 1");
         dataset.addValue(4.0, "Series 1", "Type 2");
         dataset.addValue(3.0, "Series 1", "Type 3");
@@ -82,7 +78,7 @@ public class AreaChartDemo1 extends ApplicationFrame {
      * @param dataset the dataset.
      * @return The chart.
      */
-    private static JFreeChart createChart(CategoryDataset<String, String> dataset) {
+    private static JFreeChart createChart(CategoryDataset dataset) {
         JFreeChart chart = ChartFactory.createAreaChart(
                 "Area Chart",             // chart title
                 "Category",               // domain axis label

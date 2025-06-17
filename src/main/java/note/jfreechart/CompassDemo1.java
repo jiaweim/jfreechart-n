@@ -1,10 +1,10 @@
 package note.jfreechart;
 
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.compass.CompassPlot;
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.ChartPanel;
-import org.jfree.chart.swing.UIUtils;
+import org.jfree.chart.plot.CompassPlot;
+import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.ui.UIUtils;
 import org.jfree.data.general.DefaultValueDataset;
 import org.jfree.data.general.ValueDataset;
 
@@ -25,7 +25,7 @@ public class CompassDemo1 extends ApplicationFrame {
 
         super(title);
 
-        ValueDataset dataset = new DefaultValueDataset(new Double(45.0));
+        ValueDataset dataset = new DefaultValueDataset(45.0);
         JFreeChart chart = createChart(dataset);
 
         // add the chart to a panel...
@@ -62,7 +62,7 @@ public class CompassDemo1 extends ApplicationFrame {
      * @return A panel.
      */
     public static JPanel createDemoPanel() {
-        JFreeChart chart = createChart(new DefaultValueDataset(new Double(45.0)));
+        JFreeChart chart = createChart(new DefaultValueDataset(45.0));
         return new ChartPanel(chart);
     }
 

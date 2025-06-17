@@ -8,6 +8,7 @@
 package note.jfreechart;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.AxisLocation;
 import org.jfree.chart.axis.NumberAxis;
@@ -16,9 +17,8 @@ import org.jfree.chart.labels.CategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.ChartPanel;
-import org.jfree.chart.swing.UIUtils;
+import org.jfree.chart.ui.ApplicationFrame;
+import org.jfree.chart.ui.UIUtils;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -29,14 +29,12 @@ import java.text.NumberFormat;
 /**
  * A simple demo showing a label generator that displays labels that include a percentage calculation.
  */
-public class ItemLabelDemo2 extends ApplicationFrame
-{
+public class ItemLabelDemo2 extends ApplicationFrame {
     /**
      * A custom label generator.
      */
     static class LabelGenerator extends AbstractCategoryItemLabelGenerator
-            implements CategoryItemLabelGenerator
-    {
+            implements CategoryItemLabelGenerator {
 
         /**
          * The index of the category on which to base the percentage (null = use series total).
@@ -139,9 +137,9 @@ public class ItemLabelDemo2 extends ApplicationFrame
      *
      * @return the dataset.
      */
-    private static CategoryDataset<String, String> createDataset() {
+    private static CategoryDataset createDataset() {
 
-        DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         dataset.addValue(100.0, "S1", "C1");
         dataset.addValue(44.3, "S1", "C2");
         dataset.addValue(93.0, "S1", "C3");
@@ -174,7 +172,7 @@ public class ItemLabelDemo2 extends ApplicationFrame
 
         chart.setBackgroundPaint(Color.white);
 
-        CategoryPlot<String, String> plot = (CategoryPlot) chart.getPlot();
+        CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setBackgroundPaint(Color.lightGray);
         plot.setDomainGridlinePaint(Color.white);
         plot.setRangeGridlinePaint(Color.white);
@@ -214,7 +212,6 @@ public class ItemLabelDemo2 extends ApplicationFrame
      * @param args ignored.
      */
     public static void main(String[] args) {
-
         ItemLabelDemo2 demo = new ItemLabelDemo2("Item Label Demo 2");
         demo.pack();
 
