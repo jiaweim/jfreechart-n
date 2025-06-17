@@ -1,4 +1,4 @@
-# 折线图
+# Line Chart
 
 2025-01-15 添加函数图像
 2023-12-26, 11:29⭐⭐
@@ -8,7 +8,7 @@
 
   使用 `CategoryDataset` 和 `XYDataset` 都可以创建折线图。
 
-## CategoryDataset 折线图
+## CategoryDataset
 
 基于 `CategoryDataset` 的折线图直接用直线将数据 (category, value) 连起来。
 
@@ -17,12 +17,25 @@
 创建图表的第一步，永远是准备数据，这里采用 `DefaultCategoryDataset`：
 
 ```java
-DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
-dataset.addValue(212, "Classes", "JDK 1.0");
-dataset.addValue(504, "Classes", "JDK 1.1");
-dataset.addValue(1520, "Classes", "SDK 1.2");
-dataset.addValue(1842, "Classes", "SDK 1.3");
-dataset.addValue(2991, "Classes", "SDK 1.4");
+private static CategoryDataset createDataset() {
+    DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+    dataset.addValue(212.0D, "Classes", "JDK 1.0");
+    dataset.addValue(504.0D, "Classes", "JDK 1.1");
+    dataset.addValue(1520.0D, "Classes", "JDK 1.2");
+    dataset.addValue(1842.0D, "Classes", "JDK 1.3");
+    dataset.addValue(2991.0D, "Classes", "JDK 1.4");
+    dataset.addValue(3500.0D, "Classes", "JDK 1.5");
+    dataset.addValue(3793.0D, "Classes", "JDK 1.6");
+    dataset.addValue(4024.0D, "Classes", "JDK 1.7");
+    dataset.addValue(4240.0D, "Classes", "JDK 8");
+    dataset.addValue(6005.0D, "Classes", "JDK 9");
+    dataset.addValue(6002.0D, "Classes", "JDK 10");
+    dataset.addValue(4411.0D, "Classes", "JDK 11");
+    dataset.addValue(4433.0D, "Classes", "JDK 12");
+    dataset.addValue(4545.0D, "Classes", "JDK 13");
+    dataset.addValue(4569.0D, "Classes", "JDK 14");
+    return dataset;
+}
 ```
 
 ### 创建 LineChart
@@ -30,16 +43,7 @@ dataset.addValue(2991, "Classes", "SDK 1.4");
 使用 `ChartFactory` 的 `createLineChart()` 创建折线图：
 
 ```java
-JFreeChart chart = ChartFactory.createLineChart(
-    "Java Standard Class Library", // chart title
-    "Release", // domain axis label
-    "Class Count", // range axis label
-    dataset, // data
-    PlotOrientation.VERTICAL, // orientation
-    false, // include legend
-    true, // tooltips
-    false // urls
-);
+JFreeChart chart = ChartFactory.createLineChart("Java Standard Class Library", null, "Class Count", dataset, PlotOrientation.VERTICAL, false, true, false);
 ```
 
 ### 自定义图表
@@ -109,7 +113,7 @@ rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
 <img src="./images/image-20250115162025357.png" alt="image-20250115162025357" style="zoom:67%;" />
 
-## XYDataset 折线图
+## XYDataset
 
 基于 `XYDataset` 的折线图用直线连接每个 (x,y) 点。下面创建下图所示折线图：
 
@@ -213,118 +217,6 @@ renderer.setDefaultShapesFilled(true);
 ```java
 NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
 rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-```
-
-### XYLineChart 完整代码
-
-```java
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.api.RectangleInsets;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.chart.swing.ApplicationFrame;
-import org.jfree.chart.swing.ChartPanel;
-import org.jfree.chart.swing.UIUtils;
-import org.jfree.data.xy.XYDataset;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
-
-import java.awt.*;
-
-public class LineChartDemo2 extends ApplicationFrame {
-
-public LineChartDemo2(String title) {
-    super(title);
-
-    XYDataset<String> dataset = createDataset();
-    JFreeChart chart = createChart(dataset);
-    ChartPanel panel = new ChartPanel(chart);
-    panel.setPreferredSize(new Dimension(500, 270));
-    setContentPane(panel);
-}
-
-/**
-    * @return a sample dataset.
-    */
-private static XYDataset<String> createDataset() {
-    XYSeries<String> series1 = new XYSeries<>("First");
-    series1.add(1.0, 1.0);
-    series1.add(2.0, 4.0);
-    series1.add(3.0, 3.0);
-    series1.add(4.0, 5.0);
-    series1.add(5.0, 5.0);
-    series1.add(6.0, 7.0);
-    series1.add(7.0, 7.0);
-    series1.add(8.0, 8.0);
-
-    XYSeries<String> series2 = new XYSeries<>("Second");
-    series2.add(1.0, 5.0);
-    series2.add(2.0, 7.0);
-    series2.add(3.0, 6.0);
-    series2.add(4.0, 8.0);
-    series2.add(5.0, 4.0);
-    series2.add(6.0, 4.0);
-    series2.add(7.0, 2.0);
-    series2.add(8.0, 1.0);
-
-    XYSeries<String> series3 = new XYSeries<>("Third");
-    series3.add(3.0, 4.0);
-    series3.add(4.0, 3.0);
-    series3.add(5.0, 2.0);
-    series3.add(6.0, 3.0);
-    series3.add(7.0, 6.0);
-    series3.add(8.0, 3.0);
-    series3.add(9.0, 4.0);
-    series3.add(10.0, 3.0);
-
-    XYSeriesCollection<String> dataset = new XYSeriesCollection<>();
-    dataset.addSeries(series1);
-    dataset.addSeries(series2);
-    dataset.addSeries(series3);
-
-    return dataset;
-}
-
-private static JFreeChart createChart(XYDataset<String> dataset) {
-    JFreeChart chart = ChartFactory.createXYLineChart(
-            "Line Chart Demo 2", // chart title
-            "X", // x axis label
-            "Y", // y axis label
-            dataset, // data
-            PlotOrientation.VERTICAL,
-            true, // include legend
-            true, // tooltips
-            false // urls
-    );
-    chart.setBackgroundPaint(Color.WHITE);
-
-    XYPlot<String> plot = (XYPlot) chart.getPlot();
-    plot.setBackgroundPaint(Color.LIGHT_GRAY);
-    plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
-    plot.setDomainGridlinePaint(Color.WHITE);
-    plot.setRangeGridlinePaint(Color.WHITE);
-
-    XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) plot.getRenderer();
-    renderer.setDefaultShapesVisible(true);
-    renderer.setDefaultShapesFilled(true);
-
-    NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
-    rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-    return chart;
-}
-
-public static void main(String[] args) {
-    EventQueue.invokeLater(() -> {
-        LineChartDemo2 demo2 = new LineChartDemo2("Line Chart Demo 2");
-        demo2.pack();
-        UIUtils.centerFrameOnScreen(demo2);
-        demo2.setVisible(true);
-    });
-}
-}
 ```
 
 ### 函数图

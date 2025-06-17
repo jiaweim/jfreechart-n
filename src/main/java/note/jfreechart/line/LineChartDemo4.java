@@ -15,17 +15,13 @@ import javax.swing.*;
 import java.awt.geom.Rectangle2D;
 
 /**
- * A simple line chart using data from an {@link XYDataset}.
+ * A plot showing mathematical functions (these are plotted with a custom dataset
+ * that samples the function values).
+ * @since 2025-06-17⭐
  */
 public class LineChartDemo4 extends ApplicationFrame {
 
-    /**
-     * Creates a new demo.
-     *
-     * @param title the frame title.
-     */
     public LineChartDemo4(String title) {
-
         super(title);
         JPanel chartPanel = createDemoPanel();
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));

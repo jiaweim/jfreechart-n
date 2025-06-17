@@ -1,7 +1,12 @@
 # 直方图
 
 2024-04-29✔️
+@author Jiawei Mao
 ***
+
+## 简介
+
+直方图采用 `IntervalDataset`.
 
 - 直方图简单示例
 

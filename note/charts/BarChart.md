@@ -153,3 +153,63 @@ renderer.setItemMargin(0.0);
 ```
 
 <img src="images/2023-12-26-10-15-16.png" width="500"/>
+
+## 瀑布图（waterfall）
+
+瀑布图用也是一种 bar-chart。`WaterfallBarRenderer` 扩展 `BarRenderer`。
+
+具体实例可参考 [WaterfallChartDemo1](../../src/main/java/note/jfreechart/barchart/category/WaterfallChartDemo1.java)。
+
+<img src="./images/image-20250617171103793.png" alt="image-20250617171103793" style="zoom:50%;" />
+
+## Time Series
+
+可以采用时序数据创建 bar-chart。
+
+创建数据集：
+
+```java
+private static IntervalXYDataset createDataset() {
+
+    TimeSeries t1 = new TimeSeries("Executions", "Year", "Count");
+    try {
+        t1.add(new Year(1976), 0.0);
+        t1.add(new Year(1977), 1.0);
+        t1.add(new Year(1978), 0.0);
+        t1.add(new Year(1979), 2.0);
+        t1.add(new Year(1980), 0.0);
+        t1.add(new Year(1981), 1.0);
+        t1.add(new Year(1982), 2.0);
+        t1.add(new Year(1983), 5.0);
+        t1.add(new Year(1984), 21.0);
+        t1.add(new Year(1985), 18.0);
+        t1.add(new Year(1986), 18.0);
+        t1.add(new Year(1987), 25.0);
+        t1.add(new Year(1988), 11.0);
+        t1.add(new Year(1989), 16.0);
+        t1.add(new Year(1990), 23.0);
+        t1.add(new Year(1991), 14.0);
+        t1.add(new Year(1992), 31.0);
+        t1.add(new Year(1993), 38.0);
+        t1.add(new Year(1994), 31.0);
+        t1.add(new Year(1995), 56.0);
+        t1.add(new Year(1996), 45.0);
+        t1.add(new Year(1997), 74.0);
+        t1.add(new Year(1998), 68.0);
+        t1.add(new Year(1999), 98.0);
+        t1.add(new Year(2000), 85.0);
+        t1.add(new Year(2001), 66.0);
+        t1.add(new Year(2002), 71.0);
+        t1.add(new Year(2003), 65.0);
+        t1.add(new Year(2004), 59.0);
+        t1.add(new Year(2005), 60.0);
+    } catch (Exception e) {
+        System.err.println(e.getMessage());
+    }
+    return new TimeSeriesCollection(t1);
+}
+```
+
+<img src="./images/image-20250617172330832.png" alt="image-20250617172330832" style="zoom:50%;" />
+
+完整代码参考 [XYBarChartDemo1](../../src/main/java/note/jfreechart/barchart/xy/XYBarChartDemo1.java)。
