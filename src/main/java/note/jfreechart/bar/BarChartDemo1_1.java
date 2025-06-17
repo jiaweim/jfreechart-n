@@ -10,7 +10,6 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.ui.ApplicationFrame;
-import org.jfree.chart.ui.UIUtils;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -166,10 +165,6 @@ public class BarChartDemo1_1 extends ApplicationFrame {
      */
     public static void main(String[] args) {
 
-        BarChartDemo1 demo = new BarChartDemo1("Bar Chart Demo");
-        demo.pack();
-        UIUtils.centerFrameOnScreen(demo);
-        demo.setVisible(true);
 
     }
 

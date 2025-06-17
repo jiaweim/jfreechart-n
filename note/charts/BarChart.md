@@ -1,7 +1,7 @@
 # 柱状图
 
-2023-12-26, 10:17⭐
-
+2025-06-17 ⭐
+@author Jiawei Mao
 ****
 
 ## 简介
@@ -15,7 +15,11 @@
 
 在 JFreeChart 中，表格称为数据集，column 标题称为 *category*，row 称为 *series*。
 
-JFreeChart 将来自每一列（column，对应类别）的数据分组在一起，并使用颜色突出显示不同列的数据。
+JFreeChart 将来自每一列（column，对应类别）的数据分组在一起用不同颜色显示。
+
+- 数据集：`CategoryDataset`
+- `Plot`: `CategoryPlot`
+- `Render`: `BarRenderer`
 
 ### 创建 Dataset
 
@@ -27,37 +31,64 @@ JFreeChart 将来自每一列（column，对应类别）的数据分组在一起
 定义表格数据对应的数据集：
 
 ```java
-DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
-dataset.addValue(1.0, "Row 1", "Column 1");
-dataset.addValue(5.0, "Row 1", "Column 2");
-dataset.addValue(3.0, "Row 1", "Column 3");
-dataset.addValue(2.0, "Row 2", "Column 1");
-dataset.addValue(3.0, "Row 2", "Column 2");
-dataset.addValue(2.0, "Row 2", "Column 3");
+DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+String series1 = "Males";
+String series2 = "Females";
+
+String category1 = "18 to 39";
+String category2 = "40 - 59";
+String category3 = "60 and over";
+
+dataset.addValue(5.5, series1, category1);
+dataset.addValue(10.3, series2, category1);
+dataset.addValue(8.4, series1, category2);
+dataset.addValue(20.1, series2, category2);
+dataset.addValue(12.8, series1, category3);
+dataset.addValue(24.3, series2, category3);
 ```
 
 ### 创建柱状图
 
 ```java
 JFreeChart chart = ChartFactory.createBarChart(
-        "Bar Chart Demo", // 标题
-        "Category", // X 轴
-        "Value", // y 轴
-        dataset, // 数据
-        PlotOrientation.VERTICAL, // 方向
-        true, // legend
-        true, // tooltip
-        false // url
-);
+        "Antidepressant Medication Usage",
+        "Age Category",
+        "Percent",
+        dataset);
+LegendTitle legend = chart.getLegend();
+chart.removeLegend();
+chart.addSubtitle(new TextTitle("Percentage of adults aged 18 and over who used antidepressant medication over past 30 days, by age and sex: United States, 2015-2018"));
+
+TextTitle source = new TextTitle("Source: https://www.cdc.gov/nchs/products/databriefs/db377.htm");
+source.setFont(new Font("SansSerif", Font.PLAIN, 10));
+source.setPosition(RectangleEdge.BOTTOM);
+source.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+chart.addSubtitle(source);
+chart.addSubtitle(legend);
+
+CategoryPlot plot = (CategoryPlot) chart.getPlot();
+plot.setDomainGridlinesVisible(true);
+plot.setRangeCrosshairVisible(true);
+plot.setRangeCrosshairPaint(Color.BLUE);
+plot.getDomainAxis().setCategoryMargin(0.2);
+
+NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+
+BarRenderer renderer = (BarRenderer) plot.getRenderer();
+renderer.setDrawBarOutline(false);
+renderer.setBarPainter(new StandardBarPainter());
+renderer.setItemMargin(0.06);
+renderer.setLegendItemToolTipGenerator(new StandardCategorySeriesLabelGenerator("Tooltip: {0}"));
 ```
 
 - 条形图的方向 `PlotOrientation` 有水平和垂直两个方向
 - tooltip 控制是否显示提示文本
 - url，仅在用 HTML 图像 maps 创建报告时使用
 
-[完整代码](../../src/main/java/note/jfreechart/bar/BarChartDemo.java)。效果如下：
+[完整代码](../../src/main/java/note/jfreechart/barchart/category/BarChartDemo1.java)。效果如下：
 
-<img src="images/2023-12-25-23-11-36.png" width="500"/>
+<img src="./images/image-20250617165553271.png" alt="image-20250617165553271" style="zoom:50%;" />
 
 ## ChartFactory
 

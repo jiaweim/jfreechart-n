@@ -1,4 +1,4 @@
-package note.jfreechart.bar;
+package note.jfreechart.barchart.category;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -21,33 +21,32 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * A simple demonstration application showing how to create a bar chart.
+ * A simple bar chart showing percentage data for different age categories.
+ * There are two data series in the chart, one for males and one for females.
+ * The data source is https://www.cdc.gov/nchs/products/databriefs/db377.htm.
  *
  * @author Jiawei Mao
- * @version 0.1.0
- * @since 25 Dec 2023, 10:27 PM
+ * @version 1.0.0
+ * @since 17 Jun 2025, 4:45 PM⭐
  */
 public class BarChartDemo1 extends ApplicationFrame {
 
-    /**
-     * Constructs a new application frame.
-     *
-     * @param title the frame title.
-     */
     public BarChartDemo1(String title) {
         super(title);
         JPanel chartPanel = createDemoPanel();
         chartPanel.setPreferredSize(new Dimension(720, 480));
-        this.setContentPane(chartPanel);
+        setContentPane(chartPanel);
     }
 
     private static CategoryDataset createDataset() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         String series1 = "Males";
         String series2 = "Females";
+
         String category1 = "18 to 39";
         String category2 = "40 - 59";
         String category3 = "60 and over";
+
         dataset.addValue(5.5, series1, category1);
         dataset.addValue(10.3, series2, category1);
         dataset.addValue(8.4, series1, category2);
@@ -66,19 +65,23 @@ public class BarChartDemo1 extends ApplicationFrame {
         LegendTitle legend = chart.getLegend();
         chart.removeLegend();
         chart.addSubtitle(new TextTitle("Percentage of adults aged 18 and over who used antidepressant medication over past 30 days, by age and sex: United States, 2015-2018"));
+
         TextTitle source = new TextTitle("Source: https://www.cdc.gov/nchs/products/databriefs/db377.htm");
-        source.setFont(new Font("SansSerif", 0, 10));
+        source.setFont(new Font("SansSerif", Font.PLAIN, 10));
         source.setPosition(RectangleEdge.BOTTOM);
         source.setHorizontalAlignment(HorizontalAlignment.RIGHT);
         chart.addSubtitle(source);
         chart.addSubtitle(legend);
+
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setDomainGridlinesVisible(true);
         plot.setRangeCrosshairVisible(true);
         plot.setRangeCrosshairPaint(Color.BLUE);
         plot.getDomainAxis().setCategoryMargin(0.2);
+
         NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setDrawBarOutline(false);
         renderer.setBarPainter(new StandardBarPainter());
@@ -93,7 +96,7 @@ public class BarChartDemo1 extends ApplicationFrame {
     }
 
     public static void main(String[] args) {
-        BarChartDemo1 demo = new BarChartDemo1("JFreeChart: BarChartDemo1.java");
+        BarChartDemo1 demo = new BarChartDemo1(":BarChartDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
