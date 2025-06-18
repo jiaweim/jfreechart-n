@@ -24,76 +24,53 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
 /**
- * A demonstration application showing how to create a combined chart.  A
- * bar chart is displayed on the left, and a line chart on the right.
+ * A demo showing two plots that share a common range axis.
+ * @since 2025-06-18⭐
  */
 public class CombinedXYPlotDemo2 extends ApplicationFrame {
 
-    /**
-     * Constructs a new demonstration application.
-     *
-     * @param title the frame title.
-     */
     public CombinedXYPlotDemo2(String title) {
-
         super(title);
         JFreeChart chart = createCombinedChart();
-        ChartPanel panel = new ChartPanel(chart, true, true, true, false, true);
+        ChartPanel panel = new ChartPanel(chart, true, true, true, true, true);
         panel.setPreferredSize(new java.awt.Dimension(500, 270));
         setContentPane(panel);
-
     }
 
-    /**
-     * Creates a combined XYPlot chart.
-     *
-     * @return the combined chart.
-     */
     private static JFreeChart createCombinedChart() {
 
         // create subplot 1...
         IntervalXYDataset data1 = createDataset1();
-        XYItemRenderer renderer1 = new XYBarRenderer(0.20);
+        XYBarRenderer renderer1 = new XYBarRenderer(0.20);
         renderer1.setDefaultToolTipGenerator(new StandardXYToolTipGenerator(
                 StandardXYToolTipGenerator.DEFAULT_TOOL_TIP_FORMAT,
                 new SimpleDateFormat("d-MMM-yyyy"),
                 new DecimalFormat("0,000.0")));
-        XYPlot subplot1 = new XYPlot(data1, new DateAxis("Date"), null,
-                renderer1);
+        XYPlot subplot1 = new XYPlot(data1, new DateAxis("Date"), null, renderer1);
 
         // create subplot 2...
         XYDataset data2 = createDataset2();
-        XYItemRenderer renderer2 = new StandardXYItemRenderer();
+        StandardXYItemRenderer renderer2 = new StandardXYItemRenderer();
         renderer2.setDefaultToolTipGenerator(new StandardXYToolTipGenerator(
                 StandardXYToolTipGenerator.DEFAULT_TOOL_TIP_FORMAT,
                 new SimpleDateFormat("d-MMM-yyyy"),
                 new DecimalFormat("0,000.0")));
-        XYPlot subplot2 = new XYPlot(data2, new DateAxis("Date"), null,
-                renderer2);
+        XYPlot subplot2 = new XYPlot(data2, new DateAxis("Date"), null, renderer2);
 
         // create a parent plot...
         NumberAxis sharedAxis = new NumberAxis("Value");
         sharedAxis.setTickMarkInsideLength(3.0f);
-        CombinedRangeXYPlot plot = new CombinedRangeXYPlot(sharedAxis);
 
-        // add the subplots...
+        CombinedRangeXYPlot plot = new CombinedRangeXYPlot(sharedAxis);
         plot.add(subplot1, 1);
         plot.add(subplot2, 1);
 
         // return a new chart containing the overlaid plot...
         return new JFreeChart("Combined (Range) XY Plot",
                 JFreeChart.DEFAULT_TITLE_FONT, plot, true);
-
     }
 
-    /**
-     * Creates a sample dataset.
-     *
-     * @return Series 1.
-     */
     private static IntervalXYDataset createDataset1() {
-
-        // create dataset 1...
         TimeSeries series1 = new TimeSeries("Series 1");
         series1.add(new Day(1, MonthConstants.MARCH, 2002), 12353.3);
         series1.add(new Day(2, MonthConstants.MARCH, 2002), 13734.4);
@@ -111,19 +88,10 @@ public class CombinedXYPlotDemo2 extends ApplicationFrame {
         series1.add(new Day(14, MonthConstants.MARCH, 2002), 14230.2);
         series1.add(new Day(15, MonthConstants.MARCH, 2002), 11235.2);
 
-        TimeSeriesCollection collection = new TimeSeriesCollection(series1);
-        return collection;
-
+        return new TimeSeriesCollection(series1);
     }
 
-    /**
-     * Creates a sample dataset.
-     *
-     * @return Series 2.
-     */
     private static XYDataset createDataset2() {
-
-        // create dataset 2...
         TimeSeries series2 = new TimeSeries("Series 2");
 
         series2.add(new Day(3, MonthConstants.MARCH, 2002), 6853.2);
@@ -142,31 +110,18 @@ public class CombinedXYPlotDemo2 extends ApplicationFrame {
         series2.add(new Day(16, MonthConstants.MARCH, 2002), 9595.9);
 
         return new TimeSeriesCollection(series2);
-
     }
 
-    /**
-     * Creates a panel for the demo (used by SuperDemo.java).
-     *
-     * @return A panel.
-     */
     public static JPanel createDemoPanel() {
         JFreeChart chart = createCombinedChart();
         return new ChartPanel(chart);
     }
 
-    /**
-     * Starting point for the demonstration application.
-     *
-     * @param args ignored.
-     */
     public static void main(String[] args) {
-
-        CombinedXYPlotDemo2 demo = new CombinedXYPlotDemo2(
-                "Combined XY Plot Demo");
+        CombinedXYPlotDemo2 demo = new CombinedXYPlotDemo2("Combined XY Plot Demo");
+        demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
-
     }
 
 }

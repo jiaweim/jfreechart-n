@@ -115,8 +115,7 @@ public class CombinedCategoryPlotDemo1 extends ApplicationFrame {
         rangeAxis1.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         LineAndShapeRenderer renderer1 = new LineAndShapeRenderer();
         renderer1.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator());
-        CategoryPlot subplot1 = new CategoryPlot(dataset1, null, rangeAxis1,
-                renderer1);
+        CategoryPlot subplot1 = new CategoryPlot(dataset1, null, rangeAxis1, renderer1);
         subplot1.setDomainGridlinesVisible(true);
 
         CategoryDataset dataset2 = createDataset2();

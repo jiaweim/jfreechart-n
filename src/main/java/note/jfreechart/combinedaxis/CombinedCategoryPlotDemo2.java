@@ -1,6 +1,7 @@
 package note.jfreechart.combinedaxis;
 
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
@@ -21,30 +22,19 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * A demo for the {@link CombinedRangeCategoryPlot} class.
+ * A demo showing two category plots that share a common range axis.
+ * @since 2025-06-18⭐
  */
 public class CombinedCategoryPlotDemo2 extends ApplicationFrame {
 
-    /**
-     * Creates a new demo instance.
-     *
-     * @param title the frame title.
-     */
     public CombinedCategoryPlotDemo2(String title) {
-
         super(title);
-        ChartPanel chartPanel = new ChartPanel(createChart());
+        JPanel chartPanel = createDemoPanel();
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         setContentPane(chartPanel);
     }
 
-    /**
-     * Creates a dataset.
-     *
-     * @return A dataset.
-     */
     public static CategoryDataset createDataset1() {
-
         DefaultCategoryDataset result = new DefaultCategoryDataset();
 
         // row keys...
@@ -80,16 +70,9 @@ public class CombinedCategoryPlotDemo2 extends ApplicationFrame {
         result.addValue(1.0, series2, type8);
 
         return result;
-
     }
 
-    /**
-     * Creates a dataset.
-     *
-     * @return A dataset.
-     */
     public static CategoryDataset createDataset2() {
-
         DefaultCategoryDataset result = new DefaultCategoryDataset();
 
         // row keys...
@@ -113,14 +96,8 @@ public class CombinedCategoryPlotDemo2 extends ApplicationFrame {
         result.addValue(18.0, series2, sector4);
 
         return result;
-
     }
 
-    /**
-     * Creates a chart.
-     *
-     * @return A chart.
-     */
     private static JFreeChart createChart() {
 
         CategoryDataset dataset1 = createDataset1();
@@ -128,12 +105,8 @@ public class CombinedCategoryPlotDemo2 extends ApplicationFrame {
         domainAxis1.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
         domainAxis1.setMaximumCategoryLabelWidthRatio(5.0f);
         LineAndShapeRenderer renderer1 = new LineAndShapeRenderer();
-        renderer1.setDefaultToolTipGenerator(
-                new StandardCategoryToolTipGenerator()
-        );
-        CategoryPlot subplot1 = new CategoryPlot(
-                dataset1, domainAxis1, null, renderer1
-        );
+        renderer1.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator());
+        CategoryPlot subplot1 = new CategoryPlot(dataset1, domainAxis1, null, renderer1);
         subplot1.setDomainGridlinesVisible(true);
 
         CategoryDataset dataset2 = createDataset2();
@@ -141,17 +114,12 @@ public class CombinedCategoryPlotDemo2 extends ApplicationFrame {
         domainAxis2.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
         domainAxis2.setMaximumCategoryLabelWidthRatio(5.0f);
         BarRenderer renderer2 = new BarRenderer();
-        renderer2.setDefaultToolTipGenerator(
-                new StandardCategoryToolTipGenerator()
-        );
-        CategoryPlot subplot2 = new CategoryPlot(
-                dataset2, domainAxis2, null, renderer2
-        );
+        renderer2.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator());
+        CategoryPlot subplot2 = new CategoryPlot(dataset2, domainAxis2, null, renderer2);
         subplot2.setDomainGridlinesVisible(true);
 
         ValueAxis rangeAxis = new NumberAxis("Value");
-        CombinedRangeCategoryPlot plot
-                = new CombinedRangeCategoryPlot(rangeAxis);
+        CombinedRangeCategoryPlot plot = new CombinedRangeCategoryPlot(rangeAxis);
         plot.add(subplot1, 3);
         plot.add(subplot2, 2);
         plot.setOrientation(PlotOrientation.HORIZONTAL);
@@ -162,27 +130,17 @@ public class CombinedCategoryPlotDemo2 extends ApplicationFrame {
                 plot,
                 true
         );
+        ChartUtils.applyCurrentTheme(result);
         return result;
 
     }
 
-    /**
-     * Creates a panel for the demo (used by SuperDemo.java).
-     *
-     * @return A panel.
-     */
     public static JPanel createDemoPanel() {
         JFreeChart chart = createChart();
         return new ChartPanel(chart);
     }
 
-    /**
-     * Starting point for the demonstration application.
-     *
-     * @param args ignored.
-     */
     public static void main(String[] args) {
-
         String title = "Combined Category Plot Demo 2";
         CombinedCategoryPlotDemo2 demo = new CombinedCategoryPlotDemo2(title);
         demo.pack();

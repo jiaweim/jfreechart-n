@@ -1,6 +1,7 @@
 package note.jfreechart.combinedaxis;
 
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.NumberAxis;
@@ -8,10 +9,10 @@ import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.labels.StandardXYToolTipGenerator;
 import org.jfree.chart.plot.CombinedDomainXYPlot;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.StandardXYBarPainter;
 import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.chart.title.LegendTitle;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.chart.ui.ApplicationFrame;
 import org.jfree.chart.ui.HorizontalAlignment;
@@ -29,16 +30,12 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
 /**
- * A demonstration application showing a {@link CombinedDomainXYPlot} with
- * two subplots.
+ * A demo showing two plots sharing a common domain axis.
+ *
+ * @since 2025-06-18⭐
  */
 public class CombinedXYPlotDemo1 extends ApplicationFrame {
 
-    /**
-     * Constructs a new demonstration application.
-     *
-     * @param title the frame title.
-     */
     public CombinedXYPlotDemo1(String title) {
         super(title);
         JPanel panel = createDemoPanel();
@@ -46,13 +43,7 @@ public class CombinedXYPlotDemo1 extends ApplicationFrame {
         setContentPane(panel);
     }
 
-    /**
-     * Creates an overlaid chart.
-     *
-     * @return The chart.
-     */
     private static JFreeChart createCombinedChart() {
-
         // create plot ...
         IntervalXYDataset data1 = createDataset1();
         XYItemRenderer renderer1 = new XYLineAndShapeRenderer(true, false);
@@ -61,75 +52,64 @@ public class CombinedXYPlotDemo1 extends ApplicationFrame {
                 new SimpleDateFormat("d-MMM-yyyy"), new DecimalFormat("0.00")));
         renderer1.setSeriesStroke(0, new BasicStroke(4.0f,
                 BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL));
-        renderer1.setSeriesPaint(0, Color.blue);
+        renderer1.setSeriesPaint(0, Color.BLUE);
 
-        DateAxis domainAxis = new DateAxis("Year");
-        domainAxis.setLowerMargin(0.0);
-        domainAxis.setUpperMargin(0.02);
         ValueAxis rangeAxis = new NumberAxis("$billion");
-        XYPlot plot1 = new XYPlot(data1, null, rangeAxis, renderer1);
-        plot1.setBackgroundPaint(Color.lightGray);
-        plot1.setDomainGridlinePaint(Color.white);
-        plot1.setRangeGridlinePaint(Color.white);
+
+        XYPlot subplot1 = new XYPlot(data1, null, rangeAxis, renderer1);
+        subplot1.setBackgroundPaint(Color.LIGHT_GRAY);
+        subplot1.setDomainGridlinePaint(Color.WHITE);
+        subplot1.setRangeGridlinePaint(Color.WHITE);
 
         // add a second dataset and renderer...
         IntervalXYDataset data2 = createDataset2();
         XYBarRenderer renderer2 = new XYBarRenderer() {
             public Paint getItemPaint(int series, int item) {
                 XYDataset dataset = getPlot().getDataset();
-                if (dataset.getYValue(series, item) >= 0.0) {
-                    return Color.red;
-                } else {
-                    return Color.green;
-                }
+                if (dataset.getYValue(series, item) >= 0.0)
+                    return Color.RED;
+                return Color.GRAY;
             }
         };
-        renderer2.setSeriesPaint(0, Color.red);
+        renderer2.setSeriesPaint(0, Color.RED);
         renderer2.setDrawBarOutline(false);
         renderer2.setDefaultToolTipGenerator(new StandardXYToolTipGenerator(
                 StandardXYToolTipGenerator.DEFAULT_TOOL_TIP_FORMAT,
                 new SimpleDateFormat("d-MMM-yyyy"), new DecimalFormat("0.00")));
+        renderer2.setBarPainter(new StandardXYBarPainter());
+        renderer2.setShadowVisible(false);
 
-        XYPlot plot2 = new XYPlot(data2, null, new NumberAxis("$billion"),
-                renderer2);
-        plot2.setBackgroundPaint(Color.lightGray);
-        plot2.setDomainGridlinePaint(Color.white);
-        plot2.setRangeGridlinePaint(Color.white);
+        XYPlot subplot2 = new XYPlot(data2, null, new NumberAxis("$billion"), renderer2);
+        subplot2.setBackgroundPaint(Color.LIGHT_GRAY);
+        subplot2.setDomainGridlinePaint(Color.WHITE);
+        subplot2.setRangeGridlinePaint(Color.WHITE);
 
+        DateAxis domainAxis = new DateAxis("Year");
+        domainAxis.setLowerMargin(0.0);
+        domainAxis.setUpperMargin(0.02);
         CombinedDomainXYPlot cplot = new CombinedDomainXYPlot(domainAxis);
-        cplot.add(plot1, 3);
-        cplot.add(plot2, 2);
+        cplot.add(subplot1, 3);
+        cplot.add(subplot2, 2);
         cplot.setGap(8.0);
-        cplot.setDomainGridlinePaint(Color.white);
+        cplot.setDomainGridlinePaint(Color.WHITE);
         cplot.setDomainGridlinesVisible(true);
 
         // return a new chart containing the overlaid plot...
         JFreeChart chart = new JFreeChart("United States Public Debt",
                 JFreeChart.DEFAULT_TITLE_FONT, cplot, false);
-        chart.setBackgroundPaint(Color.white);
+        chart.setBackgroundPaint(Color.WHITE);
         TextTitle source = new TextTitle(
                 "Source: http://www.publicdebt.treas.gov/opd/opdhisms.htm",
                 new Font("Dialog", Font.PLAIN, 10));
         source.setPosition(RectangleEdge.BOTTOM);
         source.setHorizontalAlignment(HorizontalAlignment.RIGHT);
         chart.addSubtitle(source);
-        LegendTitle legend = new LegendTitle(cplot);
-        //legend.setPosition(RectangleEdge.BOTTOM);
-        chart.addSubtitle(legend);
+        ChartUtils.applyCurrentTheme(chart);
+
         return chart;
     }
 
-    /**
-     * Creates a sample dataset.  You wouldn't normally hard-code the
-     * population of a dataset in this way (it would be better to read the
-     * values from a file or a database query), but for a self-contained demo
-     * this is the least complicated solution.
-     *
-     * @return The dataset.
-     */
     private static IntervalXYDataset createDataset1() {
-
-        // create dataset 1...
         TimeSeries series1 = new TimeSeries("Public Debt Outstanding");
         series1.add(new Month(1, 1990), 2974.584);
         series1.add(new Month(2, 1990), 2994.354);
@@ -337,17 +317,8 @@ public class CombinedXYPlotDemo1 extends ApplicationFrame {
         series1.add(new Month(12, 2006), 8680.224);
         series1.add(new Month(1, 2007), 8707.561);
         return new TimeSeriesCollection(series1);
-
     }
 
-    /**
-     * Creates a sample dataset.  You wouldn't normally hard-code the
-     * population of a dataset in this way (it would be better to read the
-     * values from a file or a database query), but for a self-contained demo
-     * this is the least complicated solution.
-     *
-     * @return A sample dataset.
-     */
     private static IntervalXYDataset createDataset2() {
         TimeSeriesCollection dataset = new TimeSeriesCollection();
 
@@ -559,14 +530,8 @@ public class CombinedXYPlotDemo1 extends ApplicationFrame {
         series1.add(new Month(1, 2007), 511.491);
         dataset.addSeries(series1);
         return dataset;
-
     }
 
-    /**
-     * Creates a panel for the demo (used by SuperDemo.java).
-     *
-     * @return A panel.
-     */
     public static JPanel createDemoPanel() {
         JFreeChart chart = createCombinedChart();
         return new ChartPanel(chart);
@@ -578,11 +543,9 @@ public class CombinedXYPlotDemo1 extends ApplicationFrame {
      * @param args ignored.
      */
     public static void main(String[] args) {
-        CombinedXYPlotDemo1 demo = new CombinedXYPlotDemo1(
-                "JFreeChart : CombinedXYPlotDemo1");
+        CombinedXYPlotDemo1 demo = new CombinedXYPlotDemo1("CombinedXYPlotDemo1");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
-
 }
