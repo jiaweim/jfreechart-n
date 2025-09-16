@@ -2,7 +2,9 @@
 
 ## 简介
 
-包含用于 XYPlot 类渲染的 renderers。
+包含用于 XYPlot 类渲染的 renderers。每种 render 对应一种 chart 类型。
+
+![image-20250916134828763](./images/image-20250916134828763.png)
 
 ## XYBarRenderer
 
@@ -74,3 +76,30 @@ Paint getItemPaint(int row, int column
 ```
 
 在绘制数据时的填充颜色。通常对整个 series 采用一个颜色。不过希望针对不同点采用不同颜色，可以覆盖该方法。
+
+> [!WARNING]
+>
+> `XYLineAndShapeRenderer` 总是先渲染 line，然后渲染 shapes，该行为无法修改。
+
+如果需要调整不同 series 的顺序，直接在 `XYLineAndShapeRenderer` 中无法修改，此时将每个 `Series` 单独作为一个数据集实现，然后设置不同数据集的渲染顺序：
+
+```java
+XYSeriesCollection dataset1 = new XYSeriesCollection(series1);
+XYSeriesCollection dataset2 = new XYSeriesCollection(series2);
+
+XYLineAndShapeRenderer renderer1 = new XYLineAndShapeRenderer(false, true);
+XYLineAndShapeRenderer renderer2 = new XYLineAndShapeRenderer(true, false);
+
+NumberAxis xAxis = new NumberAxis("");
+xAxis.setAutoRangeIncludesZero(false);
+NumberAxis yAxis = new NumberAxis("");
+
+XYPlot plot = new XYPlot(dataset1, xAxis, yAxis, renderer1);
+plot.setOrientation(PlotOrientation.VERTICAL);
+
+plot.setDataset(1, dataset2);
+plot.setRenderer(1, renderer2);
+
+plot.setDatasetRenderingOrder(DatasetRenderingOrder.FORWARD);
+```
+

@@ -9,7 +9,7 @@
 
 分类注释的类图如下：
 
-<img src="./images/image-20250114153143766.png" alt="image-20250114153143766" style="zoom: 50%;" />
+<img src="./images/image-20250114153143766.png" width="450px"/>
 
 数值注释的类图如下：
 

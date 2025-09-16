@@ -1,4 +1,4 @@
-## XY Plots
+## XYPlot
 
 ## 简介
 
