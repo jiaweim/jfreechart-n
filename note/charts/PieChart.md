@@ -15,7 +15,7 @@
 
 `PieDataset` 的类图如下所示：
 
-- `PieDataset` 扩展 `KeyedValues` 接口，主要特点是每个值有一个 unique key
+- `PieDataset` 扩展 `KeyedValues` 接口，主要特点是一个 key 对应一个 value
 - `PieDataset` 的泛型类型为 key 的类型
 - 默认实现为 `DefaultPieDataset`
 

@@ -67,6 +67,8 @@ public interface KeyedValues2D<R extends Comparable<R>, C extends Comparable<C>>
 ![image-20250115145911966](./images/image-20250115145911966.png)
 
 - `XYDataset` 表示 (x,y) 形式的数据，使用最广泛
+  - `IntervalXYDataset` 在 `XYDataset` 的基础上为每个点添加数据范围
+
 - `XYZDataset` 表示 (x,y,z) 形式的数据
   - `IntervalXYZDataset` 在 `XYZDataset` 的基础上为每个点添加了数据范围
 - `WindDataset` 为每个点添加了峰强度和风向
@@ -74,9 +76,12 @@ public interface KeyedValues2D<R extends Comparable<R>, C extends Comparable<C>>
 - `TableXYDataset` 包含多组数据，每组数据共享 x 值，主要由 `StackedXYAreaRenderer` 使用定义堆叠面积图
 - `OHLCDataset` 定义 (x, high, low, open, close) 形式的数据
 - `BoxAndWhiskerXYDataset` 定义 (x, max, min, average, median) 形式的数据
-- `IntervalXYDataset` 在 `XYDataset` 的基础上为每个点添加数据范围
 
-## IntervalXYDataset
+### IntervalXYDataset
+
+`IntervalXYDataset` 
+
+<img src="./images/image-20250917094935016.png" width="600" />
 
 常用实现：
 

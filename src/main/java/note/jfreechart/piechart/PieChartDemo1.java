@@ -9,11 +9,13 @@ import org.jfree.chart.title.TextTitle;
 import org.jfree.chart.ui.ApplicationFrame;
 import org.jfree.chart.ui.RectangleInsets;
 import org.jfree.chart.ui.UIUtils;
+import org.jfree.chart.util.ExportUtils;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.text.DecimalFormat;
 
 /**
@@ -88,6 +90,7 @@ public class PieChartDemo1 extends ApplicationFrame {
         ChartPanel panel = new ChartPanel(chart);
         panel.setMouseWheelEnabled(true);
         panel.setPreferredSize(new Dimension(600, 300));
+        ExportUtils.writeAsSVG(chart, 600,400,new File("D:\\a.svg"));
         return panel;
     }
 
