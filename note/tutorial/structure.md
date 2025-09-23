@@ -1,5 +1,7 @@
 # JFreeChart 结构
 
+
+
 ## 核心类
 
 | 类                  | 作用                                                         |
@@ -24,7 +26,16 @@
 | XY Plots         | XYDataset       |
 | TimeSeries chart | XYDataset       |
 
+## 辅助类
 
+- `ChartPanel`
 
+用于显示 `JFreeChart` 的 `JPanel` ，添加了缩放、设置 chart 属性等功能。
 
+- `ChartFrame`
 
+一个简单的 `JFrame` 扩展，在其中包含 `ChartPanel` 用于显示 `JFreeChart`。
+
+- `ChartUtils`
+
+提供保存图片功能（PNG 和 JPEG）。

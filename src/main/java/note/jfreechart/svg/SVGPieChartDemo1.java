@@ -19,8 +19,7 @@ import java.io.IOException;
 /**
  * A demo/test for a pie chart.
  */
-public class SVGPieChartDemo1
-{
+public class SVGPieChartDemo1 {
 
     static {
         // set a theme using the new shadow generator feature available in

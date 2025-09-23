@@ -23,6 +23,8 @@
 
 示例：创建 `PieDataset`
 
+使用 `setValue(key, value)` 设置 slice。
+
 ```java
 DefaultPieDataset<String> dataset = new DefaultPieDataset<>();
 dataset.setValue("NAFTA", 105.6);

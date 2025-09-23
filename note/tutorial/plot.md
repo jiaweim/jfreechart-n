@@ -30,6 +30,25 @@ XYPlot plot = chart.getXYPlot();
 
 ## Plot 属性
 
+### PlotOrientation
+
+指定 2D plot 的方向，包括水平和垂直两个选项，在 `XYPlot` 中的查询和设置方法：
+
+```java
+public PlotOrientation getOrientation() {
+    return this.orientation;
+}
+public void setOrientation(PlotOrientation orientation) {
+    Args.nullNotPermitted(orientation, "orientation");
+    if (orientation != this.orientation) {
+        this.orientation = orientation;
+        fireChangeEvent();
+    }
+}
+```
+
+
+
 ### Plot 背景色
 
 ```java
