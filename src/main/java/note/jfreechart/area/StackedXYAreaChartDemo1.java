@@ -1,4 +1,4 @@
-package note.jfreechart;
+package note.jfreechart.area;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -6,26 +6,28 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.labels.StandardXYToolTipGenerator;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.StackedXYAreaRenderer2;
+import org.jfree.chart.renderer.xy.StackedXYAreaRenderer;
 import org.jfree.chart.ui.ApplicationFrame;
 import org.jfree.chart.ui.UIUtils;
-import org.jfree.data.xy.CategoryTableXYDataset;
+import org.jfree.data.xy.DefaultTableXYDataset;
 import org.jfree.data.xy.TableXYDataset;
+import org.jfree.data.xy.XYSeries;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
- * A demo showing a stacked area chart created with the
- * <code>CategoryTableXYDataset</code>.
+ * This demo shows the creation of a stacked XY area chart.  I created this
+ * demo while investigating bug report 882890.
  */
-public class StackedXYAreaChartDemo2 extends ApplicationFrame {
+public class StackedXYAreaChartDemo1 extends ApplicationFrame {
 
     /**
      * Creates a new demo.
      *
      * @param title the frame title.
      */
-    public StackedXYAreaChartDemo2(String title) {
+    public StackedXYAreaChartDemo1(String title) {
         super(title);
         JPanel chartPanel = createDemoPanel();
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
@@ -38,19 +40,25 @@ public class StackedXYAreaChartDemo2 extends ApplicationFrame {
      * @return a sample dataset.
      */
     private static TableXYDataset createDataset() {
-        CategoryTableXYDataset dataset = new CategoryTableXYDataset();
-        dataset.add(0.0, 0.0, "Series 1");
-        dataset.add(10.0, 20.0, "Series 1");
-        dataset.add(20.0, 15.0, "Series 1");
-        dataset.add(30.0, 25.0, "Series 1");
-        dataset.add(40.0, 21.0, "Series 1");
-        dataset.add(10.0, 9.0, "Series 2");
-        dataset.add(20.0, -7.0, "Series 2");
-        dataset.add(30.0, 15.0, "Series 2");
-        dataset.add(40.0, 11.0, "Series 2");
-        dataset.add(45.0, -10.0, "Series 2");  // no matching value in series 1
-        dataset.add(50.0, 0.0, "Series 2");  // likewise
+
+        DefaultTableXYDataset dataset = new DefaultTableXYDataset();
+
+        XYSeries s1 = new XYSeries("Series 1", true, false);
+        s1.add(5.0, 5.0);
+        s1.add(10.0, 15.5);
+        s1.add(15.0, 9.5);
+        s1.add(20.0, 7.5);
+        dataset.addSeries(s1);
+
+        XYSeries s2 = new XYSeries("Series 2", true, false);
+        s2.add(5.0, 5.0);
+        s2.add(10.0, 15.5);
+        s2.add(15.0, 9.5);
+        s2.add(20.0, 3.5);
+        dataset.addSeries(s2);
+
         return dataset;
+
     }
 
     /**
@@ -62,7 +70,7 @@ public class StackedXYAreaChartDemo2 extends ApplicationFrame {
     private static JFreeChart createChart(TableXYDataset dataset) {
 
         JFreeChart chart = ChartFactory.createStackedXYAreaChart(
-                "Stacked XY Area Chart Demo 2",  // chart title
+                "Stacked XY Area Chart Demo 1",  // chart title
                 "X Value",                       // domain axis label
                 "Y Value",                       // range axis label
                 dataset,                         // data
@@ -72,10 +80,12 @@ public class StackedXYAreaChartDemo2 extends ApplicationFrame {
                 false                            // urls
         );
         XYPlot plot = (XYPlot) chart.getPlot();
-        StackedXYAreaRenderer2 renderer = new StackedXYAreaRenderer2();
-        renderer.setRoundXCoordinates(true);
+        StackedXYAreaRenderer renderer = new StackedXYAreaRenderer();
+        renderer.setSeriesPaint(0, Color.lightGray);
         renderer.setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
         plot.setRenderer(0, renderer);
+        plot.setDomainCrosshairVisible(true);
+        plot.setRangeCrosshairVisible(true);
         return chart;
 
     }
@@ -96,8 +106,8 @@ public class StackedXYAreaChartDemo2 extends ApplicationFrame {
      * @param args ignored.
      */
     public static void main(String[] args) {
-        StackedXYAreaChartDemo2 demo = new StackedXYAreaChartDemo2(
-                "Stacked XY Area Chart Demo 2");
+        StackedXYAreaChartDemo1 demo = new StackedXYAreaChartDemo1(
+                "Stacked XY Area Chart Demo 1");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
