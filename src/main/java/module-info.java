@@ -8,5 +8,7 @@ module JFreeChart {
 
     requires java.logging;
     requires org.jfree.jfreechart;
+    requires javafx.graphics;
+    requires org.jfree.chart.fx;
 
 }
