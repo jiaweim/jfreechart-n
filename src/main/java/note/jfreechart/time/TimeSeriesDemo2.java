@@ -1,4 +1,4 @@
-package note.jfreechart;
+package note.jfreechart.time;
 
 import javax.swing.JPanel;
 

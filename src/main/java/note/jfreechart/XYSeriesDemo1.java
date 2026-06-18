@@ -31,7 +31,6 @@ public class XYSeriesDemo1 extends ApplicationFrame {
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         setContentPane(chartPanel);
-
     }
 
     private static JFreeChart createChart(XYDataset dataset) {

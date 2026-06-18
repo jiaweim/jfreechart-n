@@ -1,0 +1,30 @@
+package note.jfreechart;
+
+import org.jfree.chart.JFreeChart;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+
+public class DemoPanel extends JPanel {
+    ArrayList<JFreeChart> charts = new ArrayList();
+
+    public DemoPanel(LayoutManager layout) {
+        super(layout);
+    }
+
+    public void addChart(JFreeChart chart) {
+        this.charts.add(chart);
+    }
+
+    public JFreeChart[] getCharts() {
+        int chartCount = this.charts.size();
+        JFreeChart[] charts = new JFreeChart[chartCount];
+
+        for(int i = 0; i < chartCount; ++i) {
+            charts[i] = (JFreeChart)this.charts.get(i);
+        }
+
+        return charts;
+    }
+}

@@ -26,7 +26,6 @@ public class XYLineAndShapeRendererDemo1 extends ApplicationFrame {
      * @param title the frame title.
      */
     public XYLineAndShapeRendererDemo1(String title) {
-
         super(title);
         XYDataset dataset = createDataset();
         JFreeChart chart = createChart(dataset);
@@ -101,7 +100,6 @@ public class XYLineAndShapeRendererDemo1 extends ApplicationFrame {
      * @param args ignored.
      */
     public static void main(String[] args) {
-
         XYLineAndShapeRendererDemo1 demo = new XYLineAndShapeRendererDemo1(
                 "XYLineAndShapeRenderer Demo"
         );

@@ -14,10 +14,7 @@ import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.chart.title.TextTitle;
-import org.jfree.chart.ui.ApplicationFrame;
-import org.jfree.chart.ui.HorizontalAlignment;
-import org.jfree.chart.ui.RectangleEdge;
-import org.jfree.chart.ui.UIUtils;
+import org.jfree.chart.ui.*;
 import org.jfree.data.time.Month;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
@@ -91,6 +88,7 @@ public class CombinedXYPlotDemo1 extends ApplicationFrame {
         cplot.add(subplot1, 3);
         cplot.add(subplot2, 2);
         cplot.setGap(8.0);
+
         cplot.setDomainGridlinePaint(Color.WHITE);
         cplot.setDomainGridlinesVisible(true);
 
@@ -105,6 +103,23 @@ public class CombinedXYPlotDemo1 extends ApplicationFrame {
         source.setHorizontalAlignment(HorizontalAlignment.RIGHT);
         chart.addSubtitle(source);
         ChartUtils.applyCurrentTheme(chart);
+
+        // 以下设置可以完全消除两个 subplot 之间的空间
+        cplot.setGap(-1.0);
+        subplot1.setInsets(new RectangleInsets(0,0,0,0));
+        subplot1.setAxisOffset(new RectangleInsets(0,0,0,0));
+        ValueAxis rangeAxis1 = subplot1.getRangeAxis();
+        rangeAxis1.setLowerMargin(0.0);
+        rangeAxis1.setUpperMargin(0.0);
+
+        subplot2.setInsets(new RectangleInsets(0,0,0,0));
+        subplot2.setAxisOffset(new RectangleInsets(0,0,0,0));
+        ValueAxis rangeAxis2 = subplot2.getRangeAxis();
+        rangeAxis2.setLowerMargin(0.0);
+        rangeAxis2.setUpperMargin(0.0);
+
+        domainAxis.setLowerMargin(0.0);
+        domainAxis.setUpperMargin(0.0);
 
         return chart;
     }

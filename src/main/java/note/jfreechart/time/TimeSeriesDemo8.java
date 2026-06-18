@@ -1,67 +1,69 @@
-package note.jfreechart;
+package note.jfreechart.time;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.date.MonthConstants;
+import org.jfree.chart.labels.StandardXYToolTipGenerator;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.ui.ApplicationFrame;
 import org.jfree.chart.ui.UIUtils;
 import org.jfree.data.time.Day;
+import org.jfree.data.time.MovingAverage;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
 
 import javax.swing.*;
-import java.awt.geom.GeneralPath;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 
 /**
- * A time series chart where the legend shows a zig-zag line for the series
- * graphic.
+ * A time series chart.
  */
-public class TimeSeriesDemo7 extends ApplicationFrame {
+public class TimeSeriesDemo8 extends ApplicationFrame {
 
     /**
-     * A demonstration application showing how to create a simple time series
-     * chart.
+     * A demonstration application showing how to create a simple time series chart.
      *
      * @param title the frame title.
      */
-    public TimeSeriesDemo7(String title) {
+    public TimeSeriesDemo8(String title) {
         super(title);
-        JPanel chartPanel = createDemoPanel();
+        XYDataset dataset = createDataset();
+        JFreeChart chart = createChart(dataset);
+        ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
+        chartPanel.setMouseZoomable(true, false);
         setContentPane(chartPanel);
     }
 
-    private static JFreeChart createChart(XYDataset dataset) {
-        JFreeChart chart = ChartFactory.createTimeSeriesChart(
-                "Time Series Demo 7", "Date", "Value", dataset,
-                true, true, false);
-        XYPlot plot = (XYPlot) chart.getPlot();
-        XYLineAndShapeRenderer renderer
-                = (XYLineAndShapeRenderer) plot.getRenderer();
-        GeneralPath zigzag = new GeneralPath();
-        zigzag.moveTo(-6.0f, 0.0f);
-        zigzag.lineTo(-3.0f, 6.0f);
-        zigzag.lineTo(3.0f, -6.0f);
-        zigzag.lineTo(6.0f, 0.0f);
-        renderer.setLegendLine(zigzag);
-        return chart;
-
+    /**
+     * Creates a sample dataset.
+     *
+     * @return a sample dataset.
+     */
+    private static XYDataset createDataset() {
+        TimeSeries eur = createEURTimeSeries();
+        TimeSeries mav = MovingAverage.createMovingAverage(eur,
+                "30 day moving average", 30, 30);
+        TimeSeriesCollection dataset = new TimeSeriesCollection();
+        dataset.addSeries(eur);
+        dataset.addSeries(mav);
+        return dataset;
     }
 
     /**
-     * Returns a time series of the daily EUR/GBP exchange rates in 2001
-     * (to date), for use in the JFreeChart demonstration application.
+     * Returns a time series of the daily EUR/GBP exchange rates in 2001 (to date), for use in
+     * the JFreeChart demonstration application.
      * <p>
-     * You wouldn't normally create a time series in this way.  Typically,
-     * values would be read from a database.
+     * You wouldn't normally create a time series in this way.  Typically, values would
+     * be read from a database.
      *
      * @return A time series.
      */
-    private static XYDataset createDataset() {
+    private static TimeSeries createEURTimeSeries() {
 
         TimeSeries t1 = new TimeSeries("EUR/GBP");
         try {
@@ -302,7 +304,32 @@ public class TimeSeriesDemo7 extends ApplicationFrame {
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-        return new TimeSeriesCollection(t1);
+        return t1;
+    }
+
+    /**
+     * Creates a chart.
+     *
+     * @param dataset the dataset.
+     * @return a chart.
+     */
+    private static JFreeChart createChart(XYDataset dataset) {
+        JFreeChart chart = ChartFactory.createTimeSeriesChart(
+                "Time Series Demo 8",
+                "Date",
+                "Value",
+                dataset,
+                true,
+                true,
+                false
+        );
+        XYPlot plot = (XYPlot) chart.getPlot();
+        XYItemRenderer renderer = plot.getRenderer();
+        StandardXYToolTipGenerator g = new StandardXYToolTipGenerator(
+                StandardXYToolTipGenerator.DEFAULT_TOOL_TIP_FORMAT,
+                new SimpleDateFormat("d-MMM-yyyy"), new DecimalFormat("0.00"));
+        renderer.setDefaultToolTipGenerator(g);
+        return chart;
     }
 
     /**
@@ -321,7 +348,8 @@ public class TimeSeriesDemo7 extends ApplicationFrame {
      * @param args ignored.
      */
     public static void main(String[] args) {
-        TimeSeriesDemo7 demo = new TimeSeriesDemo7("Time Series Demo 7");
+
+        TimeSeriesDemo8 demo = new TimeSeriesDemo8("Time Series Demo 8");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

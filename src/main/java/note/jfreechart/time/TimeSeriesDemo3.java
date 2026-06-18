@@ -1,4 +1,4 @@
-package note.jfreechart;
+package note.jfreechart.time;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
